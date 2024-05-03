@@ -5,7 +5,7 @@
     </div>
     <div class="search-entry">
       <img :src="SearchIcon" class="search-icon">
-      <input placeholder="输入关键词" ref="keywordRef" @keyup.enter="search" />
+      <input placeholder="请输入搜索内容" ref="keywordRef" @keyup.enter="search" />
     </div>
     <div class="right-view">
       <template v-if="userStore.user_token">
@@ -27,53 +27,11 @@
             </a-menu>
           </template>
         </a-dropdown>
-        <!--        <div class="right-icon">-->
-        <!--          <img src="@/assets/cart-icon.svg">-->
-        <!--          <span>3</span>-->
-        <!--        </div>-->
       </template>
       <template v-else>
         <button class="login btn hidden-sm" @click="goLogin()">登录</button>
       </template>
 
-      <div class="right-icon" @click="msgVisible=true">
-        <img :src="MessageIcon">
-        <span class="msg-point" style=""></span>
-      </div>
-      <div>
-        <a-drawer
-            title="我的消息"
-            placement="right"
-            :closable="true"
-            :maskClosable="true"
-            :visible="msgVisible"
-            @close="onClose"
-        >
-          <a-spin :spinning="loading" style="min-height: 200px;">
-            <div class="list-content">
-              <div class="notification-view">
-                <div class="list">
-                  <div class="notification-item flex-view" v-for="item in msgData">
-                    <!---->
-                    <div class="content-box">
-                      <div class="header">
-                        <span class="title-txt">{{item.title}}</span>
-                        <br/>
-                        <span class="time">{{ item.create_time }}</span>
-                      </div>
-                      <div class="head-text">
-                      </div>
-                      <div class="content">
-                        <p>{{ item.content }}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </a-spin>
-        </a-drawer>
-      </div>
     </div>
   </div>
 </template>
@@ -97,20 +55,20 @@ let loading = ref(false)
 let msgVisible = ref(false)
 let msgData = ref([] as any)
 
-onMounted(()=>{
-  getMessageList()
-})
+// onMounted(()=>{
+  // getMessageList()
+// })
 
-const getMessageList = ()=> {
-  loading.value = true
-  listApi({}).then(res => {
-    msgData.value = res.data
-    loading.value = false
-  }).catch(err => {
-    console.log(err)
-    loading.value = false
-  })
-}
+// const getMessageList = ()=> {
+//   loading.value = true
+//   listApi({}).then(res => {
+//     msgData.value = res.data
+//     loading.value = false
+//   }).catch(err => {
+//     console.log(err)
+//     loading.value = false
+//   })
+// }
 const search = () => {
   const keyword = keywordRef.value.value
   if (route.name === 'search') {
@@ -132,9 +90,9 @@ const quit= () => {
     router.push({name: 'portal'})
   })
 }
-const onClose = () => {
-  msgVisible.value = false;
-}
+// const onClose = () => {
+//   msgVisible.value = false;
+// }
 
 </script>
 

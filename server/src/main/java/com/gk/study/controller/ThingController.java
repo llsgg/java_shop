@@ -35,8 +35,8 @@ public class ThingController {
     private String uploadPath;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public APIResponse list(String keyword, String sort, String c, String tag){
-        List<Thing> list =  service.getThingList(keyword, sort, c, tag);
+    public APIResponse list(String keyword, String c){
+        List<Thing> list =  service.getThingList(keyword, c);
 
         return new APIResponse(ResponeCode.SUCCESS, "查询成功", list);
     }

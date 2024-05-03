@@ -5,7 +5,6 @@
         <img class="header-logo" :src="logo">
         <span class="header-title">商城后台管理系统</span>
         <div class="empty"></div>
-        <a-button style="margin-right: 24px;" @click="handlePreview">前台预览</a-button>
         <span>管理员[{{ userStore.admin_user_name }}]</span>
         <a class="header-quit" @click="handleLogout">退出</a>
       </div>
@@ -13,10 +12,10 @@
     <a-layout>
       <a-layout-sider v-model="collapsed" collapsible >
         <a-menu style="overflow:auto; overflow-x: hidden;" v-model:selectedKeys="selectedKeys" theme="light" mode="inline" @click="handleClick">
-          <a-menu-item key="overview">
-            <home-outlined/>
-            <span>总览</span>
-          </a-menu-item>
+<!--          <a-menu-item key="overview">-->
+<!--            <home-outlined/>-->
+<!--            <span>总览</span>-->
+<!--          </a-menu-item>-->
           <a-menu-item key="user">
             <user-outlined/>
             <span>用户管理</span>
@@ -24,10 +23,6 @@
           <a-menu-item key="classification">
             <layout-outlined/>
             <span>分类管理</span>
-          </a-menu-item>
-          <a-menu-item key="tag">
-            <tag-outlined/>
-            <span>标签管理</span>
           </a-menu-item>
           <a-menu-item key="order">
             <dollar-outlined/>
@@ -37,46 +32,24 @@
             <database-outlined/>
             <span>商品管理</span>
           </a-menu-item>
-          <a-menu-item key="comment">
-            <comment-outlined/>
-            <span>评论管理</span>
-          </a-menu-item>
-          <a-sub-menu>
-            <template #icon>
-              <folder-outlined/>
-            </template>
-            <template #title>运营管理</template>
-            <a-menu-item key="ad">
-              <appstore-outlined/>
-              <span>广告管理</span>
-            </a-menu-item>
-            <a-menu-item key="notice">
-              <appstore-outlined/>
-              <span>通知公告</span>
-            </a-menu-item>
-          </a-sub-menu>
-          <a-sub-menu>
-            <template #icon>
-              <folder-outlined/>
-            </template>
-            <template #title>日志管理</template>
-            <a-menu-item key="loginLog">
-              <appstore-outlined/>
-              <span>登录日志</span>
-            </a-menu-item>
-            <a-menu-item key="opLog">
-              <appstore-outlined/>
-              <span>操作日志</span>
-            </a-menu-item>
-            <a-menu-item key="errorLog">
-              <appstore-outlined/>
-              <span>错误日志</span>
-            </a-menu-item>
-          </a-sub-menu>
-          <a-menu-item key="sysInfo">
-            <info-circle-outlined/>
-            <span>系统信息</span>
-          </a-menu-item>
+<!--          <a-sub-menu>-->
+<!--            <template #icon>-->
+<!--              <folder-outlined/>-->
+<!--            </template>-->
+<!--            <template #title>日志管理</template>-->
+<!--            <a-menu-item key="loginLog">-->
+<!--              <appstore-outlined/>-->
+<!--              <span>登录日志</span>-->
+<!--            </a-menu-item>-->
+<!--            <a-menu-item key="opLog">-->
+<!--              <appstore-outlined/>-->
+<!--              <span>操作日志</span>-->
+<!--            </a-menu-item>-->
+<!--            <a-menu-item key="errorLog">-->
+<!--              <appstore-outlined/>-->
+<!--              <span>错误日志</span>-->
+<!--            </a-menu-item>-->
+<!--          </a-sub-menu>-->
         </a-menu>
       </a-layout-sider>
       <a-layout-content :style="{ margin: '16px 16px', minHeight: '200px' }">

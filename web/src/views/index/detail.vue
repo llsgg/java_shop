@@ -26,6 +26,7 @@ import {BASE_URL} from "/@/store/constants";
 import {useRoute, useRouter} from "vue-router/dist/vue-router";
 import {useUserStore} from "/@/store";
 import {getFormatTime} from "/@/utils";
+import Content from "/@/views/index/components/content.vue";
 
 const router = useRouter()
 const route = useRoute()

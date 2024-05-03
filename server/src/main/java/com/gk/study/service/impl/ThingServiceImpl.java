@@ -11,11 +11,9 @@ import com.gk.study.service.ThingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class ThingServiceImpl extends ServiceImpl<ThingMapper, Thing> implements ThingService {
@@ -26,22 +24,22 @@ public class ThingServiceImpl extends ServiceImpl<ThingMapper, Thing> implements
     ThingTagMapper thingTagMapper;
 
     @Override
-    public List<Thing> getThingList(String keyword, String sort, String c, String tag) {
+    public List<Thing> getThingList(String keyword, String c) {
         QueryWrapper<Thing> queryWrapper = new QueryWrapper<>();
 
         // 搜索
         queryWrapper.like(StringUtils.isNotBlank(keyword), "title", keyword);
 
-        // 排序
-        if (StringUtils.isNotBlank(sort)) {
-            if (sort.equals("recent")) {
-                queryWrapper.orderBy(true, false, "create_time");
-            } else if (sort.equals("hot") || sort.equals("recommend")) {
-                queryWrapper.orderBy(true, false, "pv");
-            }
-        }else {
-            queryWrapper.orderBy(true, false, "create_time");
-        }
+//        // 排序
+//        if (StringUtils.isNotBlank(sort)) {
+//            if (sort.equals("recent")) {
+//                queryWrapper.orderBy(true, false, "create_time");
+//            } else if (sort.equals("hot") || sort.equals("recommend")) {
+//                queryWrapper.orderBy(true, false, "pv");
+//            }
+//        }else {
+//            queryWrapper.orderBy(true, false, "create_time");
+//        }
 
         // 根据分类筛选
         if (StringUtils.isNotBlank(c) && !c.equals("-1")) {
@@ -51,30 +49,30 @@ public class ThingServiceImpl extends ServiceImpl<ThingMapper, Thing> implements
         List<Thing> things = mapper.selectList(queryWrapper);
 
         // tag筛选
-        if (StringUtils.isNotBlank(tag)) {
-            List<Thing> tThings = new ArrayList<>();
-            QueryWrapper<ThingTag> thingTagQueryWrapper = new QueryWrapper<>();
-            thingTagQueryWrapper.eq("tag_id", tag);
-            List<ThingTag> thingTagList = thingTagMapper.selectList(thingTagQueryWrapper);
-            for (Thing thing : things) {
-                for (ThingTag thingTag : thingTagList) {
-                    if (thing.getId().equals(thingTag.getThingId())) {
-                        tThings.add(thing);
-                    }
-                }
-            }
-            things.clear();
-            things.addAll(tThings);
-        }
+//        if (StringUtils.isNotBlank(tag)) {
+//            List<Thing> tThings = new ArrayList<>();
+//            QueryWrapper<ThingTag> thingTagQueryWrapper = new QueryWrapper<>();
+////            thingTagQueryWrapper.eq("tag_id", tag);
+//            List<ThingTag> thingTagList = thingTagMapper.selectList(thingTagQueryWrapper);
+//            for (Thing thing : things) {
+//                for (ThingTag thingTag : thingTagList) {
+//                    if (thing.getId().equals(thingTag.getThingId())) {
+//                        tThings.add(thing);
+//                    }
+//                }
+//            }
+//            things.clear();
+//            things.addAll(tThings);
+//        }
 
         // 附加tag
-        for (Thing thing : things) {
-            QueryWrapper<ThingTag> thingTagQueryWrapper = new QueryWrapper<>();
-            thingTagQueryWrapper.lambda().eq(ThingTag::getThingId, thing.getId());
-            List<ThingTag> thingTags = thingTagMapper.selectList(thingTagQueryWrapper);
-            List<Long> tags = thingTags.stream().map(ThingTag::getTagId).collect(Collectors.toList());
-            thing.setTags(tags);
-        }
+//        for (Thing thing : things) {
+//            QueryWrapper<ThingTag> thingTagQueryWrapper = new QueryWrapper<>();
+//            thingTagQueryWrapper.lambda().eq(ThingTag::getThingId, thing.getId());
+//            List<ThingTag> thingTags = thingTagMapper.selectList(thingTagQueryWrapper);
+//            List<Long> tags = thingTags.stream().map(ThingTag::getTagId).collect(Collectors.toList());
+//            thing.setTags(tags);
+//        }
         return things;
     }
 

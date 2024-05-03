@@ -1,74 +1,30 @@
 <template>
   <div class="mine-infos-view">
-    <div class="info-box flex-view">
-      <img :src="AvatarImg" class="avatar-img">
-      <div class="name-box">
-        <h2 class="nick">{{ userStore.user_name }}</h2>
-        <div class="age">
-          <span>活跃1天</span>
-          <span class="give-point"></span>
-        </div>
-      </div>
-    </div>
-    <div class="counts-view">
-      <div class="counts flex-view">
-        <div class="fans-box flex-item" @click="clickMenu('collectThingView')">
-          <div class="text">收藏</div>
-          <div class="num">{{collectCount}}</div>
-        </div>
-        <div class="split-line">
-        </div>
-        <div class="follow-box flex-item" @click="clickMenu('wishThingView')">
-          <div class="text">心愿单</div>
-          <div class="num">{{wishCount}}</div>
-        </div>
-<!--        <div class="split-line">-->
-<!--        </div>-->
-<!--        <div class="points-box flex-item">-->
-<!--          <div class="text">积分</div>-->
-<!--          <div class="num">0</div>-->
-<!--        </div>-->
-      </div>
-    </div>
+
+
     <div class="order-box">
       <div class="title">订单中心</div>
       <div class="list">
         <div class="mine-item flex-view" @click="clickMenu('orderView')">
-          <img :src="MyOrderImg">
           <span>我的订单</span>
         </div>
         <div class="mine-item flex-view" @click="clickMenu('commentView')">
-          <img :src="CommentIconImg">
-          <span>我的评论</span>
+          <span>我的商品</span>
         </div>
-        <div class="mine-item flex-view" @click="clickMenu('addressView')">
-          <img :src="AddressIconImage">
-          <span>地址管理</span>
+        <div class="mine-item flex-view" @click="clickMenu('collectView')">
+          <span>我的收藏</span>
         </div>
-        <div class="mine-item flex-view" @click="clickMenu('scoreView')">
-          <img :src="PointIconImage">
-          <span>我的积分</span>
-        </div>
+
       </div>
     </div>
     <div class="setting-box">
       <div class="title">个人设置</div>
       <div class="list">
         <div class="mine-item flex-view" @click="clickMenu('userInfoEditView')">
-          <img :src="SettingIconImage" alt="编辑资料">
           <span>编辑资料</span>
         </div>
         <div class="mine-item flex-view" @click="clickMenu('securityView')">
-          <img :src="SafeIconImage" alt="账号安全">
           <span>账号安全</span>
-        </div>
-        <div class="mine-item flex-view" @click="clickMenu('pushView')">
-          <img :src="PushIconImage" alt="推送设置">
-          <span>推送设置</span>
-        </div>
-        <div class="mine-item flex-view" @click="clickMenu('messageView')">
-          <img :src="MessageIconImage" alt="消息管理">
-          <span>消息管理</span>
         </div>
       </div>
     </div>
@@ -130,7 +86,7 @@ const getWishThingList =()=> {
 }
 
 .mine-infos-view {
-  width: 235px;
+  width: 150px;
   margin-right: 20px;
   border: 1px solid #cedce4;
   height: fit-content;

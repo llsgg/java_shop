@@ -7,27 +7,11 @@
                 style="min-height: 220px;">
         </a-tree>
       </div>
-      <div class="left-search-item"><h4>热门标签</h4>
-        <div class="tag-view tag-flex-view">
-            <span class="tag" :class="{'tag-select': contentData.selectTagId===item.id}"
-                  v-for="item in contentData.tagData" :key="item.id"
-                  @click="clickTag(item.id)">{{ item.title }}</span>
-        </div>
-      </div>
     </div>
     <div class="content-right">
+
       <div class="top-select-view flex-view">
-        <div class="order-view">
-          <span class="title"></span>
-          <span class="tab"
-                :class="contentData.selectTabIndex===index? 'tab-select':''"
-                v-for="(item,index) in contentData.tabData"
-                :key="index"
-                @click="selectTab(index)">
-            {{ item }}
-          </span>
-          <span :style="{left: contentData.tabUnderLeft + 'px'}" class="tab-underline"></span>
-        </div>
+        <h4>商品列表</h4>
       </div>
       <a-spin :spinning="contentData.loading" style="min-height: 200px;">
         <div class="pc-thing-list flex-view">
@@ -47,7 +31,7 @@
         </div>
       </a-spin>
       <div class="page-view" style="">
-        <a-pagination v-model="contentData.page" size="small" @change="changePage" :hideOnSinglePage="true"
+        <a-pagination v-model="contentData.page" size="small" @change="changePage"
                       :defaultPageSize="contentData.pageSize" :total="contentData.total" :showSizeChanger="false"/>
       </div>
     </div>
@@ -61,47 +45,58 @@ import {listApi as listThingList} from '/@/api/thing'
 import {BASE_URL} from "/@/store/constants";
 import {useUserStore} from "/@/store";
 
-const userStore = useUserStore()
-const router = useRouter();
-
+// 使用reactive声明一个响应式对象contentData，用于存储各种数据和状态
 const contentData = reactive({
   selectX: 0,
   selectTagId: -1,
-  cData: [],
-  selectedKeys: [],
-  tagData: [],
-  loading: false,
+  cData: [], // 存储分类数据
+  selectedKeys: [], // 存储被选中的分类的key
+  tagData: [], // 存储标签数据
+  loading: false, // 是否加载中
 
-  tabData: ['最新', '最热', '推荐'],
-  selectTabIndex: 0,
-  tabUnderLeft: 12,
+  tabData: ['最新', '最热', '推荐'], // 页面顶部选项卡数据
+  selectTabIndex: 0, // 当前选中的选项卡索引
+  tabUnderLeft: 12, // 选项卡下划线左偏移
 
-  thingData: [],
-  pageData: [],
+  thingData: [], // 存储商品数据
+  pageData: [], // 存储当前页的商品数据
 
-  page: 1,
-  total: 0,
-  pageSize: 12,
+  page: 1, // 当前页码
+  total: 0, // 总数
+  pageSize: 9, // 每页数量
 })
 
+// 使用useUserStore引入用户状态管理
+const userStore = useUserStore()
+const router = useRouter();
+
+// 初始化函数，在组件挂载时调用，用于获取分类数据
 onMounted(() => {
   initSider()
   getThingList({})
 })
 
+/**
+ * 初始化侧边栏数据
+ * 该函数无参数和返回值，主要用于填充contentData的cData和tagData属性，
+ * 分别通过调用listClassificationList和listTagList接口获取分类和标签数据。
+ */
 const initSider = () => {
+  // 初始化分类数据
   contentData.cData.push({key:'-1', title:'全部'})
   listClassificationList().then(res => {
     res.data.forEach(item=>{
-      item.key = item.id
-      contentData.cData.push(item)
+      item.key = item.id // 将获取的item的id赋值给key
+      contentData.cData.push(item) // 将处理后的item添加到cData数组中
     })
-  })
-  listTagList().then(res => {
-    contentData.tagData = res.data
   })
 }
 
+/**
+ * 获取当前选中的键值。
+ * 检查 `contentData.selectedKeys` 数组的长度，如果大于0，则返回数组的第一个元素；否则，返回 -1。
+ * @returns {number|string} 选中的键值或 -1（如果没有任何键被选中）。
+ */
 const getSelectedKey = () => {
   if (contentData.selectedKeys.length > 0) {
     return contentData.selectedKeys[0]
@@ -109,56 +104,53 @@ const getSelectedKey = () => {
     return -1
   }
 }
+
+/**
+ * 处理选择操作的回调函数。
+ * 更新 `contentData.selectedKeys` 为传入的键数组，并在有键被选中时调用 `getThingList`。
+ * @param {Array} selectedKeys 被选择的键数组。
+ */
 const onSelect = (selectedKeys) => {
   contentData.selectedKeys = selectedKeys
-  console.log(contentData.selectedKeys[0])
+  // 当有键被选中时，调用 getThingList，并传递第一个选中的键。
   if (contentData.selectedKeys.length > 0) {
     getThingList({c: getSelectedKey()})
   }
+  // 重置 selectTagId 为 -1。
   contentData.selectTagId = -1
 }
-const clickTag = (index) => {
-  contentData.selectedKeys = []
-  contentData.selectTagId = index
-  getThingList({tag: contentData.selectTagId})
-}
 
-// 最新|最热|推荐
-const selectTab = (index) => {
-  contentData.selectTabIndex = index
-  contentData.tabUnderLeft = 12 + 50 * index
-  console.log(contentData.selectTabIndex)
-  let sort = (index === 0 ? 'recent' : index === 1 ? 'hot' : 'recommend')
-  const data = {sort: sort}
-  if (contentData.selectTagId !== -1) {
-    data['tag'] = contentData.selectTagId
-  } else {
-    data['c'] = getSelectedKey()
-  }
-  getThingList(data)
-}
+
+/**
+ * 处理并打开项目详情页
+ * @param {Object} item - 包含项目信息的对象
+ * @description 根据传入的项目对象，解析路由并打开一个新的页面显示项目详情
+ */
 const handleDetail = (item) => {
-  // 跳转新页面
+  // 解析路由，准备跳转
   let text = router.resolve({name: 'detail', query: {id: item.id}})
+  // 在新标签页打开详情页链接
   window.open(text.href, '_blank')
 }
+
+
 // 分页事件
 const changePage = (page) => {
   contentData.page = page
   let start = (contentData.page - 1) * contentData.pageSize
   contentData.pageData = contentData.thingData.slice(start, start + contentData.pageSize)
-  console.log('第' + contentData.page + '页')
 }
+
+// 获取商品列表数据
 const getThingList = (data) => {
   contentData.loading = true
   listThingList(data).then(res => {
     contentData.loading = false
     res.data.forEach((item, index) => {
       if (item.cover) {
-        item.cover = BASE_URL + '/api/staticfiles/image/' +  item.cover
+        item.cover = BASE_URL + '/api/upload/image/' +  item.cover
       }
     })
-    console.log(res)
     contentData.thingData = res.data
     contentData.total = contentData.thingData.length
     changePage(1)

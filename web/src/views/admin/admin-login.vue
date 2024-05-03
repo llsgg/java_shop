@@ -15,6 +15,7 @@
               :rules="data.rules"
               :hideRequiredMark="true"
           >
+
             <a-form-item name="username" label="账号" :colon="false">
               <a-input
                   size="large"
@@ -141,14 +142,13 @@ const loginSuccess = () => {
   .main-container {
     width: 100%;
     height: calc(100vh - 160px);
-    background-image: url('../images/admin-login-bg.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 
     .main {
       position: absolute;
-      right: 80px;
+      right: 400px;
       top: 50%;
       display: flex;
       transform: translate(0, -50%);
@@ -169,6 +169,7 @@ const loginSuccess = () => {
           font-weight: bold;
           user-select: none;
           padding-bottom: 8px;
+          text-align: center;
         }
 
         :deep(.ant-form-item label) {
@@ -186,7 +187,7 @@ const loginSuccess = () => {
         }
 
         .login-button {
-          background: linear-gradient(128deg, #00aaeb, #00c1cd 59%, #0ac2b0 100%);
+          //background: linear-gradient(128deg, #00aaeb, #00c1cd 59%, #0ac2b0 100%);
         }
       }
 

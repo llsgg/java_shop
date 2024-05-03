@@ -1,11 +1,10 @@
 <template>
   <div class="content-margin">
-    <h1 class="search-name-box">{{ tData.keyword }}</h1>
     <div class="search-tab-nav clearfix">
       <div class="tab-text">
-        <span>与</span>
+        <span>关于</span>
         <span class="strong">{{ tData.keyword }}</span>
-        <span>相关的内容</span>
+        <span>的搜索结果</span>
       </div>
     </div>
     <div class="content-list">
@@ -27,8 +26,8 @@
           </div>
         </a-spin>
         <div class="page-view" style="">
-          <a-pagination v-model:value="tData.page" size="small" @change="changePage" :hideOnSinglePage="true"
-                        :defaultPageSize="tData.pageSize" :total="tData.total"/>
+          <a-pagination v-model:value="tData.page" size="small" @change="changePage"
+                        :defaultPageSize="tData.pageSize" :total="tData.total" :showSizeChanger="false"/>
         </div>
       </div>
     </div>
@@ -59,10 +58,16 @@ onMounted(() => {
   search()
 })
 
-// 监听query参数
+
+/**
+ * 监听路由查询参数的变化，并在变化时调用 search 函数。
+ *
+ * @param {Object} newPath 新的路由查询参数对象。
+ * @param {Object} oldPath 旧的路由查询参数对象。
+ */
 watch(() => route.query, (newPath, oldPath) => {
-  search()
-}, {immediate: false});
+  search() // 当路由的查询参数发生变化时，执行搜索操作。
+}, {immediate: false}); // 不立即执行监视器，只在查询参数改变时触发。
 
 
 const search = () => {
@@ -87,7 +92,7 @@ const getThingList = (data) => {
   listThingList(data).then(res => {
     res.data.forEach((item, index) => {
       if (item.cover) {
-        item.cover = BASE_URL + '/api/staticfiles/image/' + item.cover
+        item.cover = BASE_URL + '/api/upload/image/' + item.cover
       }
     })
     tData.thingData = res.data
@@ -112,23 +117,11 @@ const getThingList = (data) => {
   margin-top: 48px;
 }
 
-.search-name-box {
-  background: #f5f9fb;
-  height: 100px;
-  line-height: 100px;
-  font-size: 20px;
-  color: #152844;
-  text-align: center;
-  position: fixed;
-  top: 56px;
-  left: 0;
-  z-index: 1;
-  width: calc(100% - 8px);
-}
+
 
 .search-tab-nav {
   position: relative;
-  padding: 24px 0 16px;
+  top:-80px;
   text-align: center;
 
   .tab-text {
@@ -161,7 +154,7 @@ const getThingList = (data) => {
   margin-right: 20px;
   height: fit-content;
   overflow: hidden;
-  margin-top: 26px;
+  top: -50px;
   margin-bottom: 36px;
   cursor: pointer;
 

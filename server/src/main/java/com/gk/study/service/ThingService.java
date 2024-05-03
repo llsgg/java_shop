@@ -6,7 +6,7 @@ import com.gk.study.entity.Thing;
 import java.util.List;
 
 public interface ThingService {
-    List<Thing> getThingList(String keyword, String sort, String c, String tag);
+    List<Thing> getThingList(String keyword, String c);
     void createThing(Thing thing);
     void deleteThing(String id);
 

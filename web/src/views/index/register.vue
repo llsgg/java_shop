@@ -3,15 +3,16 @@
 
     <div class="tel-regist-page pc-style">
       <div class="regist-title">
-        <span>注册新账号</span>
-        <span @click="router.push({name:'login'})" class="toWxLogin">我要登录</span>
+        <span @click="router.push({name:'login'})" class="toWxLogin">返回登录</span>
+
+        <span class="registerTitie">注册新账号</span>
       </div>
 
       <div class="regist-padding">
         <div class="common-input">
           <img :src="MailIcon" class="left-icon">
           <div class="input-view">
-            <input placeholder="请输入邮箱" v-model="tData.loginForm.username" type="text" class="input">
+            <input placeholder="请输入账号" v-model="tData.loginForm.username" type="text" class="input">
             <p class="err-view">
             </p>
           </div>
@@ -103,7 +104,6 @@ div {
 .container {
   max-width: 100%;
   //background: #142131;
-  background-image: url('../images/admin-login-bg.jpg');
   background-size: cover;
   object-fit: cover;
   height: 100vh;
@@ -137,8 +137,11 @@ div {
 
     .toWxLogin {
       color: #3d5b96;
-      float: right;
+      float: left;
       cursor: pointer;
+    }
+    .registerTitie {
+      margin-left: 80px;
     }
   }
 

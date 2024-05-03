@@ -2,16 +2,32 @@
 server.port: 9100
 server.servlet.context-path: /api
 
-BASE_LOCATION: D:\projects\java_shop
+BASE_LOCATION: D:\java\code\毕设\java_shop
 DB_NAME: shop
 
-#BASE_LOCATION: C:\Users\Administrator\Desktop\java-shop
-#DB_NAME: java_shop
+  #BASE_LOCATION: C:\Users\Administrator\Desktop\java-shop
+  #DB_NAME: java_shop
 
- 
+
 File:
   uploadPath: ${BASE_LOCATION}\server\upload
 
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
+
+  # 数据库配置
+  # todo 需替换配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/shop?serverTimezone=UTC
+    username: root
+    password: 123456
+  mvc:
+    # URL响应地址（Springboot默认为/**)
+    static-path-pattern: /upload/**
+    web:
+      resources:
+        # 静态文件地址，保留官方内容后，进行追加
+        static-locations: classpath:atic,classpath:/public,classpath:/resources,classpath:/META-INF/resources,file:upload

@@ -1,18 +1,16 @@
 <template>
   <div class="container">
+
     <div class="login-page pc-style">
       <img :src="LogoIcon" alt="logo" class="logo-icon">
       <div class="login-tab">
-        <div class="tab-selected">
-          <span>邮箱登录</span>
-          <span class="tabline tabline-width"></span>
-        </div>
       </div>
+
       <div class="mail-login" type="login">
         <div class="common-input">
           <img :src="MailIcon" class="left-icon">
           <div class="input-view">
-            <input placeholder="请输入注册邮箱" v-model="pageData.loginForm.username" type="text" class="input">
+            <input placeholder="请输入账号" v-model="pageData.loginForm.username" type="text" class="input">
             <p class="err-view">
             </p>
           </div>
@@ -25,7 +23,7 @@
             <p class="err-view">
             </p>
           </div>
-<!--          <img src="@/assets/pwd-hidden.svg" class="right-icon">-->
+          <!--          <img src="@/assets/pwd-hidden.svg" class="right-icon">-->
           <!---->
         </div>
         <div class="next-btn-view">
@@ -33,19 +31,21 @@
         </div>
       </div>
       <div class="operation">
-        <a @click="handleCreateUser" class="forget-pwd" style="text-align: left;">注册新帐号</a>
-        <a class="forget-pwd" style="text-align: right;">忘记密码？</a>
+        <a @click="handleCreateUser" class="forget-pwd" style="text-align: left;">注册账号</a>
+        <!--        <a class="forget-pwd" style="text-align: right;">忘记密码？</a>-->
       </div>
+
+
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {useUserStore} from '/@/store';
-import {message} from "ant-design-vue";
-import LogoIcon from '/@/assets/images/k-logo.png';
-import MailIcon from '/@/assets/images/mail-icon.svg';
-import PwdIcon from '/@/assets/images/pwd-icon.svg';
+import { useUserStore } from "/@/store";
+import { message } from "ant-design-vue";
+import LogoIcon from "/@/assets/images/k-logo.png";
+import MailIcon from "/@/assets/images/mail-icon.svg";
+import PwdIcon from "/@/assets/images/pwd-icon.svg";
 
 
 const router = useRouter();
@@ -53,33 +53,33 @@ const userStore = useUserStore();
 
 const pageData = reactive({
   loginForm: {
-    username: '',
-    password: ''
+    username: "",
+    password: ""
   }
-})
+});
 
-const handleLogin = ()=> {
+const handleLogin = () => {
   userStore.login({
     username: pageData.loginForm.username,
     password: pageData.loginForm.password
-  }).then(res=> {
-    loginSuccess()
-    console.log('success==>', userStore.user_name)
-    console.log('success==>', userStore.user_id)
-    console.log('success==>', userStore.user_token)
+  }).then(res => {
+    loginSuccess();
+    console.log("success==>", userStore.user_name);
+    console.log("success==>", userStore.user_id);
+    console.log("success==>", userStore.user_token);
   }).catch(err => {
-    message.warn(err.msg || '登录失败')
-  })
-}
+    message.warn(err.msg || "登录失败");
+  });
+};
 
 const handleCreateUser = () => {
-  router.push({name:'register'})
-}
+  router.push({ name: "register" });
+};
 
-const loginSuccess= ()=> {
-  router.push({ name: 'portal' })
-  message.success('登录成功！')
-}
+const loginSuccess = () => {
+  router.push({ name: "portal" });
+  message.success("登录成功！");
+};
 
 
 </script>
@@ -90,14 +90,13 @@ div {
 
 .container {
   //background-color: #f1f1f1;
-  background-image: url('../images/admin-login-bg.jpg');
   background-size: cover;
   object-fit: cover;
   height: 100%;
   max-width: 100%;
-  display:flex;
+  display: flex;
   justify-content: center;
-  align-items:center;
+  align-items: center;
 }
 
 .new-content {
@@ -264,7 +263,7 @@ button, input, select, textarea {
   //text-align: center;
   display: block;
   overflow: hidden;
-  flex:1;
+  flex: 1;
   margin: 0 auto;
   color: #3d5b96;
   font-size: 14px;

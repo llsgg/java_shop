@@ -6,7 +6,6 @@
         <a-space>
           <a-button type="primary" @click="handleAdd">新增</a-button>
           <a-button @click="handleBatchDelete">批量删除</a-button>
-          <a-input-search addon-before="名称" enter-button @search="onSearch" @change="onSearchChange" />
         </a-space>
       </div>
       <a-table
@@ -70,15 +69,7 @@
                   </a-select>
                 </a-form-item>
               </a-col>
-              <a-col span="12">
-                <a-form-item label="标签">
-                  <a-select mode="multiple" placeholder="请选择" allowClear v-model:value="modal.form.tags">
-                    <template v-for="item in modal.tagData">
-                      <a-select-option :value="item.id">{{item.title}}</a-select-option>
-                    </template>
-                  </a-select>
-                </a-form-item>
-              </a-col>
+
               <a-col span="24">
                 <a-form-item label="封面">
                   <a-upload-dragger
@@ -210,25 +201,29 @@ const data = reactive({
 });
 
 // 弹窗数据源
+/**
+ * 创建一个响应式对象modal，用于管理模态窗口的状态和数据
+ * @returns {Object} 返回一个包含模态窗口各种状态和数据的响应式对象
+ */
 const modal = reactive({
-  visile: false,
-  editFlag: false,
-  title: '',
-  cData: [],
-  tagData: [{}],
-  form: {
-    id: undefined,
-    title: undefined,
-    classificationId: undefined,
-    tags: [],
-    repertory: undefined,
-    price: undefined,
-    status: undefined,
-    cover: undefined,
-    coverUrl: undefined,
-    imageFile: undefined
+  visile: false, // 控制模态窗口是否可见
+  editFlag: false, // 编辑标志，用于区分是新增还是编辑操作
+  title: '', // 模态窗口的标题
+  cData: [], // 用于存储从后端获取的数据列表
+  tagData: [{}], // 标签数据，初始化为空对象
+  form: { // 表单数据对象
+    id: undefined, // 实体ID，初始为未定义
+    title: undefined, // 标题，初始为未定义
+    classificationId: undefined, // 分类ID，初始为未定义
+    tags: [], // 标签列表，初始化为空数组
+    repertory: undefined, // 库存，初始为未定义
+    price: undefined, // 定价，初始为未定义
+    status: undefined, // 状态，初始为未定义
+    cover: undefined, // 封面图片地址，初始为未定义
+    coverUrl: undefined, // 封面图片的URL，初始为未定义
+    imageFile: undefined // 图片文件对象，初始为未定义
   },
-  rules: {
+  rules: { // 表单校验规则
     title: [{ required: true, message: '请输入名称', trigger: 'change' }],
     classificationId: [{ required: true, message: '请选择分类', trigger: 'change' }],
     repertory: [{ required: true, message: '请输入库存', trigger: 'change' }],
@@ -242,7 +237,6 @@ const myform = ref<FormInstance>();
 onMounted(() => {
   getDataList();
   getCDataList();
-  getTagDataList();
 });
 
 const getDataList = () => {
@@ -269,23 +263,6 @@ const getCDataList = () => {
     modal.cData = res.data
   })
 }
-const getTagDataList = ()=> {
-  listTagApi({}).then(res => {
-    res.data.forEach((item, index) => {
-      item.index = index + 1
-    })
-    modal.tagData = res.data
-  })
-}
-
-const onSearchChange = (e: Event) => {
-  data.keyword = e?.target?.value;
-  console.log(data.keyword);
-};
-
-const onSearch = () => {
-  getDataList();
-};
 
 const rowSelection = ref({
   onChange: (selectedRowKeys: (string | number)[], selectedRows: DataItem[]) => {
@@ -320,7 +297,7 @@ const handleEdit = (record: any) => {
     }
   }
   if(modal.form.cover) {
-    modal.form.coverUrl = BASE_URL + '/api/staticfiles/image/' + modal.form.cover
+    modal.form.coverUrl = BASE_URL + '/api/upload/image/' + modal.form.cover
     modal.form.cover = undefined
   }
 };

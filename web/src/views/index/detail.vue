@@ -19,8 +19,7 @@ import {
   detailApi,
   listApi as listThingList,
 } from '/@/api/thing'
-import {listThingCommentsApi, createApi as createCommentApi, likeApi} from '/@/api/comment'
-import {wishApi} from '/@/api/thingWish'
+
 import {collectApi} from '/@/api/thingCollect'
 import {BASE_URL} from "/@/store/constants";
 import {useRoute, useRouter} from "vue-router/dist/vue-router";

@@ -54,7 +54,6 @@ let wishCount = ref(0)
 
 onMounted(()=>{
   getCollectThingList()
-  getWishThingList()
 })
 
 const clickMenu =(name)=> {
@@ -69,14 +68,7 @@ const getCollectThingList =()=> {
   })
 }
 
-const getWishThingList =()=> {
-  let userId = userStore.user_id
-  userWishListApi({userId: userId}).then(res => {
-    wishCount.value = res.data.length
-  }).catch(err => {
-    console.log(err.msg)
-  })
-}
+
 
 </script>
 

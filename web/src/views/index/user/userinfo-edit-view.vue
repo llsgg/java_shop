@@ -97,7 +97,7 @@ const getUserInfo =()=> {
   detailApi({userId: userId}).then(res => {
     tData.form = res.data
     if (tData.form.avatar) {
-      tData.form.avatar = BASE_URL + '/api/staticfiles/avatar/' + tData.form.avatar
+      tData.form.avatar = BASE_URL + '/api/upload/avatar/' + tData.form.avatar
     }
     loading.value = false
   }).catch(err => {

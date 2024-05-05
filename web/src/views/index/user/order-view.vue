@@ -1,56 +1,42 @@
 <template>
   <div class="content-list">
-    <div class="list-title">帐号安全</div>
+    <div class="list-title">我的订单</div>
     <div class="list-content">
-      <div class="safe-view">
-        <div class="safe-info-box">
-          <div class="item flex-view">
-            <div class="label">账号安全等级</div>
-            <div class="right-box flex-center flex-view">
-              <div class="safe-text">低风险</div>
-              <progress max="3" class="safe-line" value="2">
-              </progress>
-            </div>
-          </div>
-          <div class="item flex-view">
-            <div class="label">绑定手机</div>
-            <div class="right-box">
-              <input class="input-dom" placeholder="请输入手机号">
-              <a-button type="link" @click="handleBindMobile()">更换</a-button>
-            </div>
-          </div>
-        </div>
-        <div class="edit-pwd-box" style="display;">
-          <div class="pwd-edit">
-            <!---->
-            <div class="item flex-view">
-              <div class="label">当前密码</div>
-              <div class="right-box">
-                <a-input-password placeholder="输入当前密码" v-model:value="password"/>
-              </div>
-            </div>
-            <div class="item flex-view">
-              <div class="label">新密码</div>
-              <div class="right-box">
-                <a-input-password placeholder="输入新密码" v-model:value="newPassword1"/>
-              </div>
-            </div>
-            <div class="item flex-view">
-              <div class="label">确认新密码</div>
-              <div class="right-box">
-                <a-input-password placeholder="重复输入密码" v-model:value="newPassword2"/>
-              </div>
-            </div>
-            <div class="item flex-view">
-              <div class="label">
-              </div>
-              <div class="right-box">
-                <a-button type="primary" @click="handleUpdatePwd()">修改密码</a-button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+      <a-table
+        size="middle"
+        rowKey="id"
+        :loading="data.loading"
+        :columns="columns"
+        :data-source="data.tagList"
+        :scroll="{ x: 'max-content' }"
+        :row-selection="rowSelection"
+        :pagination="{
+          size: 'default',
+          current: data.page,
+          pageSize: data.pageSize,
+          onChange: (current) => (data.page = current),
+          showSizeChanger: false,
+          showTotal: (total) => `共${total}条数据`,
+        }"
+      >
+        <template #bodyCell="{ text, record, index, column }">
+          <template v-if="column.key === 'status'">
+            <a-tag :color="text === '1'? '#2db7f5':'#87d068'">
+              {{text === '1'? '待支付': text === '2'? '已支付':'已取消'}}
+            </a-tag>
+          </template>
+          <template v-if="column.key === 'operation'">
+            <span>
+              <a-popconfirm title="确定删除?" ok-text="是" cancel-text="否" @confirm="confirmDelete(record)">
+                <a>删除</a>
+              </a-popconfirm>
+            </span>
+          </template>
+        </template>
+      </a-table>
+
+
     </div>
   </div>
 </template>
@@ -58,41 +44,132 @@
 <script setup>
 import {message} from "ant-design-vue";
 
+import { createApi, listApi, updateApi, deleteApi, cancelApi } from '/@/api/order';
+import {getFormatTime} from "/@/utils";
+
 import {updateUserPwdApi} from '/@/api/user'
 import {useUserStore} from "/@/store";
 
 const router = useRouter();
 const userStore = useUserStore();
 
-let password = ref('')
-let newPassword1 = ref('')
-let newPassword2 = ref('')
+// 创建表格列的配置
+const columns = reactive([
+  {
+    title: '序号',
+    dataIndex: 'index',
+    key: 'index',
+    align: 'center' // 居中显示
+  },
+  {
+    title: '用户',
+    dataIndex: 'username',
+    key: 'username',
+    align: 'center' // 居中显示
+  },
+  {
+    title: '商品',
+    dataIndex: 'title',
+    key: 'title',
+    align: 'center', // 居中显示
+    // 自定义渲染函数，用于截取商品标题的前10个字符并添加省略号，如果标题为空则显示"--"
+    customRender: ({text}) => text ? text.substring(0, 10) + '...' : '--'
+  },
+  {
+    title: '状态',
+    dataIndex: 'status',
+    key: 'status',
+    align: 'center', // 居中显示
+    // 使用scopedSlots进行自定义渲染，渲染内容由模板决定
+    scopedSlots: {customRender: 'status'}
+  },
+  {
+    title: '订单时间',
+    dataIndex: 'orderTime',
+    key: 'orderTime',
+    align: 'center', // 居中显示
+    // 自定义渲染函数，用于格式化订单时间
+    customRender: ({text}) => getFormatTime(text, true)
+  },
+  {
+    title: '操作',
+    dataIndex: 'action',
+    key: 'operation',
+    align: 'center', // 居中显示
+    fixed: 'right', // 固定在表格的右端
+    width: 120, // 操作列宽度设置为120px
+  },
+]);
 
-const handleBindMobile = () => {
-  message.info('功能开发中')
-}
+// 页面数据
+const data = reactive({
+  tagList: [],
+  loading: false,
+  keyword: '',
+  selectedRowKeys: [],
+  pageSize: 10,
+  page: 1,
+});
 
-const handleUpdatePwd = () => {
-  if (!password.value || !newPassword1.value || !newPassword2.value) {
-    message.warn('不能为空')
-    return
-  }
-  if (newPassword1.value !== newPassword2.value) {
-    message.warn('密码不一致')
-    return
-  }
 
-  let userId = userStore.user_id
-  updateUserPwdApi({
-    userId:  userId,
-    password: password.value,
-    newPassword: newPassword1.value,
-  }).then(res => {
-    message.success('修改成功')
-  }).catch(err => {
-    message.error(err.msg)
+onMounted(() => {
+  getDataList();
+});
+
+
+/**
+ * 获取数据列表的函数。
+ * 无参数。
+ * 无显式返回值，但会更新data对象中的tagList和loading属性。
+ */
+const getDataList = () => {
+  // 设置加载状态为true
+  data.loading = true;
+  // 调用listApi，传入关键字参数
+  listApi({
+    keyword: data.keyword,
   })
-}
+    .then((res) => {
+      // 请求成功后，设置加载状态为false
+      data.loading = false;
+      console.log(res);
+      // 为响应数据的每一项添加索引
+      res.data.forEach((item, index) => {
+        item.index = index + 1;
+      });
+      // 更新data对象中的tagList为处理后的数据
+      data.tagList = res.data;
+    })
+    .catch((err) => {
+      // 请求失败后，设置加载状态为false
+      data.loading = false;
+      console.log(err);
+    });
+};
+
+
+// 创建并初始化 rowSelection 变量，作为一个 ref 对象，用于处理表格行选择的逻辑
+const rowSelection = ref({
+  // 定义onChange回调函数，当选择的行发生变化时被调用
+  onChange: (selectedRowKeys, selectedRows) => {
+    // 打印选中行的 key 数组和选中行的数据数组到控制台
+    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+    // 更新 data 对象中的 selectedRowKeys 属性，以保持数据同步
+    data.selectedRowKeys = selectedRowKeys;
+  },
+});
+
+
+const confirmDelete = (record) => {
+  console.log('delete', record);
+  deleteApi({ ids: record.id })
+    .then((res) => {
+      getDataList();
+    })
+    .catch((err) => {
+      message.error(err.msg || '操作失败');
+    });
+};
 
 </script>
 <style scoped lang="less">
@@ -123,73 +200,5 @@ input, textarea {
   }
 }
 
-.safe-view {
-  .item {
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    margin: 24px 0;
 
-    .label {
-      width: 100px;
-      color: #152844;
-      font-weight: 600;
-      font-size: 14px;
-    }
-
-    .flex-center {
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      align-items: center;
-    }
-
-    .safe-text {
-      color: #f62a2a;
-      font-weight: 600;
-      font-size: 14px;
-      margin-right: 18px;
-    }
-
-    .safe-line {
-      background: #d3dce6;
-      border-radius: 8px;
-      width: 280px;
-      height: 8px;
-      overflow: hidden;
-      color: #f6982a;
-    }
-
-    .input-dom {
-      background: #f8fafb;
-      border-radius: 4px;
-      width: 240px;
-      height: 40px;
-      line-height: 40px;
-      font-size: 14px;
-      color: #5f77a6;
-      padding: 0 12px;
-      margin-right: 16px;
-    }
-
-    .change-btn {
-      color: #4684e2;
-      font-size: 14px;
-      border: none;
-      outline: none;
-      cursor: pointer;
-    }
-
-    .wx-text {
-      color: #5f77a6;
-      font-size: 14px;
-      margin-right: 16px;
-    }
-
-    .edit-pwd-btn {
-      color: #4684e2;
-      font-size: 14px;
-      cursor: pointer;
-    }
-  }
-}
 </style>

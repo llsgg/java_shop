@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gk.study.entity.Thing;
-import com.gk.study.entity.ThingTag;
 import com.gk.study.mapper.ThingMapper;
-import com.gk.study.mapper.ThingTagMapper;
 import com.gk.study.service.ThingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +18,6 @@ public class ThingServiceImpl extends ServiceImpl<ThingMapper, Thing> implements
     @Autowired
     ThingMapper mapper;
 
-    @Autowired
-    ThingTagMapper thingTagMapper;
 
     @Override
     public List<Thing> getThingList(String keyword, String c) {
@@ -48,31 +44,6 @@ public class ThingServiceImpl extends ServiceImpl<ThingMapper, Thing> implements
 
         List<Thing> things = mapper.selectList(queryWrapper);
 
-        // tag筛选
-//        if (StringUtils.isNotBlank(tag)) {
-//            List<Thing> tThings = new ArrayList<>();
-//            QueryWrapper<ThingTag> thingTagQueryWrapper = new QueryWrapper<>();
-////            thingTagQueryWrapper.eq("tag_id", tag);
-//            List<ThingTag> thingTagList = thingTagMapper.selectList(thingTagQueryWrapper);
-//            for (Thing thing : things) {
-//                for (ThingTag thingTag : thingTagList) {
-//                    if (thing.getId().equals(thingTag.getThingId())) {
-//                        tThings.add(thing);
-//                    }
-//                }
-//            }
-//            things.clear();
-//            things.addAll(tThings);
-//        }
-
-        // 附加tag
-//        for (Thing thing : things) {
-//            QueryWrapper<ThingTag> thingTagQueryWrapper = new QueryWrapper<>();
-//            thingTagQueryWrapper.lambda().eq(ThingTag::getThingId, thing.getId());
-//            List<ThingTag> thingTags = thingTagMapper.selectList(thingTagQueryWrapper);
-//            List<Long> tags = thingTags.stream().map(ThingTag::getTagId).collect(Collectors.toList());
-//            thing.setTags(tags);
-//        }
         return things;
     }
 
@@ -92,7 +63,7 @@ public class ThingServiceImpl extends ServiceImpl<ThingMapper, Thing> implements
         }
         mapper.insert(thing);
         // 更新tag
-        setThingTags(thing);
+//        setThingTags(thing);
     }
 
     @Override
@@ -104,7 +75,7 @@ public class ThingServiceImpl extends ServiceImpl<ThingMapper, Thing> implements
     public void updateThing(Thing thing) {
 
         // 更新tag
-        setThingTags(thing);
+//        setThingTags(thing);
 
         mapper.updateById(thing);
     }
@@ -130,20 +101,6 @@ public class ThingServiceImpl extends ServiceImpl<ThingMapper, Thing> implements
         mapper.updateById(thing);
     }
 
-    public void setThingTags(Thing thing) {
-        // 删除tag
-        Map<String, Object> map = new HashMap<>();
-        map.put("thing_id", thing.getId());
-        thingTagMapper.deleteByMap(map);
-        // 新增tag
-        if (thing.getTags() != null) {
-            for (Long tag : thing.getTags()) {
-                ThingTag thingTag = new ThingTag();
-                thingTag.setThingId(thing.getId());
-                thingTag.setTagId(tag);
-                thingTagMapper.insert(thingTag);
-            }
-        }
-    }
+
 
 }

@@ -1,11 +1,86 @@
 <template>
   <div class="detail">
     <Header/>
+    <div class="thing-infos-view">
 
+      <div>
+        <div class="thing-img-box">
+          <img :src="detailData.cover" />
+        </div>
+
+        <div class="thing-info-box">
+          <div class="thing-state">
+            <span class="state">商品状态</span>
+            <span>已上架</span>
+          </div>
+
+          <div class="translators">
+            <span class="author">商品：</span>
+            <span class="name">{{detailData.title}}</span>
+          </div>
+
+          <div class="translators">
+            <span class="author">价格：</span>
+            <span class="price ">{{detailData.price}}￥</span>
+          </div>
+
+          <div class="translators">
+            <span class="author">分类：</span>
+            <span class="name">{{detailData.classificationId}}</span>
+          </div>
+
+          <div class="translators">
+            <span class="author">库存：</span>
+            <span class="name">{{detailData.repertory}}</span>
+          </div>
+
+          <div class="translators">
+            <span class="collect author" @click="collect">收藏：</span>
+            <span class="name">{{detailData.collectCount}}</span>
+          </div>
+
+          <div class="buy-btn" @click="seckill">
+            <span>立即秒杀</span>
+          </div>
+        </div>
+
+        <div class="thing-content-view">
+          <h4 class="main-tab">简介</h4>
+          <div class="main-content">
+            <textarea class="text">{{detailData.description}}</textarea>
+          </div>
+        </div>
+      </div>
+      <div class="recommend">
+        <h3 class="main-tab">相似推荐</h3>
+<!--        <a-list item-layout="horizontal" :data-source="data">-->
+<!--          <template #renderItem="{ item }">-->
+<!--            <a-list-item>-->
+<!--              <a-list-item-meta>-->
+<!--                <template #title>-->
+<!--                  <p>{{ item.title }}</p>-->
+<!--                </template>-->
+
+<!--              </a-list-item-meta>-->
+<!--            </a-list-item>-->
+<!--          </template>-->
+<!--        </a-list>-->
+        <ul class="recommend-list">
+          <li v-for="(item, index) in recommendData.values()" :key="index">
+            <img :src="item.cover">
+            <div>{{ item.title }}</div>
+            <div>{{ item.price }}</div>
+          </li>
+        </ul>
+
+      </div>
+
+
+    </div>
     <Footer/>
   </div>
 </template>
-<script setup>
+<script lang="ts" setup>
 import {message} from "ant-design-vue";
 import Header from '/@/views/index/components/header.vue'
 import Footer from '/@/views/index/components/footer.vue'
@@ -45,12 +120,20 @@ let order = ref('recent') // 默认排序最新
 
 let commentRef = ref()
 
+
+
 onMounted(()=>{
   thingId.value = route.query.id.trim()
   getThingDetail()
   getRecommendThing()
-  getCommentList()
 })
+
+interface DataItem {
+  title: string;
+  cover: string;
+  price: string;
+}
+let data: DataItem[] = new Array(7).fill({ title: '', cover: '', price: '' });
 
 const selectTab =(index)=> {
   selectTabIndex.value = index
@@ -60,24 +143,13 @@ const selectTab =(index)=> {
 const getThingDetail =()=> {
   detailApi({id: thingId.value}).then(res => {
     detailData.value = res.data
-    detailData.value.cover = BASE_URL + '/api/staticfiles/image/' + detailData.value.cover
+    detailData.value.cover = BASE_URL + '/api/upload/image/' + detailData.value.cover
+    console.log(detailData.value )
   }).catch(err => {
     message.error('获取详情失败')
   })
 }
-const addToWish =()=> {
-  let userId = userStore.user_id
-  if (userId) {
-    wishApi({thingId: thingId.value, userId: userId}).then(res => {
-      message.success(res.msg)
-      getThingDetail()
-    }).catch(err => {
-      console.log('操作失败')
-    })
-  } else {
-    message.warn('请先登录')
-  }
-}
+
 const collect =()=> {
   let userId = userStore.user_id
   if (userId) {
@@ -91,11 +163,13 @@ const collect =()=> {
     message.warn('请先登录')
   }
 }
-const share =()=> {
-  let content = '分享一个非常好玩的网站 ' + window.location.href
-  let shareHref = 'http://service.weibo.com/share/share.php?title=' + content
-  window.open(shareHref)
+
+const seckill =(detailData)=> {
+  console.log(detailData)
+  const userId = userStore.user_id
+  // router.push({name: 'confirm'})
 }
+
 const handleOrder =(detailData)=> {
   console.log(detailData)
   const userId = userStore.user_id
@@ -112,11 +186,22 @@ const getRecommendThing =()=> {
   listThingList({sort: 'recommend'}).then(res => {
     res.data.forEach((item, index) => {
       if (item.cover) {
-        item.cover = BASE_URL + '/api/staticfiles/image/' + item.cover
+        item.cover = BASE_URL + '/api/upload/image/' + item.cover
       }
     })
-    console.log(res)
-    recommendData.value = res.data.slice(0, 6)
+    recommendData.value = res.data.slice(0, 6);
+    // recommendData.value.forEach(function(item, index) {
+    //   if (index < data.length) {
+    //     data[index].title = item.title;
+    //     // console.log("index" + index + "  item: " + item.title);
+    //     data[index].cover = item.cover;
+    //     data[index].price = item.price;
+    //     console.log(data);
+    //   }
+    // })
+    // data = recommendData.value;
+    // console.log(recommendData.value);
+    console.log(data);
   }).catch(err => {
     console.log(err)
   })
@@ -209,51 +294,15 @@ const sortCommentList =(sortType)=> {
     display: flex;
   }
 
-  .mobile-share-box {
-    height: 38px;
-    background: transparent;
-    padding: 0 16px;
-    margin: 12px 0;
-    font-size: 0;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
 
-    .state {
-      width: 64px;
-      height: 24px;
-      line-height: 24px;
-      background: rgba(70, 132, 226, .1);
-      border-radius: 2px;
-      font-weight: 500;
-      font-size: 12px;
-      color: #4684e2;
-      text-align: center;
-    }
-
-    .share-img {
-      background: #fff;
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      text-align: center;
-
-      img {
-        position: relative;
-        top: 4px;
-        width: 24px;
-      }
-    }
-  }
 
   .thing-img-box {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 235px;
     flex: 0 0 235px;
-    margin: 0 40px 0 0;
+    margin: 0 40px 0 100px;
+    float: left;
+    background: #0ac2b0;
 
     img {
       width: 200px;
@@ -263,14 +312,18 @@ const sortCommentList =(sortType)=> {
   }
 
   .thing-info-box {
+    //background: #0F1111;
     text-align: left;
     padding: 0;
     margin: 0;
+    float: left;
+    width:550px;
   }
 
   .thing-state {
     height: 26px;
     line-height: 26px;
+    //background: #0ac2b0;
 
     .state {
       font-weight: 500;
@@ -288,7 +341,8 @@ const sortCommentList =(sortType)=> {
   }
 
   .thing-name {
-    line-height: 32px;
+    //background: #0F1111;
+    //line-height: 32px;
     margin: 16px 0;
     color: #0F1111!important;
     font-size: 15px!important;
@@ -298,10 +352,20 @@ const sortCommentList =(sortType)=> {
     text-decoration: none!important;
   }
 
+  .price {
+    color: #ff7b31;
+    font-size: 20px;
+    line-height: 20px;
+    margin-top: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .translators, .authors {
     line-height: 18px;
-    font-size: 14px;
-    margin: 8px 0;
+    font-size: 15px;
+    margin: 12px 0;
     -webkit-box-align: start;
     -ms-flex-align: start;
     align-items: flex-start;
@@ -312,29 +376,53 @@ const sortCommentList =(sortType)=> {
     .name {
       color: #315c9e;
       white-space: normal;
+      font-size: 15px;
     }
   }
 
-  .tags {
-    position: absolute;
-    bottom: 20px;
-    margin-top: 16px;
+  .collect {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 235px;
+    flex: 0 0 235px;
+    margin-left: 0px;
+    color: #315c9e;
 
-    .category-box {
-      color: #152844;
-      font-size: 14px;
+    cursor: pointer;
+    position: relative;
+    border-bottom: 1px solid #cedce4;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    height: 100%;
+  }
 
-      .title {
-        color: #787878;
-      }
+  .recommend-list {
+    li {
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+
+    img {
+      max-width: 100px; /* Adjust the maximum width of the image */
+      height: auto; /* Maintain the aspect ratio */
     }
   }
+
 
   .thing-counts {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 235px;
     flex: 0 0 235px;
-    margin-left: 20px;
+    margin-left: 0px;
+    font-size: 25px;
+
   }
 
   .pointer {
@@ -438,8 +526,12 @@ const sortCommentList =(sortType)=> {
 }
 
 .thing-content-view {
-  margin-top: 40px;
+  float: left;
+  //background: #2a9a44;
   padding-bottom: 50px;
+  margin-top: 20px;
+  margin-left: 100px;
+  width: 750px;
 }
 
 .main-content {
@@ -452,19 +544,23 @@ const sortCommentList =(sortType)=> {
     font-size: 16px;
     line-height: 26px;
     padding-left: 12px;
-    margin: 11px 0;
+    margin: 15px 0;
     white-space: pre-wrap;
   }
 }
 
 .main-tab {
   border-bottom: 1px solid #cedce4;
+  font-size: 20px!important;
+  font-weight: bold;
+  //margin-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 .order-view {
   position: relative;
   color: #6c6c6c;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 40px;
 
   .title {
@@ -497,10 +593,11 @@ const sortCommentList =(sortType)=> {
 }
 
 .recommend {
+  //background: #0ac2b0;
   -webkit-box-flex: 0;
   -ms-flex: 0 0 235px;
-  flex: 0 0 235px;
-  margin-left: 20px;
+  flex: 0 0 350px;
+  //margin-left: 0px;
 
   .title {
     font-weight: 600;
@@ -573,7 +670,7 @@ const sortCommentList =(sortType)=> {
           color: #6f6f6f;
           font-size: 12px;
           line-height: 14px;
-          margin-top: 4px;
+          margin-top: 8px;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;

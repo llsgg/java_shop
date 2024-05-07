@@ -77,6 +77,11 @@ const constantRouterMap = [
             name: 'collectView',
             component: () => import('/@/views/index/user/collect-thing-view.vue')
           },
+          {
+            path: 'goodsView',
+            name: 'goodsView',
+            component: () => import('/@/views/index/user/goods-view.vue')
+          },
         ]
       }
     ]

@@ -18,7 +18,8 @@
           <div v-for="item in contentData.pageData" :key="item.id" @click="handleDetail(item)"
                class="thing-item item-column-3"><!---->
             <div class="img-view">
-              <img :src="item.cover"></div>
+              <img :src="item.cover">
+            </div>
             <div class="info-view">
               <h3 class="thing-name">{{ item.title.substring(0, 12) }}</h3>
               <span>
@@ -495,15 +496,7 @@ li {
           text-decoration: none !important;
         }
 
-        .price {
-          color: #ff7b31;
-          font-size: 20px;
-          line-height: 20px;
-          margin-top: 4px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
+
 
         .translators {
           color: #6f6f6f;

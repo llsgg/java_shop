@@ -117,7 +117,6 @@ public class UserController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @Transactional
     public APIResponse create(User user) throws IOException {
-
         if (!StringUtils.isEmpty(user.getUsername()) || !StringUtils.isEmpty(user.getPassword())) {
             // 查重
             if(userService.getUserByUserName(user.getUsername()) != null) {

@@ -57,7 +57,7 @@ const getCollectThingList =()=> {
   let userId = userStore.user_id
   userCollectListApi({userId: userId}).then(res => {
     res.data.forEach(item => {
-      item.cover = BASE_URL + '/api/staticfiles/image/' + item.cover
+      item.cover = BASE_URL + '/api/upload/image/' + item.cover
     })
     console.log(res.data)
     pageData.collectData = res.data

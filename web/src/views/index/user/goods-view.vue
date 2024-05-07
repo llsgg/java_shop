@@ -1,14 +1,26 @@
 <template>
   <div class="content-list">
-    <div class="list-title">我的商品</div>
+    <div class="header">
+      <div class="list-title">我的商品</div>
+
+      <div class="table-operations">
+        <a-space>
+          <a-button type="primary" @click="handleAdd">新增</a-button>
+          <a-button @click="handleBatchDelete">批量删除</a-button>
+        </a-space>
+      </div>
+    </div>
+
+
     <div class="list-content">
+
 
       <a-table
         size="middle"
         rowKey="id"
         :loading="data.loading"
         :columns="columns"
-        :data-source="data.tagList"
+        :data-source="data.dataList"
         :scroll="{ x: 'max-content' }"
         :row-selection="rowSelection"
         :pagination="{
@@ -21,15 +33,12 @@
         }"
       >
         <template #bodyCell="{ text, record, index, column }">
-          <template v-if="column.key === 'status'">
-            <a-tag :color="text === '1'? '#2db7f5':'#87d068'">
-              {{text === '1'? '待支付': text === '2'? '已支付':'已取消'}}
-            </a-tag>
-          </template>
           <template v-if="column.key === 'operation'">
             <span>
+              <a @click="handleEdit(record)">编辑</a>
+              <a-divider type="vertical" />
               <a-popconfirm title="确定删除?" ok-text="是" cancel-text="否" @confirm="confirmDelete(record)">
-                <a>删除</a>
+                <a href="#">删除</a>
               </a-popconfirm>
             </span>
           </template>
@@ -38,72 +47,156 @@
 
 
     </div>
+
+    <div>
+      <a-modal
+        :visible="modal.visiable"
+        :forceRender="true"
+        :title="modal.title"
+        width="880px"
+        ok-text="确认"
+        cancel-text="取消"
+        @cancel="handleCancel"
+        @ok="handleOk"
+      >
+        <div>
+          <a-form ref="myform" :label-col="{ style: { width: '80px' } }" :model="modal.form" :rules="modal.rules">
+            <a-row :gutter="24">
+              <a-col span="24">
+                <a-form-item label="商品名称" name="title">
+                  <a-input placeholder="请输入" v-model:value="modal.form.title"></a-input>
+                </a-form-item>
+              </a-col>
+              <a-col span="12">
+                <a-form-item label="分类" name="classificationId">
+                  <a-select placeholder="请选择"
+                            allowClear
+                            :options="modal.cData"
+                            :field-names="{ label: 'title', value: 'id',}"
+                            v-model:value="modal.form.classificationId">
+                  </a-select>
+                </a-form-item>
+              </a-col>
+
+              <a-col span="24">
+                <a-form-item label="封面">
+                  <a-upload-dragger
+                    name="file"
+                    accept="image/*"
+                    :multiple="false"
+                    :before-upload="beforeUpload"
+                    v-model:file-list="fileList"
+                  >
+                    <p class="ant-upload-drag-icon">
+                      <template v-if="modal.form.coverUrl">
+                        <img :src="modal.form.coverUrl"  style="width: 60px;height: 80px;"/>
+                      </template>
+                      <template v-else>
+                        <file-image-outlined />
+                      </template>
+                    </p>
+                    <p class="ant-upload-text">
+                      请选择要上传的封面图片
+                    </p>
+                  </a-upload-dragger>
+                </a-form-item>
+              </a-col>
+
+              <a-col span="24">
+                <a-form-item label="内容简介">
+                  <a-textarea placeholder="请输入" v-model:value="modal.form.description"></a-textarea>
+                </a-form-item>
+              </a-col>
+              <a-col span="12">
+                <a-form-item label="定价" name="price">
+                  <a-input-number  placeholder="请输入" :min="0" v-model:value="modal.form.price" style="width: 100%;"></a-input-number>
+                </a-form-item>
+              </a-col>
+              <a-col span="12">
+                <a-form-item label="状态" name="status">
+                  <a-select placeholder="请选择" allowClear v-model:value="modal.form.status">
+                    <a-select-option key="0" value="0">上架</a-select-option>
+                    <a-select-option key="1" value="1">下架</a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+              <a-col span="12">
+                <a-form-item label="库存" name="repertory">
+                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.repertory" style="width: 100%;"></a-input-number>
+                </a-form-item>
+              </a-col>
+            </a-row>
+          </a-form>
+        </div>
+
+      </a-modal>
+    </div>
+
   </div>
 </template>
 
-<script setup>
-import {message} from "ant-design-vue";
-
-import { createApi, listApi, updateApi, deleteApi, cancelApi } from '/@/api/order';
+<script setup lang="ts">
+import { FormInstance, message } from 'ant-design-vue'
+import { createApi, listApi, updateApi, deleteApi} from '/@/api/thing';
 import {getFormatTime} from "/@/utils";
-
 import {updateUserPwdApi} from '/@/api/user'
 import {useUserStore} from "/@/store";
+import { FileImageOutlined } from '@ant-design/icons-vue'
+import { listApi as listClassificationApi } from '/@/api/classification'
+import { BASE_URL } from "/@/store/constants";
 
 const router = useRouter();
 const userStore = useUserStore();
 
-// 创建表格列的配置
 const columns = reactive([
+
   {
     title: '序号',
     dataIndex: 'index',
     key: 'index',
-    align: 'center' // 居中显示
+    width: 60
   },
   {
-    title: '用户',
-    dataIndex: 'username',
-    key: 'username',
-    align: 'center' // 居中显示
-  },
-  {
-    title: '商品',
+    title: '名称',
     dataIndex: 'title',
-    key: 'title',
-    align: 'center', // 居中显示
-    // 自定义渲染函数，用于截取商品标题的前10个字符并添加省略号，如果标题为空则显示"--"
-    customRender: ({text}) => text ? text.substring(0, 10) + '...' : '--'
+    key: 'title'
+  },
+  {
+    title: '价格',
+    dataIndex: 'price',
+    key: 'price'
   },
   {
     title: '状态',
     dataIndex: 'status',
     key: 'status',
-    align: 'center', // 居中显示
-    // 使用scopedSlots进行自定义渲染，渲染内容由模板决定
-    scopedSlots: {customRender: 'status'}
+    customRender: ({ text, record, index, column }) => text === '0' ? '上架' : '下架'
   },
   {
-    title: '订单时间',
-    dataIndex: 'orderTime',
-    key: 'orderTime',
-    align: 'center', // 居中显示
-    // 自定义渲染函数，用于格式化订单时间
-    customRender: ({text}) => getFormatTime(text, true)
+    title: '库存',
+    dataIndex: 'repertory',
+    key: 'repertory'
+  },
+  {
+    title: '简介',
+    dataIndex: 'description',
+    key: 'description',
+    customRender: ({ text, record, index, column }) => text ? text.substring(0, 10) + '...' : '--'
   },
   {
     title: '操作',
     dataIndex: 'action',
     key: 'operation',
-    align: 'center', // 居中显示
-    fixed: 'right', // 固定在表格的右端
-    width: 120, // 操作列宽度设置为120px
+    align: 'center',
+    fixed: 'right',
+    width: 140,
   },
 ]);
 
+
 // 页面数据
 const data = reactive({
-  tagList: [],
+  dataList: [],
   loading: false,
   keyword: '',
   selectedRowKeys: [],
@@ -111,11 +204,81 @@ const data = reactive({
   page: 1,
 });
 
+// 弹窗数据源
+/**
+ * 创建一个响应式对象modal，用于管理模态窗口的状态和数据
+ * @returns {Object} 返回一个包含模态窗口各种状态和数据的响应式对象
+ */
+const modal = reactive({
+  visiable: false, // 控制模态窗口是否可见
+  editFlag: false, // 编辑标志，用于区分是新增还是编辑操作
+  title: '', // 模态窗口的标题
+  cData: [], // 用于存储从后端获取的数据列表
+  tagData: [{}], // 标签数据，初始化为空对象
+  form: { // 表单数据对象
+    id: undefined, // 实体ID，初始为未定义
+    title: undefined, // 标题，初始为未定义
+    classificationId: undefined, // 分类ID，初始为未定义
+    tags: [], // 标签列表，初始化为空数组
+    repertory: undefined, // 库存，初始为未定义
+    price: undefined, // 定价，初始为未定义
+    status: undefined, // 状态，初始为未定义
+    cover: undefined, // 封面图片地址，初始为未定义
+    coverUrl: undefined, // 封面图片的URL，初始为未定义
+    imageFile: undefined // 图片文件对象，初始为未定义
+  },
+  rules: { // 表单校验规则
+    title: [{ required: true, message: '请输入名称', trigger: 'change' }],
+    classificationId: [{ required: true, message: '请选择分类', trigger: 'change' }],
+    repertory: [{ required: true, message: '请输入库存', trigger: 'change' }],
+    price: [{ required: true, message: '请输入定价', trigger: 'change' }],
+    status: [{ required: true, message: '请选择状态', trigger: 'change' }]
+  },
+});
+
+const fileList = ref<any[]>([]);
+const myform = ref<FormInstance>();
+
 
 onMounted(() => {
   getDataList();
+  getCDataList();
 });
 
+const handleEdit = (record: any) => {
+  resetModal();
+  modal.visiable = true;
+  modal.editFlag = true;
+  modal.title = '编辑';
+  // 重置
+  for (const key in modal.form) {
+    modal.form[key] = undefined;
+  }
+  for (const key in record) {
+    if(record[key]) {
+      modal.form[key] = record[key];
+    }
+  }
+  if(modal.form.cover) {
+    modal.form.coverUrl = BASE_URL + '/api/upload/image/' + modal.form.cover;
+    modal.form.cover = undefined
+  }
+};
+
+const getCDataList = () => {
+  listClassificationApi({}).then(res => {
+    modal.cData = res.data
+  })
+}
+
+const beforeUpload = (file: File) => {
+  // 改文件名
+  const fileName = new Date().getTime().toString() + '.' + file.type.substring(6);
+  const copyFile = new File([file], fileName);
+  console.log(copyFile);
+  modal.form.imageFile = copyFile;
+  return false;
+};
 
 /**
  * 获取数据列表的函数。
@@ -138,7 +301,7 @@ const getDataList = () => {
         item.index = index + 1;
       });
       // 更新data对象中的tagList为处理后的数据
-      data.tagList = res.data;
+      data.dataList = res.data;
     })
     .catch((err) => {
       // 请求失败后，设置加载状态为false
@@ -171,6 +334,109 @@ const confirmDelete = (record) => {
     });
 };
 
+const handleAdd = () => {
+  resetModal();
+  modal.visiable = true;
+  modal.editFlag = false;
+  modal.title = '新增';
+  // 重置
+  for (const key in modal.form) {
+    modal.form[key] = undefined;
+  }
+  modal.form.cover = undefined
+};
+
+// 恢复表单初始状态
+const resetModal = () => {
+  myform.value?.resetFields();
+  fileList.value = []
+};
+
+// 关闭弹窗
+const hideModal = () => {
+  modal.visiable = false;
+};
+
+const handleOk = () => {
+  myform.value
+    ?.validate()
+    .then(() => {
+      const formData = new FormData();
+      if(modal.editFlag) {
+        formData.append('id', modal.form.id)
+      }
+      formData.append('title', modal.form.title)
+      if (modal.form.classificationId) {
+        formData.append('classificationId', modal.form.classificationId)
+      }
+      if (modal.form.tags) {
+        modal.form.tags.forEach(function (value) {
+          if(value){
+            formData.append('tags[]', value)
+          }
+        })
+      }
+      if (modal.form.imageFile) {
+        formData.append('imageFile', modal.form.imageFile)
+      }
+      formData.append('description', modal.form.description || '')
+      formData.append('price', modal.form.price || '')
+      if (modal.form.repertory >= 0) {
+        formData.append('repertory', modal.form.repertory)
+      }
+      if (modal.form.status) {
+        formData.append('status', modal.form.status)
+      }
+      if (modal.editFlag) {
+        updateApi(formData)
+          .then((res) => {
+            hideModal();
+            getDataList();
+          })
+          .catch((err) => {
+            console.log(err);
+            message.error(err.msg || '操作失败');
+          });
+      } else {
+        createApi(formData)
+          .then((res) => {
+            hideModal();
+            getDataList();
+          })
+          .catch((err) => {
+            console.log(err);
+            message.error(err.msg || '操作失败');
+          });
+      }
+    })
+    .catch((err) => {
+      console.log('不能为空');
+    });
+};
+
+const handleCancel = () => {
+  hideModal();
+};
+
+const handleBatchDelete = () => {
+  console.log(data.selectedRowKeys);
+  if (data.selectedRowKeys.length <= 0) {
+    console.log('hello');
+    message.warn('请勾选删除项');
+    return;
+  }
+  deleteApi({ ids: data.selectedRowKeys.join(',') })
+    .then((res) => {
+      message.success('删除成功');
+      data.selectedRowKeys = [];
+      getDataList();
+    })
+    .catch((err) => {
+      message.error(err.msg || '操作失败');
+    });
+};
+
+
 </script>
 <style scoped lang="less">
 progress {
@@ -186,6 +452,10 @@ input, textarea {
   border-style: none;
 }
 
+.header {
+  border-bottom: 1px solid #cedce4;
+}
+
 .content-list {
   flex: 1;
 
@@ -196,8 +466,18 @@ input, textarea {
     //line-height: 24px;
     height: 48px;
     margin-bottom: 4px;
-    border-bottom: 1px solid #cedce4;
+    //border-bottom: 1px solid #cedce4;
+    float: left;
   }
+}
+
+.table-operations {
+  margin-bottom: 16px;
+  text-align: right;
+}
+
+.table-operations > button {
+  margin-right: 8px;
 }
 
 

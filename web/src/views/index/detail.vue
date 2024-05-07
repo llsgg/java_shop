@@ -53,23 +53,11 @@
       </div>
       <div class="recommend">
         <h3 class="main-tab">相似推荐</h3>
-<!--        <a-list item-layout="horizontal" :data-source="data">-->
-<!--          <template #renderItem="{ item }">-->
-<!--            <a-list-item>-->
-<!--              <a-list-item-meta>-->
-<!--                <template #title>-->
-<!--                  <p>{{ item.title }}</p>-->
-<!--                </template>-->
-
-<!--              </a-list-item-meta>-->
-<!--            </a-list-item>-->
-<!--          </template>-->
-<!--        </a-list>-->
         <ul class="recommend-list">
           <li v-for="(item, index) in recommendData.values()" :key="index">
             <img :src="item.cover">
             <div>{{ item.title }}</div>
-            <div>{{ item.price }}</div>
+            <div>{{ item.price }}￥</div>
           </li>
         </ul>
 
@@ -317,7 +305,7 @@ const sortCommentList =(sortType)=> {
     padding: 0;
     margin: 0;
     float: left;
-    width:550px;
+    width:500px;
   }
 
   .thing-state {
@@ -595,8 +583,8 @@ const sortCommentList =(sortType)=> {
 .recommend {
   //background: #0ac2b0;
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 235px;
-  flex: 0 0 350px;
+  //-ms-flex: 0 0 235px;
+  flex: 0 0 300px;
   //margin-left: 0px;
 
   .title {

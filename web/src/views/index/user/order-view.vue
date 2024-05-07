@@ -28,6 +28,8 @@
           </template>
           <template v-if="column.key === 'operation'">
             <span>
+               <a @click="pay(record)">支付</a>
+              <a-divider type="vertical" />
               <a-popconfirm title="确定删除?" ok-text="是" cancel-text="否" @confirm="confirmDelete(record)">
                 <a>删除</a>
               </a-popconfirm>
@@ -44,7 +46,7 @@
 <script setup>
 import {message} from "ant-design-vue";
 
-import { createApi, listApi, updateApi, deleteApi, cancelApi } from '/@/api/order';
+import { userOrderListApi, listApi, updateApi, deleteApi, cancelApi } from '/@/api/order';
 import {getFormatTime} from "/@/utils";
 
 import {updateUserPwdApi} from '/@/api/user'
@@ -59,12 +61,6 @@ const columns = reactive([
     title: '序号',
     dataIndex: 'index',
     key: 'index',
-    align: 'center' // 居中显示
-  },
-  {
-    title: '用户',
-    dataIndex: 'username',
-    key: 'username',
     align: 'center' // 居中显示
   },
   {
@@ -92,6 +88,14 @@ const columns = reactive([
     customRender: ({text}) => getFormatTime(text, true)
   },
   {
+    title: '支付时间',
+    dataIndex: 'payTime',
+    key: 'payTime',
+    align: 'center', // 居中显示
+    // 自定义渲染函数，用于格式化订单时间
+    customRender: ({text}) => getFormatTime(text, true)
+  },
+  {
     title: '操作',
     dataIndex: 'action',
     key: 'operation',
@@ -105,7 +109,7 @@ const columns = reactive([
 const data = reactive({
   tagList: [],
   loading: false,
-  keyword: '',
+  keyword: userStore.user_id,
   selectedRowKeys: [],
   pageSize: 10,
   page: 1,
@@ -126,8 +130,8 @@ const getDataList = () => {
   // 设置加载状态为true
   data.loading = true;
   // 调用listApi，传入关键字参数
-  listApi({
-    keyword: data.keyword,
+  userOrderListApi({
+    userId: data.keyword,
   })
     .then((res) => {
       // 请求成功后，设置加载状态为false
@@ -159,6 +163,16 @@ const rowSelection = ref({
   },
 });
 
+const pay = (record) => {
+  console.log('pay', record);
+  // deleteApi({ ids: record.id })
+  //   .then((res) => {
+  //     getDataList();
+  //   })
+  //   .catch((err) => {
+  //     message.error(err.msg || '操作失败');
+  //   });
+};
 
 const confirmDelete = (record) => {
   console.log('delete', record);

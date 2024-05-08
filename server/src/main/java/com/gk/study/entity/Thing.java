@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Data
-@TableName("b_thing")
+@TableName("b_goods")
 public class Thing implements Serializable {
     @TableId(value = "id",type = IdType.AUTO)
     public Long id;
@@ -30,20 +30,9 @@ public class Thing implements Serializable {
     @TableField
     public String repertory;
     @TableField
-    public String score;
-    @TableField
-    public String pv;
-    @TableField
-    public String recommendCount;
-    @TableField
-    public String wishCount;
-    @TableField
     public String collectCount;
     @TableField
     public Long classificationId;
-
-    @TableField(exist = false)
-    public List<Long> tags; // 标签
 
     @TableField(exist = false)
     public MultipartFile imageFile;

@@ -52,15 +52,6 @@ public class ThingServiceImpl extends ServiceImpl<ThingMapper, Thing> implements
         System.out.println(thing);
         thing.setCreateTime(String.valueOf(System.currentTimeMillis()));
 
-        if (thing.getPv() == null) {
-            thing.setPv("0");
-        }
-        if (thing.getScore() == null) {
-            thing.setScore("0");
-        }
-        if (thing.getWishCount() == null) {
-            thing.setWishCount("0");
-        }
         mapper.insert(thing);
         // 更新tag
 //        setThingTags(thing);
@@ -83,14 +74,6 @@ public class ThingServiceImpl extends ServiceImpl<ThingMapper, Thing> implements
     @Override
     public Thing getThingById(String id) {
         return mapper.selectById(id);
-    }
-
-    // 心愿数加1
-    @Override
-    public void addWishCount(String thingId) {
-        Thing thing = mapper.selectById(thingId);
-        thing.setWishCount(String.valueOf(Integer.parseInt(thing.getWishCount()) + 1));
-        mapper.updateById(thing);
     }
 
     // 收藏数加1

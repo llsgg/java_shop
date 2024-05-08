@@ -20,21 +20,13 @@ public class Order implements Serializable {
     @TableField
     public String payTime;
     @TableField
-    public String thingId;
+    public String goodId;
     @TableField
     public String userId;
     @TableField
     public String count;
     @TableField
     public String orderNumber; // 订单编号
-    @TableField
-    public String receiverAddress;
-    @TableField
-    public String receiverName;
-    @TableField
-    public String receiverPhone;
-    @TableField
-    public String remark;
 
     @TableField(exist = false)
     public String username; // 用户名

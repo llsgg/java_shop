@@ -4,7 +4,7 @@
 
 
     <select id="getList" resultType="com.gk.study.entity.Thing">
-        select * from b_thing;
+        select * from b_goods;
     </select>
 
 

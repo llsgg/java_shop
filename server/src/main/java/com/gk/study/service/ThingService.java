@@ -14,7 +14,5 @@ public interface ThingService {
 
     Thing getThingById(String id);
 
-    void addWishCount(String thingId);
-
     void addCollectCount(String thingId);
 }

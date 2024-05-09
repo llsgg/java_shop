@@ -14,7 +14,7 @@
 2024-05-09 00:00:15.797 [ http-nio-9100-exec-6 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>
 ### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Table 'shop.b_thing' doesn't exist
 ### The error may exist in file [D:\java\code\毕设\java_shop\server\target\classes\mapper\ThingCollectMapper.xml]
-### The error may involve com.gk.study.mapper.ThingCollectMapper.getThingCollectList-Inline
+### The error may involve com.gk.study.mapper.GoodsCollectMapper.getThingCollectList-Inline
 ### The error occurred while setting parameters
 ### SQL: select A.*, B.title, B.cover         from b_thing_collect  A         join b_thing  B on (A.thing_id=B.id)         where A.user_id=?
 ### Cause: java.sql.SQLSyntaxErrorException: Table 'shop.b_thing' doesn't exist
@@ -22,7 +22,7 @@
 org.springframework.jdbc.BadSqlGrammarException: 
 ### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Table 'shop.b_thing' doesn't exist
 ### The error may exist in file [D:\java\code\毕设\java_shop\server\target\classes\mapper\ThingCollectMapper.xml]
-### The error may involve com.gk.study.mapper.ThingCollectMapper.getThingCollectList-Inline
+### The error may involve com.gk.study.mapper.GoodsCollectMapper.getThingCollectList-Inline
 ### The error occurred while setting parameters
 ### SQL: select A.*, B.title, B.cover         from b_thing_collect  A         join b_thing  B on (A.thing_id=B.id)         where A.user_id=?
 ### Cause: java.sql.SQLSyntaxErrorException: Table 'shop.b_thing' doesn't exist
@@ -38,13 +38,13 @@ org.springframework.jdbc.BadSqlGrammarException:
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy72.getThingCollectList(Unknown Source)
-	at com.gk.study.service.impl.ThingCollectServiceImpl.getThingCollectList(ThingCollectServiceImpl.java:21)
-	at com.gk.study.service.impl.ThingCollectServiceImpl$$FastClassBySpringCGLIB$$6862c5c6.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsCollectServiceImpl.getThingCollectList(ThingCollectServiceImpl.java:21)
+	at com.gk.study.service.impl.GoodsCollectServiceImpl$$FastClassBySpringCGLIB$$6862c5c6.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingCollectServiceImpl$$EnhancerBySpringCGLIB$$bef44961.getThingCollectList(<generated>)
-	at com.gk.study.controller.ThingCollectController.getUserCollectList(ThingCollectController.java:58)
-	at com.gk.study.controller.ThingCollectController$$FastClassBySpringCGLIB$$392ac468.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsCollectServiceImpl$$EnhancerBySpringCGLIB$$bef44961.getThingCollectList(<generated>)
+	at com.gk.study.controller.GoodsCollectController.getUserCollectList(ThingCollectController.java:58)
+	at com.gk.study.controller.GoodsCollectController$$FastClassBySpringCGLIB$$392ac468.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:779)
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
@@ -55,7 +55,7 @@ org.springframework.jdbc.BadSqlGrammarException:
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:692)
-	at com.gk.study.controller.ThingCollectController$$EnhancerBySpringCGLIB$$1fa77a87.getUserCollectList(<generated>)
+	at com.gk.study.controller.GoodsCollectController$$EnhancerBySpringCGLIB$$1fa77a87.getUserCollectList(<generated>)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -170,7 +170,7 @@ Caused by: java.sql.SQLSyntaxErrorException: Table 'shop.b_thing' doesn't exist
 2024-05-09 00:02:13.788 [ http-nio-9100-exec-4 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>
 ### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Unknown column 'A.good_id' in 'on clause'
 ### The error may exist in file [D:\java\code\毕设\java_shop\server\target\classes\mapper\ThingCollectMapper.xml]
-### The error may involve com.gk.study.mapper.ThingCollectMapper.getThingCollectList-Inline
+### The error may involve com.gk.study.mapper.GoodsCollectMapper.getThingCollectList-Inline
 ### The error occurred while setting parameters
 ### SQL: select A.*, B.title, B.cover         from b_thing_collect  A         join b_goods  B on (A.good_id=B.id)         where A.user_id=?
 ### Cause: java.sql.SQLSyntaxErrorException: Unknown column 'A.good_id' in 'on clause'
@@ -178,7 +178,7 @@ Caused by: java.sql.SQLSyntaxErrorException: Table 'shop.b_thing' doesn't exist
 org.springframework.jdbc.BadSqlGrammarException: 
 ### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Unknown column 'A.good_id' in 'on clause'
 ### The error may exist in file [D:\java\code\毕设\java_shop\server\target\classes\mapper\ThingCollectMapper.xml]
-### The error may involve com.gk.study.mapper.ThingCollectMapper.getThingCollectList-Inline
+### The error may involve com.gk.study.mapper.GoodsCollectMapper.getThingCollectList-Inline
 ### The error occurred while setting parameters
 ### SQL: select A.*, B.title, B.cover         from b_thing_collect  A         join b_goods  B on (A.good_id=B.id)         where A.user_id=?
 ### Cause: java.sql.SQLSyntaxErrorException: Unknown column 'A.good_id' in 'on clause'
@@ -194,13 +194,13 @@ org.springframework.jdbc.BadSqlGrammarException:
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy72.getThingCollectList(Unknown Source)
-	at com.gk.study.service.impl.ThingCollectServiceImpl.getThingCollectList(ThingCollectServiceImpl.java:21)
-	at com.gk.study.service.impl.ThingCollectServiceImpl$$FastClassBySpringCGLIB$$6862c5c6.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsCollectServiceImpl.getThingCollectList(ThingCollectServiceImpl.java:21)
+	at com.gk.study.service.impl.GoodsCollectServiceImpl$$FastClassBySpringCGLIB$$6862c5c6.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingCollectServiceImpl$$EnhancerBySpringCGLIB$$aea593f7.getThingCollectList(<generated>)
-	at com.gk.study.controller.ThingCollectController.getUserCollectList(ThingCollectController.java:58)
-	at com.gk.study.controller.ThingCollectController$$FastClassBySpringCGLIB$$392ac468.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsCollectServiceImpl$$EnhancerBySpringCGLIB$$aea593f7.getThingCollectList(<generated>)
+	at com.gk.study.controller.GoodsCollectController.getUserCollectList(ThingCollectController.java:58)
+	at com.gk.study.controller.GoodsCollectController$$FastClassBySpringCGLIB$$392ac468.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:779)
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
@@ -211,7 +211,7 @@ org.springframework.jdbc.BadSqlGrammarException:
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:692)
-	at com.gk.study.controller.ThingCollectController$$EnhancerBySpringCGLIB$$f58c51d.getUserCollectList(<generated>)
+	at com.gk.study.controller.GoodsCollectController$$EnhancerBySpringCGLIB$$f58c51d.getUserCollectList(<generated>)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -310,7 +310,7 @@ Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'A.good_id' in 'on c
 2024-05-09 00:06:12.138 [ http-nio-9100-exec-7 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>
 ### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Table 'shop.b_thing_collect' doesn't exist
 ### The error may exist in file [D:\java\code\毕设\java_shop\server\target\classes\mapper\ThingCollectMapper.xml]
-### The error may involve com.gk.study.mapper.ThingCollectMapper.getThingCollectList-Inline
+### The error may involve com.gk.study.mapper.GoodsCollectMapper.getThingCollectList-Inline
 ### The error occurred while setting parameters
 ### SQL: select A.*, B.title, B.cover         from b_thing_collect  A         join b_goods  B on (A.good_id=B.id)         where A.user_id=?
 ### Cause: java.sql.SQLSyntaxErrorException: Table 'shop.b_thing_collect' doesn't exist
@@ -318,7 +318,7 @@ Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'A.good_id' in 'on c
 org.springframework.jdbc.BadSqlGrammarException: 
 ### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Table 'shop.b_thing_collect' doesn't exist
 ### The error may exist in file [D:\java\code\毕设\java_shop\server\target\classes\mapper\ThingCollectMapper.xml]
-### The error may involve com.gk.study.mapper.ThingCollectMapper.getThingCollectList-Inline
+### The error may involve com.gk.study.mapper.GoodsCollectMapper.getThingCollectList-Inline
 ### The error occurred while setting parameters
 ### SQL: select A.*, B.title, B.cover         from b_thing_collect  A         join b_goods  B on (A.good_id=B.id)         where A.user_id=?
 ### Cause: java.sql.SQLSyntaxErrorException: Table 'shop.b_thing_collect' doesn't exist
@@ -334,13 +334,13 @@ org.springframework.jdbc.BadSqlGrammarException:
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy72.getThingCollectList(Unknown Source)
-	at com.gk.study.service.impl.ThingCollectServiceImpl.getThingCollectList(ThingCollectServiceImpl.java:21)
-	at com.gk.study.service.impl.ThingCollectServiceImpl$$FastClassBySpringCGLIB$$6862c5c6.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsCollectServiceImpl.getThingCollectList(ThingCollectServiceImpl.java:21)
+	at com.gk.study.service.impl.GoodsCollectServiceImpl$$FastClassBySpringCGLIB$$6862c5c6.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingCollectServiceImpl$$EnhancerBySpringCGLIB$$aea593f7.getThingCollectList(<generated>)
-	at com.gk.study.controller.ThingCollectController.getUserCollectList(ThingCollectController.java:58)
-	at com.gk.study.controller.ThingCollectController$$FastClassBySpringCGLIB$$392ac468.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsCollectServiceImpl$$EnhancerBySpringCGLIB$$aea593f7.getThingCollectList(<generated>)
+	at com.gk.study.controller.GoodsCollectController.getUserCollectList(ThingCollectController.java:58)
+	at com.gk.study.controller.GoodsCollectController$$FastClassBySpringCGLIB$$392ac468.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:779)
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
@@ -351,7 +351,7 @@ org.springframework.jdbc.BadSqlGrammarException:
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:692)
-	at com.gk.study.controller.ThingCollectController$$EnhancerBySpringCGLIB$$f58c51d.getUserCollectList(<generated>)
+	at com.gk.study.controller.GoodsCollectController$$EnhancerBySpringCGLIB$$f58c51d.getUserCollectList(<generated>)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -434,7 +434,7 @@ Caused by: java.sql.SQLSyntaxErrorException: Table 'shop.b_thing_collect' doesn'
 2024-05-09 00:06:13.144 [ http-nio-9100-exec-8 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>
 ### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Table 'shop.b_thing_collect' doesn't exist
 ### The error may exist in file [D:\java\code\毕设\java_shop\server\target\classes\mapper\ThingCollectMapper.xml]
-### The error may involve com.gk.study.mapper.ThingCollectMapper.getThingCollectList-Inline
+### The error may involve com.gk.study.mapper.GoodsCollectMapper.getThingCollectList-Inline
 ### The error occurred while setting parameters
 ### SQL: select A.*, B.title, B.cover         from b_thing_collect  A         join b_goods  B on (A.good_id=B.id)         where A.user_id=?
 ### Cause: java.sql.SQLSyntaxErrorException: Table 'shop.b_thing_collect' doesn't exist
@@ -442,7 +442,7 @@ Caused by: java.sql.SQLSyntaxErrorException: Table 'shop.b_thing_collect' doesn'
 org.springframework.jdbc.BadSqlGrammarException: 
 ### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Table 'shop.b_thing_collect' doesn't exist
 ### The error may exist in file [D:\java\code\毕设\java_shop\server\target\classes\mapper\ThingCollectMapper.xml]
-### The error may involve com.gk.study.mapper.ThingCollectMapper.getThingCollectList-Inline
+### The error may involve com.gk.study.mapper.GoodsCollectMapper.getThingCollectList-Inline
 ### The error occurred while setting parameters
 ### SQL: select A.*, B.title, B.cover         from b_thing_collect  A         join b_goods  B on (A.good_id=B.id)         where A.user_id=?
 ### Cause: java.sql.SQLSyntaxErrorException: Table 'shop.b_thing_collect' doesn't exist
@@ -458,13 +458,13 @@ org.springframework.jdbc.BadSqlGrammarException:
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy72.getThingCollectList(Unknown Source)
-	at com.gk.study.service.impl.ThingCollectServiceImpl.getThingCollectList(ThingCollectServiceImpl.java:21)
-	at com.gk.study.service.impl.ThingCollectServiceImpl$$FastClassBySpringCGLIB$$6862c5c6.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsCollectServiceImpl.getThingCollectList(ThingCollectServiceImpl.java:21)
+	at com.gk.study.service.impl.GoodsCollectServiceImpl$$FastClassBySpringCGLIB$$6862c5c6.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingCollectServiceImpl$$EnhancerBySpringCGLIB$$aea593f7.getThingCollectList(<generated>)
-	at com.gk.study.controller.ThingCollectController.getUserCollectList(ThingCollectController.java:58)
-	at com.gk.study.controller.ThingCollectController$$FastClassBySpringCGLIB$$392ac468.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsCollectServiceImpl$$EnhancerBySpringCGLIB$$aea593f7.getThingCollectList(<generated>)
+	at com.gk.study.controller.GoodsCollectController.getUserCollectList(ThingCollectController.java:58)
+	at com.gk.study.controller.GoodsCollectController$$FastClassBySpringCGLIB$$392ac468.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:779)
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
@@ -475,7 +475,7 @@ org.springframework.jdbc.BadSqlGrammarException:
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:692)
-	at com.gk.study.controller.ThingCollectController$$EnhancerBySpringCGLIB$$f58c51d.getUserCollectList(<generated>)
+	at com.gk.study.controller.GoodsCollectController$$EnhancerBySpringCGLIB$$f58c51d.getUserCollectList(<generated>)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -2807,16 +2807,16 @@ The last packet successfully received from the server was 1,239 milliseconds ago
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy73.selectList(Unknown Source)
-	at com.gk.study.service.impl.ThingServiceImpl.getThingList(ThingServiceImpl.java:45)
-	at com.gk.study.service.impl.ThingServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl.getThingList(ThingServiceImpl.java:45)
+	at com.gk.study.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
-	at com.gk.study.controller.ThingController.list(ThingController.java:39)
-	at com.gk.study.controller.ThingController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
+	at com.gk.study.controller.GoodsController.list(ThingController.java:39)
+	at com.gk.study.controller.GoodsController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.controller.ThingController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
+	at com.gk.study.controller.GoodsController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
 	at sun.reflect.GeneratedMethodAccessor109.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -3298,16 +3298,16 @@ The last packet successfully received from the server was 577 milliseconds ago. 
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy73.selectList(Unknown Source)
-	at com.gk.study.service.impl.ThingServiceImpl.getThingList(ThingServiceImpl.java:45)
-	at com.gk.study.service.impl.ThingServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl.getThingList(ThingServiceImpl.java:45)
+	at com.gk.study.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
-	at com.gk.study.controller.ThingController.list(ThingController.java:39)
-	at com.gk.study.controller.ThingController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
+	at com.gk.study.controller.GoodsController.list(ThingController.java:39)
+	at com.gk.study.controller.GoodsController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.controller.ThingController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
+	at com.gk.study.controller.GoodsController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
 	at sun.reflect.GeneratedMethodAccessor109.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -8092,13 +8092,13 @@ Caused by: java.net.ConnectException: Connection refused: connect
 2024-05-09 01:05:36.637 [ http-nio-9100-exec-16 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
@@ -8110,16 +8110,16 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy73.selectList(Unknown Source)
-	at com.gk.study.service.impl.ThingServiceImpl.getThingList(ThingServiceImpl.java:45)
-	at com.gk.study.service.impl.ThingServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl.getThingList(ThingServiceImpl.java:45)
+	at com.gk.study.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
-	at com.gk.study.controller.ThingController.list(ThingController.java:39)
-	at com.gk.study.controller.ThingController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
+	at com.gk.study.controller.GoodsController.list(ThingController.java:39)
+	at com.gk.study.controller.GoodsController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.controller.ThingController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
+	at com.gk.study.controller.GoodsController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
 	at sun.reflect.GeneratedMethodAccessor109.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -8175,7 +8175,7 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
@@ -8222,13 +8222,13 @@ Caused by: java.lang.InterruptedException: null
 2024-05-09 01:05:36.638 [ http-nio-9100-exec-14 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
@@ -8240,16 +8240,16 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy73.selectList(Unknown Source)
-	at com.gk.study.service.impl.ThingServiceImpl.getThingList(ThingServiceImpl.java:45)
-	at com.gk.study.service.impl.ThingServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl.getThingList(ThingServiceImpl.java:45)
+	at com.gk.study.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
-	at com.gk.study.controller.ThingController.list(ThingController.java:39)
-	at com.gk.study.controller.ThingController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
+	at com.gk.study.controller.GoodsController.list(ThingController.java:39)
+	at com.gk.study.controller.GoodsController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.controller.ThingController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
+	at com.gk.study.controller.GoodsController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
 	at sun.reflect.GeneratedMethodAccessor109.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -8305,7 +8305,7 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
@@ -8352,13 +8352,13 @@ Caused by: java.lang.InterruptedException: null
 2024-05-09 01:05:36.638 [ http-nio-9100-exec-32 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
@@ -8370,16 +8370,16 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy73.selectList(Unknown Source)
-	at com.gk.study.service.impl.ThingServiceImpl.getThingList(ThingServiceImpl.java:45)
-	at com.gk.study.service.impl.ThingServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl.getThingList(ThingServiceImpl.java:45)
+	at com.gk.study.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
-	at com.gk.study.controller.ThingController.list(ThingController.java:39)
-	at com.gk.study.controller.ThingController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
+	at com.gk.study.controller.GoodsController.list(ThingController.java:39)
+	at com.gk.study.controller.GoodsController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.controller.ThingController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
+	at com.gk.study.controller.GoodsController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
 	at sun.reflect.GeneratedMethodAccessor109.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -8435,7 +8435,7 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
@@ -8612,13 +8612,13 @@ Caused by: java.lang.InterruptedException: null
 2024-05-09 01:05:36.638 [ http-nio-9100-exec-11 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
@@ -8630,16 +8630,16 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy73.selectList(Unknown Source)
-	at com.gk.study.service.impl.ThingServiceImpl.getThingList(ThingServiceImpl.java:45)
-	at com.gk.study.service.impl.ThingServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl.getThingList(ThingServiceImpl.java:45)
+	at com.gk.study.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
-	at com.gk.study.controller.ThingController.list(ThingController.java:39)
-	at com.gk.study.controller.ThingController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
+	at com.gk.study.controller.GoodsController.list(ThingController.java:39)
+	at com.gk.study.controller.GoodsController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.controller.ThingController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
+	at com.gk.study.controller.GoodsController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
 	at sun.reflect.GeneratedMethodAccessor109.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -8695,7 +8695,7 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
@@ -8742,13 +8742,13 @@ Caused by: java.lang.InterruptedException: null
 2024-05-09 01:05:36.637 [ http-nio-9100-exec-2 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
@@ -8760,16 +8760,16 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy73.selectList(Unknown Source)
-	at com.gk.study.service.impl.ThingServiceImpl.getThingList(ThingServiceImpl.java:45)
-	at com.gk.study.service.impl.ThingServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl.getThingList(ThingServiceImpl.java:45)
+	at com.gk.study.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
-	at com.gk.study.controller.ThingController.list(ThingController.java:39)
-	at com.gk.study.controller.ThingController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
+	at com.gk.study.controller.GoodsController.list(ThingController.java:39)
+	at com.gk.study.controller.GoodsController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.controller.ThingController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
+	at com.gk.study.controller.GoodsController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
 	at sun.reflect.GeneratedMethodAccessor109.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -8825,7 +8825,7 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
@@ -8872,13 +8872,13 @@ Caused by: java.lang.InterruptedException: null
 2024-05-09 01:05:36.639 [ http-nio-9100-exec-17 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
@@ -8890,16 +8890,16 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy73.selectList(Unknown Source)
-	at com.gk.study.service.impl.ThingServiceImpl.getThingList(ThingServiceImpl.java:45)
-	at com.gk.study.service.impl.ThingServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl.getThingList(ThingServiceImpl.java:45)
+	at com.gk.study.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
-	at com.gk.study.controller.ThingController.list(ThingController.java:39)
-	at com.gk.study.controller.ThingController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
+	at com.gk.study.controller.GoodsController.list(ThingController.java:39)
+	at com.gk.study.controller.GoodsController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.controller.ThingController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
+	at com.gk.study.controller.GoodsController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
 	at sun.reflect.GeneratedMethodAccessor109.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -8955,7 +8955,7 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
@@ -9002,13 +9002,13 @@ Caused by: java.lang.InterruptedException: null
 2024-05-09 01:05:36.639 [ http-nio-9100-exec-30 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
@@ -9020,16 +9020,16 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy73.selectList(Unknown Source)
-	at com.gk.study.service.impl.ThingServiceImpl.getThingList(ThingServiceImpl.java:45)
-	at com.gk.study.service.impl.ThingServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl.getThingList(ThingServiceImpl.java:45)
+	at com.gk.study.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
-	at com.gk.study.controller.ThingController.list(ThingController.java:39)
-	at com.gk.study.controller.ThingController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
+	at com.gk.study.controller.GoodsController.list(ThingController.java:39)
+	at com.gk.study.controller.GoodsController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.controller.ThingController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
+	at com.gk.study.controller.GoodsController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
 	at sun.reflect.GeneratedMethodAccessor109.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -9085,7 +9085,7 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
@@ -9262,13 +9262,13 @@ Caused by: java.lang.InterruptedException: null
 2024-05-09 01:05:36.640 [ http-nio-9100-exec-15 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
@@ -9280,16 +9280,16 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy73.selectList(Unknown Source)
-	at com.gk.study.service.impl.ThingServiceImpl.getThingList(ThingServiceImpl.java:45)
-	at com.gk.study.service.impl.ThingServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl.getThingList(ThingServiceImpl.java:45)
+	at com.gk.study.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
-	at com.gk.study.controller.ThingController.list(ThingController.java:39)
-	at com.gk.study.controller.ThingController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
+	at com.gk.study.controller.GoodsController.list(ThingController.java:39)
+	at com.gk.study.controller.GoodsController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.controller.ThingController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
+	at com.gk.study.controller.GoodsController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
 	at sun.reflect.GeneratedMethodAccessor109.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -9345,7 +9345,7 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
@@ -9392,13 +9392,13 @@ Caused by: java.lang.InterruptedException: null
 2024-05-09 01:05:36.641 [ http-nio-9100-exec-20 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
@@ -9410,16 +9410,16 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy73.selectList(Unknown Source)
-	at com.gk.study.service.impl.ThingServiceImpl.getThingList(ThingServiceImpl.java:45)
-	at com.gk.study.service.impl.ThingServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl.getThingList(ThingServiceImpl.java:45)
+	at com.gk.study.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
-	at com.gk.study.controller.ThingController.list(ThingController.java:39)
-	at com.gk.study.controller.ThingController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
+	at com.gk.study.controller.GoodsController.list(ThingController.java:39)
+	at com.gk.study.controller.GoodsController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.controller.ThingController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
+	at com.gk.study.controller.GoodsController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
 	at sun.reflect.GeneratedMethodAccessor109.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -9475,7 +9475,7 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
@@ -9522,13 +9522,13 @@ Caused by: java.lang.InterruptedException: null
 2024-05-09 01:05:36.641 [ http-nio-9100-exec-18 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
@@ -9540,16 +9540,16 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy73.selectList(Unknown Source)
-	at com.gk.study.service.impl.ThingServiceImpl.getThingList(ThingServiceImpl.java:45)
-	at com.gk.study.service.impl.ThingServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl.getThingList(ThingServiceImpl.java:45)
+	at com.gk.study.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
-	at com.gk.study.controller.ThingController.list(ThingController.java:39)
-	at com.gk.study.controller.ThingController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
+	at com.gk.study.controller.GoodsController.list(ThingController.java:39)
+	at com.gk.study.controller.GoodsController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.controller.ThingController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
+	at com.gk.study.controller.GoodsController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
 	at sun.reflect.GeneratedMethodAccessor109.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -9605,7 +9605,7 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
@@ -9652,13 +9652,13 @@ Caused by: java.lang.InterruptedException: null
 2024-05-09 01:05:36.641 [ http-nio-9100-exec-21 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
@@ -9670,16 +9670,16 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy73.selectList(Unknown Source)
-	at com.gk.study.service.impl.ThingServiceImpl.getThingList(ThingServiceImpl.java:45)
-	at com.gk.study.service.impl.ThingServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl.getThingList(ThingServiceImpl.java:45)
+	at com.gk.study.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
-	at com.gk.study.controller.ThingController.list(ThingController.java:39)
-	at com.gk.study.controller.ThingController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
+	at com.gk.study.controller.GoodsController.list(ThingController.java:39)
+	at com.gk.study.controller.GoodsController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.controller.ThingController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
+	at com.gk.study.controller.GoodsController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
 	at sun.reflect.GeneratedMethodAccessor109.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -9735,7 +9735,7 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
@@ -9782,13 +9782,13 @@ Caused by: java.lang.InterruptedException: null
 2024-05-09 01:05:36.640 [ http-nio-9100-exec-28 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
@@ -9800,16 +9800,16 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy73.selectList(Unknown Source)
-	at com.gk.study.service.impl.ThingServiceImpl.getThingList(ThingServiceImpl.java:45)
-	at com.gk.study.service.impl.ThingServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl.getThingList(ThingServiceImpl.java:45)
+	at com.gk.study.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
-	at com.gk.study.controller.ThingController.list(ThingController.java:39)
-	at com.gk.study.controller.ThingController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
+	at com.gk.study.controller.GoodsController.list(ThingController.java:39)
+	at com.gk.study.controller.GoodsController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.controller.ThingController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
+	at com.gk.study.controller.GoodsController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
 	at sun.reflect.GeneratedMethodAccessor109.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -9865,7 +9865,7 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
@@ -9912,13 +9912,13 @@ Caused by: java.lang.InterruptedException: null
 2024-05-09 01:05:36.641 [ http-nio-9100-exec-9 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
@@ -9930,16 +9930,16 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy73.selectList(Unknown Source)
-	at com.gk.study.service.impl.ThingServiceImpl.getThingList(ThingServiceImpl.java:45)
-	at com.gk.study.service.impl.ThingServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl.getThingList(ThingServiceImpl.java:45)
+	at com.gk.study.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
-	at com.gk.study.controller.ThingController.list(ThingController.java:39)
-	at com.gk.study.controller.ThingController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
+	at com.gk.study.controller.GoodsController.list(ThingController.java:39)
+	at com.gk.study.controller.GoodsController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.controller.ThingController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
+	at com.gk.study.controller.GoodsController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
 	at sun.reflect.GeneratedMethodAccessor109.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -9995,7 +9995,7 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
@@ -10302,13 +10302,13 @@ Caused by: java.lang.InterruptedException: null
 2024-05-09 01:05:36.638 [ http-nio-9100-exec-19 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
@@ -10320,16 +10320,16 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy73.selectList(Unknown Source)
-	at com.gk.study.service.impl.ThingServiceImpl.getThingList(ThingServiceImpl.java:45)
-	at com.gk.study.service.impl.ThingServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl.getThingList(ThingServiceImpl.java:45)
+	at com.gk.study.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
-	at com.gk.study.controller.ThingController.list(ThingController.java:39)
-	at com.gk.study.controller.ThingController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
+	at com.gk.study.controller.GoodsController.list(ThingController.java:39)
+	at com.gk.study.controller.GoodsController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.controller.ThingController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
+	at com.gk.study.controller.GoodsController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
 	at sun.reflect.GeneratedMethodAccessor109.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -10385,7 +10385,7 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
@@ -10432,13 +10432,13 @@ Caused by: java.lang.InterruptedException: null
 2024-05-09 01:05:36.637 [ http-nio-9100-exec-22 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
@@ -10450,16 +10450,16 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy73.selectList(Unknown Source)
-	at com.gk.study.service.impl.ThingServiceImpl.getThingList(ThingServiceImpl.java:45)
-	at com.gk.study.service.impl.ThingServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl.getThingList(ThingServiceImpl.java:45)
+	at com.gk.study.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
-	at com.gk.study.controller.ThingController.list(ThingController.java:39)
-	at com.gk.study.controller.ThingController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
+	at com.gk.study.controller.GoodsController.list(ThingController.java:39)
+	at com.gk.study.controller.GoodsController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.controller.ThingController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
+	at com.gk.study.controller.GoodsController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
 	at sun.reflect.GeneratedMethodAccessor109.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -10515,7 +10515,7 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
@@ -10562,13 +10562,13 @@ Caused by: java.lang.InterruptedException: null
 2024-05-09 01:05:36.638 [ http-nio-9100-exec-34 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
@@ -10580,16 +10580,16 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy73.selectList(Unknown Source)
-	at com.gk.study.service.impl.ThingServiceImpl.getThingList(ThingServiceImpl.java:45)
-	at com.gk.study.service.impl.ThingServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl.getThingList(ThingServiceImpl.java:45)
+	at com.gk.study.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
-	at com.gk.study.controller.ThingController.list(ThingController.java:39)
-	at com.gk.study.controller.ThingController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
+	at com.gk.study.controller.GoodsController.list(ThingController.java:39)
+	at com.gk.study.controller.GoodsController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.controller.ThingController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
+	at com.gk.study.controller.GoodsController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
 	at sun.reflect.GeneratedMethodAccessor109.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -10645,7 +10645,7 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
@@ -10822,13 +10822,13 @@ Caused by: java.lang.InterruptedException: null
 2024-05-09 01:05:36.639 [ http-nio-9100-exec-13 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
@@ -10840,16 +10840,16 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy73.selectList(Unknown Source)
-	at com.gk.study.service.impl.ThingServiceImpl.getThingList(ThingServiceImpl.java:45)
-	at com.gk.study.service.impl.ThingServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl.getThingList(ThingServiceImpl.java:45)
+	at com.gk.study.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
-	at com.gk.study.controller.ThingController.list(ThingController.java:39)
-	at com.gk.study.controller.ThingController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
+	at com.gk.study.controller.GoodsController.list(ThingController.java:39)
+	at com.gk.study.controller.GoodsController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.controller.ThingController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
+	at com.gk.study.controller.GoodsController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
 	at sun.reflect.GeneratedMethodAccessor109.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -10905,7 +10905,7 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
@@ -11082,13 +11082,13 @@ Caused by: java.lang.InterruptedException: null
 2024-05-09 01:05:36.639 [ http-nio-9100-exec-23 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
@@ -11100,16 +11100,16 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy73.selectList(Unknown Source)
-	at com.gk.study.service.impl.ThingServiceImpl.getThingList(ThingServiceImpl.java:45)
-	at com.gk.study.service.impl.ThingServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl.getThingList(ThingServiceImpl.java:45)
+	at com.gk.study.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
-	at com.gk.study.controller.ThingController.list(ThingController.java:39)
-	at com.gk.study.controller.ThingController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
+	at com.gk.study.controller.GoodsController.list(ThingController.java:39)
+	at com.gk.study.controller.GoodsController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.controller.ThingController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
+	at com.gk.study.controller.GoodsController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
 	at sun.reflect.GeneratedMethodAccessor109.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -11165,7 +11165,7 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
@@ -11212,13 +11212,13 @@ Caused by: java.lang.InterruptedException: null
 2024-05-09 01:05:36.640 [ http-nio-9100-exec-24 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
@@ -11230,16 +11230,16 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy73.selectList(Unknown Source)
-	at com.gk.study.service.impl.ThingServiceImpl.getThingList(ThingServiceImpl.java:45)
-	at com.gk.study.service.impl.ThingServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl.getThingList(ThingServiceImpl.java:45)
+	at com.gk.study.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
-	at com.gk.study.controller.ThingController.list(ThingController.java:39)
-	at com.gk.study.controller.ThingController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
+	at com.gk.study.controller.GoodsController.list(ThingController.java:39)
+	at com.gk.study.controller.GoodsController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.controller.ThingController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
+	at com.gk.study.controller.GoodsController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
 	at sun.reflect.GeneratedMethodAccessor109.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -11295,7 +11295,7 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
@@ -11342,13 +11342,13 @@ Caused by: java.lang.InterruptedException: null
 2024-05-09 01:05:36.641 [ http-nio-9100-exec-12 ] - [ ERROR ] [ com.gk.study.handler.CustomExceptionHandler : 29 ] - error log======>nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96)
@@ -11360,16 +11360,16 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
 	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
 	at com.sun.proxy.$Proxy73.selectList(Unknown Source)
-	at com.gk.study.service.impl.ThingServiceImpl.getThingList(ThingServiceImpl.java:45)
-	at com.gk.study.service.impl.ThingServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl.getThingList(ThingServiceImpl.java:45)
+	at com.gk.study.service.impl.GoodsServiceImpl$$FastClassBySpringCGLIB$$da9a27fa.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.service.impl.ThingServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
-	at com.gk.study.controller.ThingController.list(ThingController.java:39)
-	at com.gk.study.controller.ThingController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
+	at com.gk.study.service.impl.GoodsServiceImpl$$EnhancerBySpringCGLIB$$90108a07.getThingList(<generated>)
+	at com.gk.study.controller.GoodsController.list(ThingController.java:39)
+	at com.gk.study.controller.GoodsController$$FastClassBySpringCGLIB$$a27871da.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at com.gk.study.controller.ThingController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
+	at com.gk.study.controller.GoodsController$$EnhancerBySpringCGLIB$$447893a7.list(<generated>)
 	at sun.reflect.GeneratedMethodAccessor109.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
@@ -11425,7 +11425,7 @@ org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis
 Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 ### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 ### The error may exist in com/gk/study/mapper/ThingMapper.java (best guess)
-### The error may involve com.gk.study.mapper.ThingMapper.selectList
+### The error may involve com.gk.study.mapper.GoodsMapper.selectList
 ### The error occurred while executing a query
 ### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException
 	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
@@ -13361,3 +13361,31 @@ Caused by: java.io.IOException: 你的主机中的软件中止了一个已建立
 2024-05-09 01:09:19.943 [ main ] - [ WARN  ] [ c.b.mybatisplus.core.injector.DefaultSqlInjector : 56 ] - class java.lang.Object ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
 2024-05-09 01:09:20.992 [ main ] - [ INFO  ] [ org.apache.coyote.http11.Http11NioProtocol : 173 ] - Starting ProtocolHandler ["http-nio-9100"]
 2024-05-09 01:09:21.020 [ main ] - [ INFO  ] [ com.gk.study.MySpringApplication : 61 ] - Started MySpringApplication in 3.856 seconds (JVM running for 4.475)
+2024-05-09 15:23:33.401 [ main ] - [ INFO  ] [ com.gk.study.MySpringApplication : 55 ] - Starting MySpringApplication using Java 1.8.0_361 on LAPTOP-E89D4MS2 with PID 13576 (D:\java\code\毕设\java_shop\server\target\classes started by ll in D:\java\code\毕设\java_shop)
+2024-05-09 15:23:33.405 [ main ] - [ INFO  ] [ com.gk.study.MySpringApplication : 659 ] - No active profile set, falling back to default profiles: default
+2024-05-09 15:23:35.083 [ main ] - [ INFO  ] [ org.apache.coyote.http11.Http11NioProtocol : 173 ] - Initializing ProtocolHandler ["http-nio-9100"]
+2024-05-09 15:23:35.084 [ main ] - [ INFO  ] [ org.apache.catalina.core.StandardService : 173 ] - Starting service [Tomcat]
+2024-05-09 15:23:35.085 [ main ] - [ INFO  ] [ org.apache.catalina.core.StandardEngine : 173 ] - Starting Servlet engine: [Apache Tomcat/9.0.53]
+2024-05-09 15:23:35.161 [ main ] - [ INFO  ] [ o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] : 173 ] - Initializing Spring embedded WebApplicationContext
+2024-05-09 15:23:35.262 [ main ] - [ INFO  ] [ c.a.d.s.b.a.DruidDataSourceAutoConfigure : 56 ] - Init DruidDataSource
+2024-05-09 15:23:35.403 [ main ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 975 ] - {dataSource-1} inited
+2024-05-09 15:23:35.592 [ main ] - [ WARN  ] [ c.b.mybatisplus.core.metadata.TableInfoHelper : 342 ] - Can not find table primary key in Class: "java.lang.Object".
+2024-05-09 15:23:35.593 [ main ] - [ WARN  ] [ c.b.mybatisplus.core.injector.DefaultSqlInjector : 56 ] - class java.lang.Object ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2024-05-09 15:23:36.750 [ main ] - [ INFO  ] [ org.apache.coyote.http11.Http11NioProtocol : 173 ] - Starting ProtocolHandler ["http-nio-9100"]
+2024-05-09 15:23:36.777 [ main ] - [ INFO  ] [ com.gk.study.MySpringApplication : 61 ] - Started MySpringApplication in 4.03 seconds (JVM running for 5.045)
+2024-05-09 15:23:57.529 [ http-nio-9100-exec-1 ] - [ INFO  ] [ o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] : 173 ] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-05-09 15:28:53.696 [ SpringApplicationShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 2063 ] - {dataSource-1} closing ...
+2024-05-09 15:28:53.700 [ SpringApplicationShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 2136 ] - {dataSource-1} closed
+2024-05-09 15:29:04.032 [ main ] - [ INFO  ] [ com.gk.study.MySpringApplication : 55 ] - Starting MySpringApplication using Java 1.8.0_361 on LAPTOP-E89D4MS2 with PID 3068 (D:\java\code\毕设\java_shop\server\target\classes started by ll in D:\java\code\毕设\java_shop)
+2024-05-09 15:29:04.034 [ main ] - [ INFO  ] [ com.gk.study.MySpringApplication : 659 ] - No active profile set, falling back to default profiles: default
+2024-05-09 15:29:05.171 [ main ] - [ INFO  ] [ org.apache.coyote.http11.Http11NioProtocol : 173 ] - Initializing ProtocolHandler ["http-nio-9100"]
+2024-05-09 15:29:05.171 [ main ] - [ INFO  ] [ org.apache.catalina.core.StandardService : 173 ] - Starting service [Tomcat]
+2024-05-09 15:29:05.172 [ main ] - [ INFO  ] [ org.apache.catalina.core.StandardEngine : 173 ] - Starting Servlet engine: [Apache Tomcat/9.0.53]
+2024-05-09 15:29:05.239 [ main ] - [ INFO  ] [ o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] : 173 ] - Initializing Spring embedded WebApplicationContext
+2024-05-09 15:29:05.317 [ main ] - [ INFO  ] [ c.a.d.s.b.a.DruidDataSourceAutoConfigure : 56 ] - Init DruidDataSource
+2024-05-09 15:29:05.458 [ main ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 975 ] - {dataSource-1} inited
+2024-05-09 15:29:05.612 [ main ] - [ WARN  ] [ c.b.mybatisplus.core.metadata.TableInfoHelper : 342 ] - Can not find table primary key in Class: "java.lang.Object".
+2024-05-09 15:29:05.613 [ main ] - [ WARN  ] [ c.b.mybatisplus.core.injector.DefaultSqlInjector : 56 ] - class java.lang.Object ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2024-05-09 15:29:06.589 [ main ] - [ INFO  ] [ org.apache.coyote.http11.Http11NioProtocol : 173 ] - Starting ProtocolHandler ["http-nio-9100"]
+2024-05-09 15:29:06.614 [ main ] - [ INFO  ] [ com.gk.study.MySpringApplication : 61 ] - Started MySpringApplication in 2.992 seconds (JVM running for 3.776)
+2024-05-09 15:29:19.306 [ http-nio-9100-exec-2 ] - [ INFO  ] [ o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] : 173 ] - Initializing Spring DispatcherServlet 'dispatcherServlet'

@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 @Data
 @TableName("b_thing_collect")
-public class ThingCollect implements Serializable {
+public class GoodsCollect implements Serializable {
     @TableId(value = "id",type = IdType.AUTO)
     public Long id;
     @TableField

@@ -83,7 +83,7 @@ import {
   listApi as listThingList,
 } from '/@/api/thing'
 
-import {collectApi} from '/@/api/thingCollect'
+import {collectApi} from '/@/api/goodsCollect'
 import {BASE_URL} from "/@/store/constants";
 import {useRoute, useRouter} from "vue-router/dist/vue-router";
 import {useUserStore} from "/@/store";
@@ -107,7 +107,7 @@ let sortIndex = ref(0)
 let order = ref('recent') // 默认排序最新
 
 let commentRef = ref()
-
+let classificition
 
 
 onMounted(()=>{

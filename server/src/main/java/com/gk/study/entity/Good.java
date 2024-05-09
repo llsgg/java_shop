@@ -8,11 +8,10 @@ import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Data
 @TableName("b_goods")
-public class Thing implements Serializable {
+public class Good implements Serializable {
     @TableId(value = "id",type = IdType.AUTO)
     public Long id;
     @TableField

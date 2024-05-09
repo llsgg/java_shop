@@ -42,7 +42,7 @@ import SafeIconImage from '/@/assets/images/setting-safe-icon.svg'
 import PushIconImage from '/@/assets/images/setting-push-icon.svg'
 import MessageIconImage from '/@/assets/images/setting-msg-icon.svg'
 
-import {userCollectListApi} from '/@/api/thingCollect'
+import {userCollectListApi} from '/@/api/goodsCollect'
 import {userWishListApi} from '/@/api/thingWish'
 import {useUserStore} from '/@/store';
 const userStore = useUserStore();

@@ -3,25 +3,23 @@ package com.gk.study.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.gk.study.entity.Thing;
-import com.gk.study.mapper.ThingMapper;
-import com.gk.study.service.ThingService;
+import com.gk.study.entity.Good;
+import com.gk.study.mapper.GoodsMapper;
+import com.gk.study.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
-public class ThingServiceImpl extends ServiceImpl<ThingMapper, Thing> implements ThingService {
+public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Good> implements GoodsService {
     @Autowired
-    ThingMapper mapper;
+    GoodsMapper mapper;
 
 
     @Override
-    public List<Thing> getThingList(String keyword, String c) {
-        QueryWrapper<Thing> queryWrapper = new QueryWrapper<>();
+    public List<Good> getThingList(String keyword, String c) {
+        QueryWrapper<Good> queryWrapper = new QueryWrapper<>();
 
         // 搜索
         queryWrapper.like(StringUtils.isNotBlank(keyword), "title", keyword);
@@ -42,13 +40,13 @@ public class ThingServiceImpl extends ServiceImpl<ThingMapper, Thing> implements
             queryWrapper.eq(true, "classification_id", c);
         }
 
-        List<Thing> things = mapper.selectList(queryWrapper);
+        List<Good> things = mapper.selectList(queryWrapper);
 
         return things;
     }
 
     @Override
-    public void createThing(Thing thing) {
+    public void createThing(Good thing) {
         System.out.println(thing);
         thing.setCreateTime(String.valueOf(System.currentTimeMillis()));
 
@@ -63,7 +61,7 @@ public class ThingServiceImpl extends ServiceImpl<ThingMapper, Thing> implements
     }
 
     @Override
-    public void updateThing(Thing thing) {
+    public void updateThing(Good thing) {
 
         // 更新tag
 //        setThingTags(thing);
@@ -72,14 +70,14 @@ public class ThingServiceImpl extends ServiceImpl<ThingMapper, Thing> implements
     }
 
     @Override
-    public Thing getThingById(String id) {
+    public Good getThingById(String id) {
         return mapper.selectById(id);
     }
 
     // 收藏数加1
     @Override
     public void addCollectCount(String thingId) {
-        Thing thing = mapper.selectById(thingId);
+        Good thing = mapper.selectById(thingId);
         thing.setCollectCount(String.valueOf(Integer.parseInt(thing.getCollectCount()) + 1));
         mapper.updateById(thing);
     }

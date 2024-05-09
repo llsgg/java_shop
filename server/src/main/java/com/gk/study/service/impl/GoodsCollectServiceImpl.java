@@ -2,9 +2,9 @@ package com.gk.study.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.gk.study.mapper.ThingCollectMapper;
-import com.gk.study.service.ThingCollectService;
-import com.gk.study.entity.ThingCollect;
+import com.gk.study.entity.GoodsCollect;
+import com.gk.study.mapper.GoodsCollectMapper;
+import com.gk.study.service.GoodsCollectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-class ThingCollectServiceImpl extends ServiceImpl<ThingCollectMapper, ThingCollect> implements ThingCollectService {
+class GoodsCollectServiceImpl extends ServiceImpl<GoodsCollectMapper, GoodsCollect> implements GoodsCollectService {
     @Autowired
-    ThingCollectMapper mapper;
+    GoodsCollectMapper mapper;
 
     @Override
     public List<Map> getThingCollectList(String userId) {
@@ -22,8 +22,8 @@ class ThingCollectServiceImpl extends ServiceImpl<ThingCollectMapper, ThingColle
     }
 
     @Override
-    public void createThingCollect(ThingCollect thingCollect) {
-        mapper.insert(thingCollect);;
+    public void createThingCollect(GoodsCollect goodsCollect) {
+        mapper.insert(goodsCollect);;
     }
 
     @Override
@@ -32,8 +32,8 @@ class ThingCollectServiceImpl extends ServiceImpl<ThingCollectMapper, ThingColle
     }
 
     @Override
-    public ThingCollect getThingCollect(String userId, String thingId) {
-        QueryWrapper<ThingCollect> queryWrapper = new QueryWrapper<>();
+    public GoodsCollect getThingCollect(String userId, String thingId) {
+        QueryWrapper<GoodsCollect> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("thing_id", thingId)
                 .eq("user_id", userId);
         return mapper.selectOne(queryWrapper);

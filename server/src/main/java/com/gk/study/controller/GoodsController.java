@@ -2,10 +2,10 @@ package com.gk.study.controller;
 
 import com.gk.study.common.APIResponse;
 import com.gk.study.common.ResponeCode;
-import com.gk.study.entity.Thing;
+import com.gk.study.entity.Good;
 import com.gk.study.permission.Access;
 import com.gk.study.permission.AccessLevel;
-import com.gk.study.service.ThingService;
+import com.gk.study.service.GoodsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,26 +24,26 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/thing")
-public class ThingController {
+public class GoodsController {
 
-    private final static Logger logger = LoggerFactory.getLogger(ThingController.class);
+    private final static Logger logger = LoggerFactory.getLogger(GoodsController.class);
 
     @Autowired
-    ThingService service;
+    GoodsService service;
 
     @Value("${File.uploadPath}")
     private String uploadPath;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public APIResponse list(String keyword, String c){
-        List<Thing> list =  service.getThingList(keyword, c);
+        List<Good> list =  service.getThingList(keyword, c);
 
         return new APIResponse(ResponeCode.SUCCESS, "查询成功", list);
     }
 
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
     public APIResponse detail(String id){
-        Thing thing =  service.getThingById(id);
+        Good thing =  service.getThingById(id);
 
         return new APIResponse(ResponeCode.SUCCESS, "查询成功", thing);
     }
@@ -51,7 +51,7 @@ public class ThingController {
     @Access(level = AccessLevel.ADMIN)
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @Transactional
-    public APIResponse create(Thing thing) throws IOException {
+    public APIResponse create(Good thing) throws IOException {
         String url = saveThing(thing);
         if(!StringUtils.isEmpty(url)) {
             thing.cover = url;
@@ -76,7 +76,7 @@ public class ThingController {
     @Access(level = AccessLevel.ADMIN)
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @Transactional
-    public APIResponse update(Thing thing) throws IOException {
+    public APIResponse update(Good thing) throws IOException {
         System.out.println(thing);
         String url = saveThing(thing);
         if(!StringUtils.isEmpty(url)) {
@@ -87,7 +87,7 @@ public class ThingController {
         return new APIResponse(ResponeCode.SUCCESS, "更新成功");
     }
 
-    public String saveThing(Thing thing) throws IOException {
+    public String saveThing(Good thing) throws IOException {
         MultipartFile file = thing.getImageFile();
         String newFileName = null;
         if(file !=null && !file.isEmpty()) {

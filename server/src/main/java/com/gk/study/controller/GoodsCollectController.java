@@ -2,11 +2,11 @@ package com.gk.study.controller;
 
 import com.gk.study.common.APIResponse;
 import com.gk.study.common.ResponeCode;
-import com.gk.study.entity.ThingCollect;
+import com.gk.study.entity.GoodsCollect;
 import com.gk.study.permission.Access;
 import com.gk.study.permission.AccessLevel;
-import com.gk.study.service.ThingCollectService;
-import com.gk.study.service.ThingService;
+import com.gk.study.service.GoodsCollectService;
+import com.gk.study.service.GoodsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,25 +21,25 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/thingCollect")
-public class ThingCollectController {
+public class GoodsCollectController {
 
-    private final static Logger logger = LoggerFactory.getLogger(ThingCollectController.class);
-
-    @Autowired
-    ThingCollectService thingCollectService;
+    private final static Logger logger = LoggerFactory.getLogger(GoodsCollectController.class);
 
     @Autowired
-    ThingService thingService;
+    GoodsCollectService goodsCollectService;
+
+    @Autowired
+    GoodsService goodsService;
 
     @Access(level = AccessLevel.LOGIN)
     @RequestMapping(value = "/collect", method = RequestMethod.POST)
     @Transactional
-    public APIResponse collect(ThingCollect thingCollect) throws IOException {
-        if(thingCollectService.getThingCollect(thingCollect.getUserId(), thingCollect.getThingId()) != null){
+    public APIResponse collect(GoodsCollect goodsCollect) throws IOException {
+        if(goodsCollectService.getThingCollect(goodsCollect.getUserId(), goodsCollect.getThingId()) != null){
             return new APIResponse(ResponeCode.SUCCESS, "您已收藏过了");
         }else {
-            thingCollectService.createThingCollect(thingCollect);
-            thingService.addCollectCount(thingCollect.getThingId());
+            goodsCollectService.createThingCollect(goodsCollect);
+            goodsService.addCollectCount(goodsCollect.getThingId());
         }
         return new APIResponse(ResponeCode.SUCCESS, "收藏成功");
     }
@@ -48,14 +48,14 @@ public class ThingCollectController {
     @RequestMapping(value = "/unCollect", method = RequestMethod.POST)
     @Transactional
     public APIResponse unCollect(String id) throws IOException {
-        thingCollectService.deleteThingCollect(id);
+        goodsCollectService.deleteThingCollect(id);
         return new APIResponse(ResponeCode.SUCCESS, "取消收藏成功");
     }
 
     @RequestMapping(value = "/getUserCollectList", method = RequestMethod.GET)
     @Transactional
     public APIResponse getUserCollectList(String userId) throws IOException {
-        List<Map> lists = thingCollectService.getThingCollectList(userId);
+        List<Map> lists = goodsCollectService.getThingCollectList(userId);
         return new APIResponse(ResponeCode.SUCCESS, "获取成功", lists);
     }
 }

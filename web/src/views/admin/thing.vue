@@ -127,7 +127,7 @@
 
 <script setup lang="ts">
 import { FormInstance, message, SelectProps } from 'ant-design-vue';
-import { createApi, listApi, updateApi, deleteApi } from '/@/api/thing';
+import { createApi, listApi, updateApi, deleteApi } from '/src/api/goods';
 import {listApi as listClassificationApi} from '/@/api/classification'
 import {listApi as listTagApi} from '/@/api/tag'
 import {BASE_URL} from "/@/store/constants";

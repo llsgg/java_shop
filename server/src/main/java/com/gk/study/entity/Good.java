@@ -27,7 +27,7 @@ public class Good implements Serializable {
     @TableField
     public String createTime;
     @TableField
-    public String repertory;
+    public Integer count;
     @TableField
     public String collectCount;
     @TableField

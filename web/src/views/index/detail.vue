@@ -81,9 +81,9 @@ import AvatarIcon from '/@/assets/images/avatar.jpg';
 import {
   detailApi,
   listApi as listThingList,
-} from '/@/api/thing'
+} from '/src/api/goods'
 
-import {collectApi} from '/@/api/goodsCollect'
+import {collectApi} from '/src/api/goodsCollect'
 import {BASE_URL} from "/@/store/constants";
 import {useRoute, useRouter} from "vue-router/dist/vue-router";
 import {useUserStore} from "/@/store";

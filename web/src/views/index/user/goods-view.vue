@@ -137,7 +137,7 @@
 
 <script setup lang="ts">
 import { FormInstance, message } from 'ant-design-vue'
-import { createApi, listApi, updateApi, deleteApi} from '/@/api/thing';
+import { createApi, listApi, updateApi, deleteApi} from '/src/api/goods';
 import {getFormatTime} from "/@/utils";
 import {updateUserPwdApi} from '/@/api/user'
 import {useUserStore} from "/@/store";

@@ -1,7 +1,10 @@
 package com.gk.study.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.gk.study.entity.Good;
+import com.gk.study.service.GoodsService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("seckill")
 @Slf4j
 public class SeckillController {
-
+    @Autowired
+    private GoodsService goodsService;
 
 
     /**
@@ -32,15 +36,11 @@ public class SeckillController {
      * @return: [model, user, goodsId]
      **/
 //    @RequestMapping("/doSeckill2")
-//    public String doSeckill2(Model model, User user, Long goodsId)  {
-//        // 判断登录
-//        if (user == null) return "login";
-//        model.addAttribute("user", user);
-//
-//        GoodsVo goods = goodsService.findGoodsVoByGoodsId(goodsId);
+//    public String doSeckill2(String goodsId)  {
+//        Good good = goodsService.getGoodById(goodsId);
 //        // 判断库存
-//        if (goods.getStockCount() < 1) {
-//            model.addAttribute("errmsg", RespBeanEnum.EMPTY_STOCK.getMessage());
+//        if (good.getCount() < 1) {
+////            model.addAttribute("errmsg", RespBeanEnum.EMPTY_STOCK.getMessage());
 //            return "secKillFail";
 //        }
 //        // 判断是否重复抢购
@@ -52,9 +52,9 @@ public class SeckillController {
 //            model.addAttribute("errmsg", RespBeanEnum.REPEATE_ERROR.getMessage());
 //            return "secKillFail";
 //        }
-//        Order order = orderService.seckill(user, goods);
+//        Order order = orderService.seckill(user, good);
 //        model.addAttribute("order", order);
-//        model.addAttribute("goods", goods);
+//        model.addAttribute("goods", good);
 //        return "orderDetail";
 //    }
 }

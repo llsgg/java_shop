@@ -42,7 +42,7 @@
 <script setup>
 import {listApi as listClassificationList} from '/@/api/classification'
 import {listApi as listTagList} from '/@/api/tag'
-import {listApi as listThingList} from '/@/api/thing'
+import {listApi as listThingList} from '/src/api/goods'
 import {BASE_URL} from "/@/store/constants";
 import {useUserStore} from "/@/store";
 

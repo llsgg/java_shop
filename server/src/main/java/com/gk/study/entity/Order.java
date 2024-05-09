@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @TableName("b_order")
@@ -14,15 +15,15 @@ public class Order implements Serializable {
     @TableId(value = "id",type = IdType.AUTO)
     public Long id;
     @TableField
-    public String status;
+    public int status;
     @TableField
-    public String orderTime;
+    public Date orderTime;
     @TableField
     public String payTime;
     @TableField
-    public String goodId;
+    public Long goodId;
     @TableField
-    public String userId;
+    public Long userId;
     @TableField
     public String count;
     @TableField

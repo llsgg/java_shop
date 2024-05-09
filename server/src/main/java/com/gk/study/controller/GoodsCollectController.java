@@ -35,11 +35,11 @@ public class GoodsCollectController {
     @RequestMapping(value = "/collect", method = RequestMethod.POST)
     @Transactional
     public APIResponse collect(GoodsCollect goodsCollect) throws IOException {
-        if(goodsCollectService.getThingCollect(goodsCollect.getUserId(), goodsCollect.getThingId()) != null){
+        if(goodsCollectService.getThingCollect(goodsCollect.getUserId(), goodsCollect.getGoodId()) != null){
             return new APIResponse(ResponeCode.SUCCESS, "您已收藏过了");
         }else {
             goodsCollectService.createThingCollect(goodsCollect);
-            goodsService.addCollectCount(goodsCollect.getThingId());
+            goodsService.addCollectCount(goodsCollect.getGoodId());
         }
         return new APIResponse(ResponeCode.SUCCESS, "收藏成功");
     }

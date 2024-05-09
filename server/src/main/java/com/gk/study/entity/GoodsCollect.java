@@ -10,12 +10,12 @@ import java.io.Serializable;
 
 
 @Data
-@TableName("b_thing_collect")
+@TableName("b_goods_collect")
 public class GoodsCollect implements Serializable {
     @TableId(value = "id",type = IdType.AUTO)
     public Long id;
     @TableField
-    public String thingId;
+    public String goodId;
     @TableField
     public String userId;
 

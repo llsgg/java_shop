@@ -34,7 +34,7 @@ class GoodsCollectServiceImpl extends ServiceImpl<GoodsCollectMapper, GoodsColle
     @Override
     public GoodsCollect getThingCollect(String userId, String thingId) {
         QueryWrapper<GoodsCollect> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("thing_id", thingId)
+        queryWrapper.eq("good_id", thingId)
                 .eq("user_id", userId);
         return mapper.selectOne(queryWrapper);
     }

@@ -31,7 +31,7 @@
 
           <div class="translators">
             <span class="author">库存：</span>
-            <span class="name">{{detailData.repertory}}</span>
+            <span class="name">{{detailData.count}}</span>
           </div>
 
           <div class="translators">
@@ -39,7 +39,7 @@
             <span class="name">{{detailData.collectCount}}</span>
           </div>
 
-          <div class="buy-btn" @click="seckill">
+          <div class="buy-btn" @click="doSeckill(detailData)">
             <span>立即秒杀</span>
           </div>
         </div>
@@ -89,6 +89,7 @@ import {useRoute, useRouter} from "vue-router/dist/vue-router";
 import {useUserStore} from "/@/store";
 import {getFormatTime} from "/@/utils";
 import Content from "/@/views/index/components/content.vue";
+import {seckillApi} from "/@/api/detail";
 
 const router = useRouter()
 const route = useRoute()
@@ -141,7 +142,7 @@ const getThingDetail =()=> {
 const collect =()=> {
   let userId = userStore.user_id
   if (userId) {
-    collectApi({thingId: thingId.value, userId: userId}).then(res => {
+    collectApi({goodId: thingId.value, userId: userId}).then(res => {
       message.success(res.msg)
       getThingDetail()
     }).catch(err => {
@@ -152,9 +153,19 @@ const collect =()=> {
   }
 }
 
-const seckill =(detailData)=> {
-  console.log(detailData)
-  const userId = userStore.user_id
+const doSeckill =(detailData)=> {
+  console.log(detailData.id);
+  const userId = userStore.user_id;
+  if (userId) {
+    seckillApi({userId: userId, goodsId: detailData.id}).then(res => {
+      message.success(res.trace)
+      router.push({name: 'orderView'})
+    }).catch(err => {
+      message.warn(err.trace)
+    })
+  } else {
+    message.warn('请先登录')
+  }
   // router.push({name: 'confirm'})
 }
 

@@ -1,46 +1,87 @@
 package com.gk.study.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.gk.study.entity.Good;
 import com.gk.study.entity.Order;
+import com.gk.study.entity.SeckillGoods;
+import com.gk.study.entity.SeckillOrder;
+import com.gk.study.service.ISeckillGoodsService;
+import com.gk.study.service.ISeckillOrderService;
 import com.gk.study.service.OrderService;
 import com.gk.study.mapper.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
     @Autowired
-    OrderMapper mapper;
+    OrderMapper orderMapper;
+
+    @Autowired
+    ISeckillGoodsService seckillGoodsService;
+    @Autowired
+    ISeckillOrderService seckillOrderService;
 
     @Override
     public List<Order> getOrderList() {
-        return mapper.getList();
+        return orderMapper.getList();
     }
 
     @Override
     public void createOrder(Order order) {
         long ct = System.currentTimeMillis();
-        order.setOrderTime(String.valueOf(ct));
+//        order.setOrderTime(String.valueOf(ct));
+        order.setOrderTime(new Date());
         order.setOrderNumber(String.valueOf(ct));
-        order.setStatus("1");
-        mapper.insert(order);
+        order.setStatus(1);
+        orderMapper.insert(order);
     }
 
     @Override
     public void deleteOrder(String id) {
-        mapper.deleteById(id);
+        orderMapper.deleteById(id);
     }
 
     @Override
     public void updateOrder(Order order) {
-        mapper.updateById(order);
+        orderMapper.updateById(order);
+    }
+
+    @Override
+    public Order seckill(Long userId, Good good) {
+        // 秒杀商品表减库存
+        SeckillGoods seckillGoods = seckillGoodsService.getOne(new QueryWrapper<SeckillGoods>().eq("goods_id", good.getId()));
+        seckillGoods.setStockCount(seckillGoods.getStockCount() - 1);
+        seckillGoodsService.updateById(seckillGoods);
+
+        //生成订单
+        Order order = new Order();
+        order.setUserId(userId);
+        order.setGoodId(good.getId());
+        order.setTitle(good.getTitle());
+//        order.setCount(1);
+//        order.setGoodsPrice(seckillGoods.getSeckillPrice());
+//        order.setOrderChannel(1);
+        order.setStatus(0);
+        order.setOrderTime(new Date());
+        orderMapper.insert(order);
+        //生成秒杀订单
+        SeckillOrder tSeckillOrder = new SeckillOrder();
+        tSeckillOrder.setUserId(userId);
+        tSeckillOrder.setOrderId(order.getId());
+        tSeckillOrder.setGoodsId(good.getId());
+        seckillOrderService.save(tSeckillOrder);
+//        redisTemplate.opsForValue().set("order:" + user.getId() + ":" + goodsVo.getId(), tSeckillOrder);
+        return order;
     }
 
     @Override
     public List<Order> getUserOrderList(String userId, String status) {
-        return mapper.getUserOrderList(userId, status);
+        return orderMapper.getUserOrderList(userId, status);
 //        QueryWrapper<Order> queryWrapper = new QueryWrapper<>();
 //        queryWrapper.eq("user_id", userId);
 //        if (StringUtils.isNotBlank(status)) {

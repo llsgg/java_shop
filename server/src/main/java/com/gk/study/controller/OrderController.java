@@ -72,7 +72,7 @@ public class OrderController {
     public APIResponse cancelOrder(Long id) throws IOException {
         Order order = new Order();
         order.setId(id);
-        order.setStatus("7"); // 7=取消
+        order.setStatus(7); // 7=取消
         service.updateOrder(order);
         return new APIResponse(ResponeCode.SUCCESS, "取消成功");
     }
@@ -83,7 +83,7 @@ public class OrderController {
     public APIResponse cancelUserOrder(Long id) throws IOException {
         Order order = new Order();
         order.setId(id);
-        order.setStatus("7"); // 7=取消
+        order.setStatus(7); // 7=取消
         service.updateOrder(order);
         return new APIResponse(ResponeCode.SUCCESS, "取消成功");
     }

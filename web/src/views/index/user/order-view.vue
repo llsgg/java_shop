@@ -55,6 +55,28 @@ import {useUserStore} from "/@/store";
 const router = useRouter();
 const userStore = useUserStore();
 
+function format (date) {
+  return new Date(date).format("yyyy-MM-dd HH:mm:ss")
+}
+//设定时间格式化函数，使用new Date().format("yyyy-MM-dd HH:mm:ss");
+Date.prototype.format = function (format) {
+  var args = {
+    "M+": this.getMonth() + 1,
+    "d+": this.getDate(),
+    "H+": this.getHours(),
+    "m+": this.getMinutes(),
+    "s+": this.getSeconds(),
+  };
+  if (/(y+)/.test(format))
+    format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+  for (var i in args) {
+    var n = args[i];
+    if (new RegExp("(" + i + ")").test(format))
+      format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? n : ("00" + n).substr(("" + n).length));
+  }
+  return format;
+};
+
 // 创建表格列的配置
 const columns = reactive([
   {
@@ -85,7 +107,7 @@ const columns = reactive([
     key: 'orderTime',
     align: 'center', // 居中显示
     // 自定义渲染函数，用于格式化订单时间
-    customRender: ({text}) => getFormatTime(text, true)
+    customRender: ({text}) => format(text)
   },
   {
     title: '支付时间',
@@ -93,7 +115,7 @@ const columns = reactive([
     key: 'payTime',
     align: 'center', // 居中显示
     // 自定义渲染函数，用于格式化订单时间
-    customRender: ({text}) => getFormatTime(text, true)
+    // customRender: ({text}) => getFormatTime(text, true)
   },
   {
     title: '操作',

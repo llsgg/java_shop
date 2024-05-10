@@ -1,6 +1,7 @@
 package com.gk.study.service;
 
 
+import com.gk.study.Vo.GoodsVo;
 import com.gk.study.entity.Good;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface GoodsService {
 
     void updateThing(Good thing);
 
-    Good getGoodById(Long id);
+    GoodsVo getGoodsVoById(Long id);
 
     void addCollectCount(String thingId);
 }

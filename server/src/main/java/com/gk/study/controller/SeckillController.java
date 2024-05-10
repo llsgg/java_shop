@@ -1,6 +1,7 @@
 package com.gk.study.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.gk.study.Vo.GoodsVo;
 import com.gk.study.common.APIResponse;
 import com.gk.study.common.ResponeCode;
 import com.gk.study.entity.Good;
@@ -56,9 +57,9 @@ public class SeckillController {
      **/
     @RequestMapping(value = "/doSeckill2", method = RequestMethod.POST)
     public APIResponse doSeckill2(@RequestParam("userId") Long userId, @RequestParam("goodsId") Long goodsId)  {
-        Good good = goodsService.getGoodById(goodsId);
+        GoodsVo good = goodsService.getGoodsVoById(goodsId);
         // 判断库存
-        if (good.getCount() < 1) {
+        if (good.getStockCount() < 1) {
             return new APIResponse(ResponeCode.FAIL, "库存不足", "");
         }
         // 判断是否重复抢购

@@ -3,8 +3,11 @@ package com.gk.study.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.gk.study.Vo.GoodsVo;
 import com.gk.study.entity.Good;
+import com.gk.study.entity.SeckillGoods;
 import com.gk.study.mapper.GoodsMapper;
+import com.gk.study.mapper.SeckillGoodsMapper;
 import com.gk.study.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +17,9 @@ import java.util.List;
 @Service
 public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Good> implements GoodsService {
     @Autowired
-    GoodsMapper mapper;
+    GoodsMapper goodsMapper;
+    @Autowired
+    SeckillGoodsMapper seckillGoodsMapper;
 
 
     @Override
@@ -40,7 +45,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Good> implements 
             queryWrapper.eq(true, "classification_id", c);
         }
 
-        List<Good> things = mapper.selectList(queryWrapper);
+        List<Good> things = goodsMapper.selectList(queryWrapper);
 
         return things;
     }
@@ -50,14 +55,14 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Good> implements 
         System.out.println(thing);
         thing.setCreateTime(String.valueOf(System.currentTimeMillis()));
 
-        mapper.insert(thing);
+        goodsMapper.insert(thing);
         // 更新tag
 //        setThingTags(thing);
     }
 
     @Override
     public void deleteThing(String id) {
-        mapper.deleteById(id);
+        goodsMapper.deleteById(id);
     }
 
     @Override
@@ -66,20 +71,21 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Good> implements 
         // 更新tag
 //        setThingTags(thing);
 
-        mapper.updateById(thing);
+        goodsMapper.updateById(thing);
     }
 
     @Override
-    public Good getGoodById(Long id) {
-        return mapper.selectById(id);
+    public GoodsVo getGoodsVoById(Long id) {
+        return goodsMapper.getGoodsVoById(id);
     }
+
 
     // 收藏数加1
     @Override
     public void addCollectCount(String thingId) {
-        Good thing = mapper.selectById(thingId);
+        Good thing = goodsMapper.selectById(thingId);
         thing.setCollectCount(String.valueOf(Integer.parseInt(thing.getCollectCount()) + 1));
-        mapper.updateById(thing);
+        goodsMapper.updateById(thing);
     }
 
 

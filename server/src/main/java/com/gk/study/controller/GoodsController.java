@@ -1,5 +1,6 @@
 package com.gk.study.controller;
 
+import com.gk.study.Vo.GoodsVo;
 import com.gk.study.common.APIResponse;
 import com.gk.study.common.ResponeCode;
 import com.gk.study.entity.Good;
@@ -43,7 +44,7 @@ public class GoodsController {
 
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
     public APIResponse detail(Long id){
-        Good thing =  service.getGoodById(id);
+        GoodsVo thing =  service.getGoodsVoById(id);
 
         return new APIResponse(ResponeCode.SUCCESS, "查询成功", thing);
     }

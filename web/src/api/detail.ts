@@ -1,7 +1,7 @@
 import {get, post} from '/@/utils/http/axios';
 
 enum URL {
-  doSeckill = '/api/seckill/doSeckill2',
+  doSeckill = '/api/seckill/doSeckill',
   getResult = '/api/seckill/result',
 }
 

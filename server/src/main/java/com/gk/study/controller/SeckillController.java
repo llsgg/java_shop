@@ -59,8 +59,8 @@ public class SeckillController implements InitializingBean {
      * @param: [model, user, goodsId]
      * @return: [model, user, goodsId]
      **/
-    @RequestMapping(value = "/doSeckill2", method = RequestMethod.POST)
-    public APIResponse doSeckill2(@RequestParam("userId") Long userId, @RequestParam("goodsId") Long goodsId) {
+    @RequestMapping(value = "/doSeckill", method = RequestMethod.POST)
+    public APIResponse doSeckill(@RequestParam("userId") Long userId, @RequestParam("goodsId") Long goodsId) {
         // 判断登录
         if (userId == null) return new APIResponse(ResponeCode.FAIL, "用户未登录", "");
         ValueOperations valueOperations = redisTemplate.opsForValue();

@@ -89,7 +89,7 @@ import {useRoute, useRouter} from "vue-router/dist/vue-router";
 import {useUserStore} from "/@/store";
 import {getFormatTime} from "/@/utils";
 import Content from "/@/views/index/components/content.vue";
-import {seckillApi} from "/@/api/detail";
+import {seckillApi, resultApi} from "/@/api/detail";
 
 const router = useRouter()
 const route = useRoute()
@@ -158,8 +158,12 @@ const doSeckill =(detailData)=> {
   const userId = userStore.user_id;
   if (userId) {
     seckillApi({userId: 1 * userId, goodsId: detailData.id}).then(res => {
-      message.success(res.trace)
-      router.push({name: 'orderView'})
+      if (res.code == 200) {
+        getResult(detailData.id);
+      } else {
+        console.log(res.msg);
+      }
+      // router.push({name: 'orderView'})
     }).catch(err => {
       message.warn(err.trace)
     })
@@ -167,6 +171,70 @@ const doSeckill =(detailData)=> {
     message.warn('请先登录')
   }
   // router.push({name: 'confirm'})
+}
+
+function getResult(goodsId) {
+  // g_showLoading();
+
+  resultApi({"userId": userStore.user_id, "goodsId": goodsId}).then(res => {
+    if (res.code == 200) {
+      var result = res.data;
+      if (result < 0) {
+        message.warn("对不起，秒杀失败!");
+      } else if (result==0) {
+        setTimeout(function () {
+          getResult(goodsId);
+        }, 50);
+      } else {
+        if (confirm("恭喜您，秒杀成功！是否查看订单？")) {
+          // 用户点击确认按钮时的逻辑
+          router.push({ name: 'orderView' });
+        } else {
+            close();
+        }
+      }
+    }
+
+  }).catch(err => {
+    message.warn(err.trace)
+  })
+
+  // this.$.ajax({
+  //   url:"/seckill/result",
+  //   type:"GET",
+  //   data: {
+  //     goodsId: goodsId
+  //   },
+  //   success: function (data) {
+  //     if (data.code == 200) {
+  //       var result =  data.obj;
+  //       if (result < 0) {
+  //         this.layer.msg("对不起，秒杀失败!");
+  //       } else if (result==0) {
+  //         setTimeout(function () {
+  //           getResult(goodsId);
+  //         }, 50);
+  //       } else {
+  //         layer.confirm("恭喜您，秒杀成功！查看订单？", {btn:["确定", "取消"]},
+  //           function () {
+  //             window.location.href = "/orderDetail.htm?orderId=" + result;
+  //           },
+  //           function () {
+  //             layer.close();
+  //           })
+  //       }
+  //     }
+  //
+  //   },
+  //   error: function () {
+  //     layer.msg("客户端请求错误");
+  //   }
+  // })
+}
+
+function g_showLoading(){
+  var idx = this.layer.msg('处理中...', {icon: 16,shade: [0.5, '#f5f5f5'],scrollbar: false,offset: '0px', time:100000}) ;
+  return idx;
 }
 
 const handleOrder =(detailData)=> {

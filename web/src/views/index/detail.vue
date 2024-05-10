@@ -157,7 +157,7 @@ const doSeckill =(detailData)=> {
   console.log(detailData.id);
   const userId = userStore.user_id;
   if (userId) {
-    seckillApi({userId: userId, goodsId: detailData.id}).then(res => {
+    seckillApi({userId: 1 * userId, goodsId: detailData.id}).then(res => {
       message.success(res.trace)
       router.push({name: 'orderView'})
     }).catch(err => {

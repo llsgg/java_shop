@@ -5,7 +5,7 @@ enum URL {
 }
 
 const seckillApi = async (params: any) =>
-  get<any>({url: URL.doSeckill, params: params, data: {}, headers: {}});
+  post<any>({url: URL.doSeckill, params: params, data: {}, headers: {}});
 
 
 export {seckillApi};

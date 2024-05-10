@@ -42,7 +42,7 @@ public class GoodsController {
     }
 
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
-    public APIResponse detail(String id){
+    public APIResponse detail(Long id){
         Good thing =  service.getGoodById(id);
 
         return new APIResponse(ResponeCode.SUCCESS, "查询成功", thing);

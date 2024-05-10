@@ -70,7 +70,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Good> implements 
     }
 
     @Override
-    public Good getGoodById(String id) {
+    public Good getGoodById(Long id) {
         return mapper.selectById(id);
     }
 

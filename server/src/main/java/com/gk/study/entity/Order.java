@@ -25,7 +25,7 @@ public class Order implements Serializable {
     @TableField
     public Long userId;
     @TableField
-    public String count;
+    public int count;
     @TableField
     public String orderNumber; // 订单编号
 

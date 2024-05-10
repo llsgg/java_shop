@@ -12,7 +12,7 @@ public interface GoodsService {
 
     void updateThing(Good thing);
 
-    Good getGoodById(String id);
+    Good getGoodById(Long id);
 
     void addCollectCount(String thingId);
 }

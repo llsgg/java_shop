@@ -51,9 +51,8 @@ public class SeckillController {
      * @param: [model, user, goodsId]
      * @return: [model, user, goodsId]
      **/
-//    @RequestMapping(value = "/doSeckill2", method = RequestMethod.POST)
-    @RequestMapping(value = "/doSeckill2", method = RequestMethod.GET)
-    public APIResponse doSeckill2(@RequestParam("userId") Long userId, @RequestParam("goodsId") String goodsId)  {
+    @RequestMapping(value = "/doSeckill2", method = RequestMethod.POST)
+    public APIResponse doSeckill2(@RequestParam("userId") Long userId, @RequestParam("goodsId") Long goodsId)  {
         Good good = goodsService.getGoodById(goodsId);
         // 判断库存
         if (good.getCount() < 1) {

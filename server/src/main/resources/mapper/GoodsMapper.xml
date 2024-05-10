@@ -7,7 +7,21 @@
         select * from b_goods;
     </select>
 
+
     <!-- 获取商品列表 -->
+    <select id="getGoodsVo" resultType="com.gk.study.Vo.GoodsVo">
+        SELECT
+            g.*,
+            sg.seckill_price,
+            sg.stock_count,
+            sg.start_date,
+            sg.end_date
+        FROM
+            b_goods g, b_seckill_goods sg
+        WHERE g.id=sg.goods_id
+    </select>
+
+    <!-- 获取商品详情 -->
     <select id="getGoodsVoById" resultType="com.gk.study.Vo.GoodsVo">
         SELECT
             g.*,

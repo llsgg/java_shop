@@ -13,6 +13,8 @@ public interface GoodsService {
 
     void updateThing(Good thing);
 
+    List<GoodsVo> getGoodsVo();
+
     GoodsVo getGoodsVoById(Long id);
 
     void addCollectCount(String thingId);

@@ -6,10 +6,13 @@ import com.gk.study.common.APIResponse;
 import com.gk.study.common.ResponeCode;
 import com.gk.study.entity.Good;
 import com.gk.study.entity.Order;
+import com.gk.study.entity.SeckillMessage;
 import com.gk.study.entity.SeckillOrder;
+import com.gk.study.rabbitmq.MQSender;
 import com.gk.study.service.GoodsService;
 import com.gk.study.service.OrderService;
 import com.gk.study.service.ISeckillOrderService;
+import com.gk.study.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +25,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 秒杀
@@ -42,6 +47,10 @@ public class SeckillController implements InitializingBean {
     private OrderService orderService;
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    private MQSender mqSender;
+    private Map<Long, Boolean> EmptyStockMap = new HashMap<>(); // 做标记，某个商品没有了就放入map
+
 
 
     @RequestMapping( "/doSeckill")
@@ -73,16 +82,24 @@ public class SeckillController implements InitializingBean {
             return new APIResponse(ResponeCode.FAIL, "重复秒杀", "");
         }
 
+        // 通过内存标记，减少redis访问
+        if (EmptyStockMap.get(goodsId)) {
+            return new APIResponse(ResponeCode.FAIL, "库存不足", "");
+        }
+
         // 预减库存，原子类型
         Long stock = valueOperations.decrement("seckillGoods:" + goodsId);
         if (stock < 0) {
+            EmptyStockMap.put(goodsId, true);
             valueOperations.increment("seckillGoods:" + goodsId);
             return new APIResponse(ResponeCode.FAIL, "库存不足", "");
         }
         GoodsVo good = goodsService.getGoodsVoById(goodsId);
         // 下单
-        Order order = orderService.seckill(userId, good);
-        return new APIResponse(ResponeCode.SUCCESS, "秒杀成功", order);
+        SeckillMessage message = new SeckillMessage(userId, goodsId);
+        mqSender.sendSeckillMessage(JsonUtil.object2JsonStr(message));
+
+        return new APIResponse(ResponeCode.SUCCESS, "0", 0); // 0代表排队中
     }
 
     /**
@@ -98,6 +115,7 @@ public class SeckillController implements InitializingBean {
         if (CollectionUtils.isEmpty(list)) return;
         list.forEach(goodsVo -> {
             redisTemplate.opsForValue().set("seckillGoods:" + goodsVo.getId(), goodsVo.getStockCount());
+            EmptyStockMap.put(goodsVo.getId(), false);
         });
     }
 }

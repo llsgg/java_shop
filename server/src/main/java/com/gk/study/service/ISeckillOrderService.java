@@ -21,5 +21,5 @@ public interface ISeckillOrderService extends IService<SeckillOrder> {
      * @param: [user, goodsId]
      * @return: [user, goodsId] orderId:成功、-1：失败、0：派对中
      **/
-    Long getResult(User user, Long goodsId);
+    Long getResult(Long userId, Long goodsId);
 }

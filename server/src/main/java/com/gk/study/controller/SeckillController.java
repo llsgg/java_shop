@@ -20,10 +20,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +39,7 @@ public class SeckillController implements InitializingBean {
     @Autowired
     private GoodsService goodsService;
     @Autowired
-    private ISeckillOrderService ISeckillOrderService;
+    private ISeckillOrderService seckillOrderService;
     @Autowired
     private OrderService orderService;
     @Autowired
@@ -50,13 +47,6 @@ public class SeckillController implements InitializingBean {
     @Autowired
     private MQSender mqSender;
     private Map<Long, Boolean> EmptyStockMap = new HashMap<>(); // 做标记，某个商品没有了就放入map
-
-
-
-    @RequestMapping( "/doSeckill")
-    public String doSeckill()  {
-        return "hello";
-    }
 
     /**
      * @description:秒杀
@@ -99,6 +89,21 @@ public class SeckillController implements InitializingBean {
         mqSender.sendSeckillMessage(JsonUtil.object2JsonStr(message));
 
         return new APIResponse(ResponeCode.SUCCESS, "0", 0); // 0代表排队中
+    }
+
+    /**
+     * @description:获取秒杀结果
+     * @author: longlin
+     * @date: 2024/4/23 11:17
+     * @param: [user, goodsId]
+     * @return: [user, goodsId] orderId:成功、-1：失败、0：派对中
+     **/
+    @RequestMapping("/result")
+    @ResponseBody
+    public APIResponse getResult(Long userId, Long goodsId) {
+        if (userId == null) return new APIResponse(ResponeCode.FAIL, "用户未登录", "");
+        Long orderId = seckillOrderService.getResult(userId, goodsId);
+        return new APIResponse(ResponeCode.SUCCESS, "获取成功", 1); // 0代表排队中
     }
 
     /**

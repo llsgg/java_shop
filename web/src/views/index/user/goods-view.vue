@@ -174,8 +174,8 @@ const columns = reactive([
   },
   {
     title: '库存',
-    dataIndex: 'repertory',
-    key: 'repertory'
+    dataIndex: 'count',
+    key: 'count'
   },
   {
     title: '简介',

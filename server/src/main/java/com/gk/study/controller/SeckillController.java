@@ -11,6 +11,7 @@ import com.gk.study.service.OrderService;
 import com.gk.study.service.ISeckillOrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,6 +34,8 @@ public class SeckillController {
     private ISeckillOrderService ISeckillOrderService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
 
     @RequestMapping( "/doSeckill")
@@ -46,7 +49,7 @@ public class SeckillController {
      *       缓存QPS：1606
      *       优化QPS：2435
      * Linux优化前QPS：190.7
-     * @author: yanhongwei
+     * @author: longlin
      * @date: 2024/4/12 20:24
      * @param: [model, user, goodsId]
      * @return: [model, user, goodsId]
@@ -59,9 +62,12 @@ public class SeckillController {
             return new APIResponse(ResponeCode.FAIL, "库存不足", "");
         }
         // 判断是否重复抢购
-        SeckillOrder seckillOrder =
-                ISeckillOrderService.getOne(new QueryWrapper<SeckillOrder>().
-                        eq("user_id", userId).eq("goods_id", goodsId));
+//        SeckillOrder seckillOrder =
+//                ISeckillOrderService.getOne(new QueryWrapper<SeckillOrder>().
+//                        eq("user_id", userId).eq("goods_id", goodsId));
+
+        // 用redis判断是否重复抢购
+        SeckillOrder seckillOrder = (SeckillOrder) redisTemplate.opsForValue().get("order:" + userId + ":" + goodsId);
 
         // 重复抢购
         if (seckillOrder != null) {

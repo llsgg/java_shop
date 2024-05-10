@@ -11,7 +11,9 @@ import com.gk.study.service.ISeckillOrderService;
 import com.gk.study.service.OrderService;
 import com.gk.study.mapper.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -25,6 +27,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     ISeckillGoodsService seckillGoodsService;
     @Autowired
     ISeckillOrderService seckillOrderService;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Override
     public List<Order> getOrderList() {
@@ -51,6 +55,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         orderMapper.updateById(order);
     }
 
+    @Transactional
     @Override
     public Order seckill(Long userId, Good good) {
         // 秒杀商品表减库存
@@ -74,7 +79,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         tSeckillOrder.setOrderId(order.getId());
         tSeckillOrder.setGoodsId(good.getId());
         seckillOrderService.save(tSeckillOrder);
-//        redisTemplate.opsForValue().set("order:" + user.getId() + ":" + goodsVo.getId(), tSeckillOrder);
+        redisTemplate.opsForValue().set("order:" + userId + ":" + good.getId(), tSeckillOrder);
         return order;
     }
 

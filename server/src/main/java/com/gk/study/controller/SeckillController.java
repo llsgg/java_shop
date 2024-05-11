@@ -18,10 +18,12 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +47,8 @@ public class SeckillController implements InitializingBean {
     @Autowired
     private RedisTemplate redisTemplate;
     @Autowired
+    private RedisScript script;
+    @Autowired
     private MQSender mqSender;
     private Map<Long, Boolean> EmptyStockMap = new HashMap<>(); // 做标记，某个商品没有了就放入map
 
@@ -67,6 +71,7 @@ public class SeckillController implements InitializingBean {
 
         // 用redis判断是否重复抢购
         SeckillOrder seckillOrder = (SeckillOrder) redisTemplate.opsForValue().get("order:" + userId + ":" + goodsId);
+
         // 重复抢购
         if (seckillOrder != null) {
             return new APIResponse(ResponeCode.FAIL, "重复秒杀", "");
@@ -78,7 +83,9 @@ public class SeckillController implements InitializingBean {
         }
 
         // 预减库存，原子类型
-        Long stock = valueOperations.decrement("seckillGoods:" + goodsId);
+//        Long stock = valueOperations.decrement("seckillGoods:" + goodsId);
+        Long stock = (Long) redisTemplate.execute(script, Collections.singletonList("seckillGoods:" + goodsId), Collections.EMPTY_LIST);
+
         if (stock < 0) {
             EmptyStockMap.put(goodsId, true);
             valueOperations.increment("seckillGoods:" + goodsId);

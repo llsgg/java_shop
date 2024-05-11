@@ -15,5 +15,23 @@ public interface OrderService {
 
     Order seckill(Long userId, Good good);
 
+    /**
+     * @description: 检查秒杀地址
+     * @author: longlin
+     * @date: 2024/5/11 13:44
+     * @param: [userId, goodsId, path]
+     * @return: [userId, goodsId, path]
+     **/
+    boolean checkPath(Long userId, Long goodsId, String path);
+
+    /**
+     * @description:获取秒杀地址
+     * @author: longlin
+     * @date: 2024/4/24 23:07
+     * @param: [user, goodsId]
+     * @return: [user, goodsId]
+     **/
+    String createPath(Long userId, Long goodsId);
+
     List<Order> getUserOrderList(String userId, String status);
 }

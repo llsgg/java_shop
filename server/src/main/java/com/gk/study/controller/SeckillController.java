@@ -53,6 +53,23 @@ public class SeckillController implements InitializingBean {
     private Map<Long, Boolean> EmptyStockMap = new HashMap<>(); // 做标记，某个商品没有了就放入map
 
     /**
+     * @description:获取秒杀地址
+     * @author: longlin
+     * @date: 2024/4/24 23:03
+     * @param: [user, goodsId]
+     * @return: [user, goodsId]
+     **/
+    @RequestMapping(value = "/path", method = RequestMethod .GET)
+    @ResponseBody
+    public APIResponse getPath(Long userId, Long goodsId) {
+        if (userId == null) return new APIResponse(ResponeCode.FAIL, "用户未登录", "");
+
+        String str = orderService.createPath(userId,goodsId);
+        return new APIResponse(ResponeCode.SUCCESS, "", str);
+    }
+
+
+    /**
      * @description:秒杀
      * Windos优化前QPS：936
      *       缓存QPS：1606
@@ -63,11 +80,17 @@ public class SeckillController implements InitializingBean {
      * @param: [model, user, goodsId]
      * @return: [model, user, goodsId]
      **/
-    @RequestMapping(value = "/doSeckill", method = RequestMethod.POST)
-    public APIResponse doSeckill(@RequestParam("userId") Long userId, @RequestParam("goodsId") Long goodsId) {
+    @RequestMapping(value = "/{path}/doSeckill", method = RequestMethod.GET)
+    public APIResponse doSeckill(@PathVariable String path, Long userId, Long goodsId) {
         // 判断登录
         if (userId == null) return new APIResponse(ResponeCode.FAIL, "用户未登录", "");
         ValueOperations valueOperations = redisTemplate.opsForValue();
+
+        // 判断路径
+        boolean check = orderService.checkPath(userId, goodsId, path);
+        if (!check) {
+            return new APIResponse(ResponeCode.FAIL, "请求非法", "");
+        }
 
         // 用redis判断是否重复抢购
         SeckillOrder seckillOrder = (SeckillOrder) redisTemplate.opsForValue().get("order:" + userId + ":" + goodsId);

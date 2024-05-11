@@ -1,5 +1,6 @@
 package com.gk.study.service.impl;
 
+import com.alibaba.druid.util.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -11,6 +12,8 @@ import com.gk.study.service.ISeckillGoodsService;
 import com.gk.study.service.ISeckillOrderService;
 import com.gk.study.service.OrderService;
 import com.gk.study.mapper.OrderMapper;
+import com.gk.study.utils.MD5Util;
+import com.gk.study.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
@@ -85,6 +89,36 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         return order;
     }
 
+    /**
+     * @description:校验秒杀地址
+     * @author: longlin
+     * @date: 2024/4/24 22:59
+     * @param: [user, goodsId, path]
+     * @return: [user, goodsId, path]
+     **/
+    @Override
+    public boolean checkPath(Long userId, Long goodsId, String path) {
+        if (userId==null|| StringUtils.isEmpty(path)){
+            return false;
+        }
+        String redisPath = (String) redisTemplate .opsForValue().get("seckillPath:" + userId + ":" + goodsId);
+        return path.equals(redisPath);
+    }
+
+
+    /**
+     * @description:生成秒杀地址
+     * @author: longlin
+     * @date: 2024/4/24 22:59
+     * @param: [user, goodsId]
+     * @return: [user, goodsId]
+     **/
+    @Override
+    public String createPath(Long userId, Long goodsId) {
+        String str = MD5Util.md5(UUIDUtil.uuid() + "123456");
+        redisTemplate.opsForValue().set("seckillPath:" + userId + ":" + goodsId, str, 60, TimeUnit.SECONDS);
+        return str;
+    }
     @Override
     public List<Order> getUserOrderList(String userId, String status) {
         return orderMapper.getUserOrderList(userId, status);

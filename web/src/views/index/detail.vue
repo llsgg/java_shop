@@ -39,7 +39,7 @@
             <span class="name">{{detailData.collectCount}}</span>
           </div>
 
-          <div class="buy-btn" @click="doSeckill(detailData)">
+          <div class="buy-btn" @click="getSeckillPath()">
             <span>立即秒杀</span>
           </div>
         </div>
@@ -89,7 +89,7 @@ import {useRoute, useRouter} from "vue-router/dist/vue-router";
 import {useUserStore} from "/@/store";
 import {getFormatTime} from "/@/utils";
 import Content from "/@/views/index/components/content.vue";
-import {seckillApi, resultApi} from "/@/api/detail";
+import {seckillApi, resultApi, seckillPathApi} from "/@/api/detail";
 
 const router = useRouter()
 const route = useRoute()
@@ -153,13 +153,27 @@ const collect =()=> {
   }
 }
 
-const doSeckill =(detailData)=> {
-  console.log(detailData.id);
+const getSeckillPath = ()=> {
+  seckillPathApi({userId: userStore.user_id, goodsId: thingId.value}).then(res => {
+    if (res.code == 200) {
+      var path = res.data;
+      doSeckill(path);
+    } else {
+      message.warn(res.trace);
+    }
+  }).catch(err => {
+    message.warn(err.msg);
+  })
+}
+
+const doSeckill =(path)=> {
+  var seckillurl = "/api/seckill/" + path + "/doSeckill";
+  // console.log(seckillurl);
   const userId = userStore.user_id;
   if (userId) {
-    seckillApi({userId: 1 * userId, goodsId: detailData.id}).then(res => {
+    seckillApi(seckillurl, {userId: 1 * userId, goodsId: thingId.value}).then(res => {
       if (res.code == 200) {
-        getResult(detailData.id);
+        getResult(thingId.value);
       } else {
         console.log(res.msg);
       }
@@ -198,44 +212,12 @@ function getResult(goodsId) {
   }).catch(err => {
     message.warn(err.trace)
   })
-
-  // this.$.ajax({
-  //   url:"/seckill/result",
-  //   type:"GET",
-  //   data: {
-  //     goodsId: goodsId
-  //   },
-  //   success: function (data) {
-  //     if (data.code == 200) {
-  //       var result =  data.obj;
-  //       if (result < 0) {
-  //         this.layer.msg("对不起，秒杀失败!");
-  //       } else if (result==0) {
-  //         setTimeout(function () {
-  //           getResult(goodsId);
-  //         }, 50);
-  //       } else {
-  //         layer.confirm("恭喜您，秒杀成功！查看订单？", {btn:["确定", "取消"]},
-  //           function () {
-  //             window.location.href = "/orderDetail.htm?orderId=" + result;
-  //           },
-  //           function () {
-  //             layer.close();
-  //           })
-  //       }
-  //     }
-  //
-  //   },
-  //   error: function () {
-  //     layer.msg("客户端请求错误");
-  //   }
-  // })
 }
-
-function g_showLoading(){
-  var idx = this.layer.msg('处理中...', {icon: 16,shade: [0.5, '#f5f5f5'],scrollbar: false,offset: '0px', time:100000}) ;
-  return idx;
-}
+//
+// function g_showLoading(){
+//   var idx = layer.msg('处理中...', {icon: 16,shade: [0.5, '#f5f5f5'],scrollbar: false,offset: '0px', time:100000}) ;
+//   return idx;
+// }
 
 const handleOrder =(detailData)=> {
   console.log(detailData)
@@ -257,17 +239,6 @@ const getRecommendThing =()=> {
       }
     })
     recommendData.value = res.data.slice(0, 6);
-    // recommendData.value.forEach(function(item, index) {
-    //   if (index < data.length) {
-    //     data[index].title = item.title;
-    //     // console.log("index" + index + "  item: " + item.title);
-    //     data[index].cover = item.cover;
-    //     data[index].price = item.price;
-    //     console.log(data);
-    //   }
-    // })
-    // data = recommendData.value;
-    // console.log(recommendData.value);
     console.log(data);
   }).catch(err => {
     console.log(err)

@@ -56,7 +56,7 @@ public class GoodsController {
         return new APIResponse(ResponeCode.SUCCESS, "查询成功", thing);
     }
 
-    @Access(level = AccessLevel.ADMIN)
+//    @Access(level = AccessLevel.ADMIN)
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @Transactional
     public APIResponse create(Good thing) throws IOException {
@@ -69,7 +69,7 @@ public class GoodsController {
         return new APIResponse(ResponeCode.SUCCESS, "创建成功");
     }
 
-    @Access(level = AccessLevel.ADMIN)
+//    @Access(level = AccessLevel.ADMIN)
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public APIResponse delete(String ids){
         System.out.println("ids===" + ids);
@@ -81,7 +81,7 @@ public class GoodsController {
         return new APIResponse(ResponeCode.SUCCESS, "删除成功");
     }
 
-    @Access(level = AccessLevel.ADMIN)
+//    @Access(level = AccessLevel.ADMIN)
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @Transactional
     public APIResponse update(Good thing) throws IOException {

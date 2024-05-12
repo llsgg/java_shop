@@ -108,21 +108,36 @@
                 </a-form-item>
               </a-col>
               <a-col span="12">
-                <a-form-item label="定价" name="price">
+                <a-form-item label="原价" name="price">
                   <a-input-number  placeholder="请输入" :min="0" v-model:value="modal.form.price" style="width: 100%;"></a-input-number>
                 </a-form-item>
               </a-col>
+
+              <a-col span="12">
+                <a-form-item label="秒杀价" name="seckillPrice">
+                  <a-input-number  placeholder="请输入" :min="0" v-model:value="modal.form.seckillPrice" style="width: 100%;"></a-input-number>
+                </a-form-item>
+              </a-col>
+
+              <a-col span="12">
+                <a-form-item label="库存" name="count">
+                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.count" style="width: 100%;"></a-input-number>
+                </a-form-item>
+              </a-col>
+
+              <a-col span="12">
+                <a-form-item label="秒杀库存" name="stockCount">
+                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.stockCount" style="width: 100%;"></a-input-number>
+                </a-form-item>
+              </a-col>
+
+
               <a-col span="12">
                 <a-form-item label="状态" name="status">
                   <a-select placeholder="请选择" allowClear v-model:value="modal.form.status">
                     <a-select-option key="0" value="0">上架</a-select-option>
                     <a-select-option key="1" value="1">下架</a-select-option>
                   </a-select>
-                </a-form-item>
-              </a-col>
-              <a-col span="12">
-                <a-form-item label="库存" name="repertory">
-                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.repertory" style="width: 100%;"></a-input-number>
                 </a-form-item>
               </a-col>
             </a-row>
@@ -162,12 +177,12 @@ const columns = reactive([
     key: 'title'
   },
   {
-    title: '价格',
+    title: '原价',
     dataIndex: 'price',
     key: 'price'
   },
   {
-    title: '秒杀价格',
+    title: '秒杀价',
     dataIndex: 'seckillPrice',
     key: 'seckillPrice'
   },
@@ -230,12 +245,16 @@ const modal = reactive({
     title: undefined, // 标题，初始为未定义
     classificationId: undefined, // 分类ID，初始为未定义
     tags: [], // 标签列表，初始化为空数组
-    repertory: undefined, // 库存，初始为未定义
-    price: undefined, // 定价，初始为未定义
+    count: undefined, // 库存，初始为未定义
+    price: undefined, // 原价，初始为未定义
     status: undefined, // 状态，初始为未定义
     cover: undefined, // 封面图片地址，初始为未定义
     coverUrl: undefined, // 封面图片的URL，初始为未定义
-    imageFile: undefined // 图片文件对象，初始为未定义
+    imageFile: undefined, // 图片文件对象，初始为未定义
+    seckillPrice: undefined, // 秒杀价，初始为未定义
+    stockCount: undefined, // 库存，初始为未定义
+    startDate: undefined, // 开始日期
+    endDate: undefined // 结束日期
   },
   rules: { // 表单校验规则
     title: [{ required: true, message: '请输入名称', trigger: 'change' }],
@@ -337,6 +356,8 @@ const confirmDelete = (record) => {
   console.log('delete', record);
   deleteApi({ ids: record.id })
     .then((res) => {
+      message.success(res.msg);
+      console.log(res);
       getDataList();
     })
     .catch((err) => {

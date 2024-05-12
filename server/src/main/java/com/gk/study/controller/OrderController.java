@@ -47,7 +47,7 @@ public class OrderController {
         return new APIResponse(ResponeCode.SUCCESS, "创建成功");
     }
 
-    @Access(level = AccessLevel.ADMIN)
+//    @Access(level = AccessLevel.ADMIN)
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public APIResponse delete(String ids){
         System.out.println("ids===" + ids);
@@ -66,7 +66,7 @@ public class OrderController {
         return new APIResponse(ResponeCode.SUCCESS, "更新成功");
     }
 
-    @Access(level = AccessLevel.ADMIN)
+//    @Access(level = AccessLevel.ADMIN)
     @RequestMapping(value = "/cancelOrder", method = RequestMethod.POST)
     @Transactional
     public APIResponse cancelOrder(Long id) throws IOException {

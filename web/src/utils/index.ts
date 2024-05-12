@@ -43,6 +43,6 @@ export function getFormatTime(dateTime,flag) {
       return YY + '-' + MM + '-' + DD;
     }
   } else {
-    return "";
+    return "未支付";
   }
 }

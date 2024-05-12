@@ -29,7 +29,7 @@
 
           <div class="translators">
             <span class="author">库存：</span>
-            <span class="name">{{detailData.count}}</span>
+            <span class="name">{{detailData.stockCount}}</span>
           </div>
 
           <div class="translators">
@@ -92,8 +92,8 @@ import WeiboShareIcon from '/@/assets/images/wb-share.svg';
 import AvatarIcon from '/@/assets/images/avatar.jpg';
 import {
   detailApi,
-  listApi as listThingList,
-} from '/src/api/goods'
+  listApi as listThingList, seckillListApi
+} from "/src/api/goods";
 
 import {collectApi} from '/src/api/goodsCollect'
 import {BASE_URL} from "/@/store/constants";
@@ -124,11 +124,11 @@ let order = ref('recent') // 默认排序最新
 
 let commentRef = ref()
 
+let cid = ref()
 
 onMounted(()=>{
   thingId.value = route.query.id.trim()
   getThingDetail()
-  getRecommendThing()
   refreshCaptcha()
 })
 
@@ -148,8 +148,9 @@ const getThingDetail =()=> {
   detailApi({id: thingId.value}).then(res => {
     detailData.value = res.data
     detailData.value.cover = BASE_URL + '/api/upload/image/' + detailData.value.cover
-
-    console.log(detailData.value )
+    cid = res.data.classificationId
+    getRecommendThing()
+    // console.log(cid )
   }).catch(err => {
     message.error('获取详情失败')
   })
@@ -252,7 +253,8 @@ const handleOrder =(detailData)=> {
         }})
 }
 const getRecommendThing =()=> {
-  listThingList({sort: 'recommend'}).then(res => {
+  console.log("cid");
+  seckillListApi({c: cid}).then(res => {
     res.data.forEach((item, index) => {
       if (item.cover) {
         item.cover = BASE_URL + '/api/upload/image/' + item.cover

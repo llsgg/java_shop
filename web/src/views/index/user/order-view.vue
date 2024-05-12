@@ -116,7 +116,7 @@ const columns = reactive([
     key: 'payTime',
     align: 'center', // 居中显示
     // 自定义渲染函数，用于格式化订单时间
-    // customRender: ({text}) => getFormatTime(text, true)
+    customRender: ({text}) => getFormatTime(text, true)
   },
   {
     title: '价格',

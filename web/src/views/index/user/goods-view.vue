@@ -167,10 +167,9 @@ const columns = reactive([
     key: 'price'
   },
   {
-    title: '状态',
-    dataIndex: 'status',
-    key: 'status',
-    customRender: ({ text, record, index, column }) => text === '0' ? '上架' : '下架'
+    title: '秒杀价格',
+    dataIndex: 'seckillPrice',
+    key: 'seckillPrice'
   },
   {
     title: '库存',
@@ -178,10 +177,21 @@ const columns = reactive([
     key: 'count'
   },
   {
+    title: '秒杀库存',
+    dataIndex: 'stockCount',
+    key: 'stockCount'
+  },
+  {
     title: '简介',
     dataIndex: 'description',
     key: 'description',
     customRender: ({ text, record, index, column }) => text ? text.substring(0, 10) + '...' : '--'
+  },
+  {
+    title: '状态',
+    dataIndex: 'status',
+    key: 'status',
+    customRender: ({ text, record, index, column }) => text === '0' ? '上架' : '下架'
   },
   {
     title: '操作',

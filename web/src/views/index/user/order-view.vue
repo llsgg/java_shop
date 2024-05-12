@@ -93,6 +93,7 @@ const columns = reactive([
     // 自定义渲染函数，用于截取商品标题的前10个字符并添加省略号，如果标题为空则显示"--"
     customRender: ({text}) => text ? text.substring(0, 10) + '...' : '--'
   },
+
   {
     title: '状态',
     dataIndex: 'status',
@@ -116,6 +117,14 @@ const columns = reactive([
     align: 'center', // 居中显示
     // 自定义渲染函数，用于格式化订单时间
     // customRender: ({text}) => getFormatTime(text, true)
+  },
+  {
+    title: '价格',
+    dataIndex: 'price',
+    key: 'price',
+    align: 'center', // 居中显示
+    // 自定义渲染函数，用于截取商品标题的前10个字符并添加省略号，如果标题为空则显示"--"
+    customRender: ({text}) => (text + "￥")
   },
   {
     title: '操作',

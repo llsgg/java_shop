@@ -905,3 +905,9 @@ Caused by: java.sql.SQLSyntaxErrorException: You have an error in your SQL synta
 2024-05-12 15:52:37.164 [ main ] - [ INFO  ] [ org.apache.coyote.http11.Http11NioProtocol : 173 ] - Starting ProtocolHandler ["http-nio-9100"]
 2024-05-12 15:52:37.252 [ main ] - [ INFO  ] [ com.gk.study.MySpringApplication : 61 ] - Started MySpringApplication in 4.593 seconds (JVM running for 5.406)
 2024-05-12 15:52:42.411 [ http-nio-9100-exec-1 ] - [ INFO  ] [ o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] : 173 ] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-05-12 16:16:05.451 [ http-nio-9100-exec-1 ] - [ INFO  ] [ com.gk.study.rabbitmq.MQSender : 28 ] - 发送秒杀信息{"userId":10,"goodsId":1}
+2024-05-12 16:16:05.529 [ org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1 ] - [ INFO  ] [ com.gk.study.rabbitmq.MQReceiver : 43 ] - 接受的消息:{"userId":10,"goodsId":1}
+2024-05-12 16:18:55.134 [ http-nio-9100-exec-9 ] - [ INFO  ] [ com.gk.study.rabbitmq.MQSender : 28 ] - 发送秒杀信息{"userId":10,"goodsId":1}
+2024-05-12 16:18:55.139 [ org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1 ] - [ INFO  ] [ com.gk.study.rabbitmq.MQReceiver : 43 ] - 接受的消息:{"userId":10,"goodsId":1}
+2024-05-12 16:19:34.698 [ SpringApplicationShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 2063 ] - {dataSource-1} closing ...
+2024-05-12 16:19:34.702 [ SpringApplicationShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 2136 ] - {dataSource-1} closed

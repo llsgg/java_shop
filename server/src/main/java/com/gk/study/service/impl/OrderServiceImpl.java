@@ -75,7 +75,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         order.setGoodId(good.getId());
         order.setTitle(good.getTitle());
         order.setCount(1);
-//        order.setGoodsPrice(seckillGoods.getSeckillPrice());
+        order.setPrice(seckillGoods.getSeckillPrice());
         order.setStatus(0);
         order.setOrderTime(new Date());
         orderMapper.insert(order);

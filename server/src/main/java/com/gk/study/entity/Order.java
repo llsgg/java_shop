@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -28,6 +29,8 @@ public class Order implements Serializable {
     public int count;
     @TableField
     public String orderNumber; // 订单编号
+    @TableField
+    public BigDecimal price; // 商品价格
 
     @TableField(exist = false)
     public String username; // 用户名
@@ -35,7 +38,6 @@ public class Order implements Serializable {
     public String title; // 商品名称
     @TableField(exist = false)
     public String cover; // 商品封面
-    @TableField(exist = false)
-    public String price; // 商品价格
+
 
 }

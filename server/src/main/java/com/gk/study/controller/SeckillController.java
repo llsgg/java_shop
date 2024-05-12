@@ -13,6 +13,7 @@ import com.gk.study.service.GoodsService;
 import com.gk.study.service.OrderService;
 import com.gk.study.service.ISeckillOrderService;
 import com.gk.study.utils.JsonUtil;
+import com.wf.captcha.ArithmeticCaptcha;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 秒杀
@@ -35,8 +39,9 @@ import java.util.Map;
  * @version 1.0
  * Create by 2024/5/7 22:23
  */
-@RestController
+@Controller
 @RequestMapping("/seckill")
+@Slf4j
 public class SeckillController implements InitializingBean {
     @Autowired
     private GoodsService goodsService;
@@ -61,9 +66,12 @@ public class SeckillController implements InitializingBean {
      **/
     @RequestMapping(value = "/path", method = RequestMethod .GET)
     @ResponseBody
-    public APIResponse getPath(Long userId, Long goodsId) {
+    public APIResponse getPath(Long userId, Long goodsId, String captcha) {
         if (userId == null) return new APIResponse(ResponeCode.FAIL, "用户未登录", "");
-
+        boolean check = orderService.checkCaptcha(userId, goodsId, captcha);
+        if (!check){
+            return new APIResponse(ResponeCode.FAIL, "验证码已过期", "");
+        }
         String str = orderService.createPath(userId,goodsId);
         return new APIResponse(ResponeCode.SUCCESS, "", str);
     }
@@ -81,6 +89,7 @@ public class SeckillController implements InitializingBean {
      * @return: [model, user, goodsId]
      **/
     @RequestMapping(value = "/{path}/doSeckill", method = RequestMethod.GET)
+    @ResponseBody
     public APIResponse doSeckill(@PathVariable String path, Long userId, Long goodsId) {
         // 判断登录
         if (userId == null) return new APIResponse(ResponeCode.FAIL, "用户未登录", "");
@@ -134,6 +143,37 @@ public class SeckillController implements InitializingBean {
         if (userId == null) return new APIResponse(ResponeCode.FAIL, "用户未登录", "");
         Long orderId = seckillOrderService.getResult(userId, goodsId);
         return new APIResponse(ResponeCode.SUCCESS, "获取成功", 1); // 0代表排队中
+    }
+
+    /**
+     * @description:验证码
+     * @author: longlin
+     * @date: 2024/4/25 0:22
+     * @param: [user, goodsId, response]
+     * @return: [user, goodsId, response]
+     **/
+    @RequestMapping(value = "/captcha", method = RequestMethod.GET)
+    public APIResponse verifyCode(Long userId, Long goodsId, HttpServletResponse response) {
+        if (null==userId||goodsId<0){
+            return new APIResponse(ResponeCode.FAIL, "非法请求", "");
+        }
+//        log.info("userId:"+userId+"goodsId:"+goodsId);
+//        System.out.println("userId = " + userId);
+        // 设置请求头为输出图片类型
+        response.setContentType("image/jpg");
+        response.setHeader("Pragma", "No-cache");
+        response.setHeader("Cache-Control" , "no-cache");
+        response.setDateHeader("Expires", 0);
+        //生成验证码，将结果放入redis
+        ArithmeticCaptcha captcha = new ArithmeticCaptcha(130, 32, 3);
+
+        redisTemplate.opsForValue().set("captcha:"+userId+":"+goodsId,captcha.text (),60, TimeUnit.SECONDS);
+        try {
+            captcha.out(response.getOutputStream());
+        } catch (IOException e) {
+            log.error("验证码生成失败",e.getMessage());
+        }
+        return new APIResponse(ResponeCode.SUCCESS, "获取成功", "");
     }
 
     /**

@@ -21,13 +21,11 @@
 
           <div class="translators">
             <span class="author">价格：</span>
-            <span class="price ">{{detailData.price}}￥</span>
+            <span class="price">{{detailData.price}}￥</span>
+            <span class="seckillPrice ">{{detailData.seckillPrice}}￥</span>
           </div>
 
-          <div class="translators">
-            <span class="author">分类：</span>
-            <span class="name">{{detailData.classificationId}}</span>
-          </div>
+
 
           <div class="translators">
             <span class="author">库存：</span>
@@ -39,9 +37,23 @@
             <span class="name">{{detailData.collectCount}}</span>
           </div>
 
-          <div class="buy-btn" @click="getSeckillPath()">
-            <span>立即秒杀</span>
+          <div class="translators">
+            <span class="author">开始时间：</span>
+            <span class="name">{{formatDate(new Date(detailData.startDate), "yyyy-MM-dd HH:mm:ss")}}</span>
+
           </div>
+
+          <div class="row">
+            <div class="form-inline">
+              <img id="captchaImg" :src="checkImgSrc" width="130" height="32"  @click="refreshCaptcha()"/>
+<!--                <input id="captcha" class="form-control" />-->
+              <a-input class="form-control" v-model:value="value" placeholder="输入验证码" />
+              <div class="buy-btn" @click="getSeckillPath()">
+                <span>立即秒杀</span>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         <div class="thing-content-view">
@@ -90,11 +102,14 @@ import {useUserStore} from "/@/store";
 import {getFormatTime} from "/@/utils";
 import Content from "/@/views/index/components/content.vue";
 import {seckillApi, resultApi, seckillPathApi} from "/@/api/detail";
+import {formatDate} from "/@/utils/common"
 
 const router = useRouter()
 const route = useRoute()
 const userStore = useUserStore();
 
+let checkImgSrc = ref('')
+let value:string
 
 let thingId = ref('')
 let detailData = ref({})
@@ -108,13 +123,13 @@ let sortIndex = ref(0)
 let order = ref('recent') // 默认排序最新
 
 let commentRef = ref()
-let classificition
 
 
 onMounted(()=>{
   thingId.value = route.query.id.trim()
   getThingDetail()
   getRecommendThing()
+  refreshCaptcha()
 })
 
 interface DataItem {
@@ -133,10 +148,16 @@ const getThingDetail =()=> {
   detailApi({id: thingId.value}).then(res => {
     detailData.value = res.data
     detailData.value.cover = BASE_URL + '/api/upload/image/' + detailData.value.cover
+
     console.log(detailData.value )
   }).catch(err => {
     message.error('获取详情失败')
   })
+}
+
+function refreshCaptcha() {
+  console.log("验证码");
+  checkImgSrc.value = BASE_URL + "/api/seckill/captcha?userId=" + userStore.user_id + "&goodsId=" + thingId.value + "&time=" + new Date();
 }
 
 const collect =()=> {
@@ -154,7 +175,7 @@ const collect =()=> {
 }
 
 const getSeckillPath = ()=> {
-  seckillPathApi({userId: userStore.user_id, goodsId: thingId.value}).then(res => {
+  seckillPathApi({userId: userStore.user_id, goodsId: thingId.value, captcha: value}).then(res => {
     if (res.code == 200) {
       var path = res.data;
       doSeckill(path);
@@ -162,13 +183,12 @@ const getSeckillPath = ()=> {
       message.warn(res.trace);
     }
   }).catch(err => {
-    message.warn(err.msg);
+    message.warn(err.trace);
   })
 }
 
 const doSeckill =(path)=> {
   var seckillurl = "/api/seckill/" + path + "/doSeckill";
-  // console.log(seckillurl);
   const userId = userStore.user_id;
   if (userId) {
     seckillApi(seckillurl, {userId: 1 * userId, goodsId: thingId.value}).then(res => {
@@ -213,11 +233,11 @@ function getResult(goodsId) {
     message.warn(err.trace)
   })
 }
-//
-// function g_showLoading(){
-//   var idx = layer.msg('处理中...', {icon: 16,shade: [0.5, '#f5f5f5'],scrollbar: false,offset: '0px', time:100000}) ;
-//   return idx;
-// }
+
+function g_showLoading(){
+  var idx = this.$layer.msg('处理中...', {icon: 16,shade: [0.5, '#f5f5f5'],scrollbar: false,offset: '0px', time:100000}) ;
+  return idx;
+}
 
 const handleOrder =(detailData)=> {
   console.log(detailData)
@@ -358,6 +378,12 @@ const sortCommentList =(sortType)=> {
     width:500px;
   }
 
+  .form-control {
+    width: 40%;
+    margin-left: 20px;
+    //border: solid 2px rgba(0, 0, 0, .1);
+  }
+
   .thing-state {
     height: 26px;
     line-height: 26px;
@@ -391,6 +417,10 @@ const sortCommentList =(sortType)=> {
   }
 
   .price {
+    text-decoration: line-through;
+  }
+
+  .seckillPrice {
     color: #ff7b31;
     font-size: 20px;
     line-height: 20px;
@@ -439,6 +469,8 @@ const sortCommentList =(sortType)=> {
     flex: 1;
     height: 100%;
   }
+
+
 
   .recommend-list {
     li {

@@ -89,6 +89,16 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         return order;
     }
 
+    @Override
+    public boolean checkCaptcha(Long userId, Long goodsId, String captcha) {
+        if (StringUtils.isEmpty(captcha)||null==userId||goodsId<0){
+            return false;
+        }
+        if (!redisTemplate.hasKey("captcha:" + userId + ":" + goodsId)) return false;
+        String redisCaptcha = (String) redisTemplate.opsForValue().get("captcha:" + userId + ":" + goodsId);
+        return redisCaptcha.equals(captcha);
+    }
+
     /**
      * @description:校验秒杀地址
      * @author: longlin
@@ -101,7 +111,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         if (userId==null|| StringUtils.isEmpty(path)){
             return false;
         }
-        String redisPath = (String) redisTemplate .opsForValue().get("seckillPath:" + userId + ":" + goodsId);
+        String redisPath = (String) redisTemplate.opsForValue().get("seckillPath:" + userId + ":" + goodsId);
         return path.equals(redisPath);
     }
 

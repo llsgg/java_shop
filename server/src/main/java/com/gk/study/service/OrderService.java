@@ -15,6 +15,8 @@ public interface OrderService {
 
     Order seckill(Long userId, Good good);
 
+    boolean checkCaptcha(Long userId, Long goodsId, String captcha);
+
     /**
      * @description: 检查秒杀地址
      * @author: longlin

@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface GoodsService {
     List<Good> getThingList(String keyword, String c);
+    List<GoodsVo> getThingList2(String keyword, String c);
     void createThing(Good thing);
     void deleteThing(String id);
 

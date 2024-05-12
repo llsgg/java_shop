@@ -42,6 +42,13 @@ public class GoodsController {
         return new APIResponse(ResponeCode.SUCCESS, "查询成功", list);
     }
 
+    @RequestMapping(value = "/seckillList", method = RequestMethod.GET)
+    public APIResponse seckillList(String keyword, String c){
+        List<GoodsVo> list =  service.getThingList2(keyword, c);
+
+        return new APIResponse(ResponeCode.SUCCESS, "查询成功", list);
+    }
+
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
     public APIResponse detail(Long id){
         GoodsVo thing =  service.getGoodsVoById(id);

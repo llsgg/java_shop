@@ -137,7 +137,7 @@
 
 <script setup lang="ts">
 import { FormInstance, message } from 'ant-design-vue'
-import { createApi, listApi, updateApi, deleteApi} from '/src/api/goods';
+import { createApi, listApi,seckillListApi, updateApi, deleteApi} from '/src/api/goods';
 import {getFormatTime} from "/@/utils";
 import {updateUserPwdApi} from '/@/api/user'
 import {useUserStore} from "/@/store";
@@ -289,7 +289,7 @@ const getDataList = () => {
   // 设置加载状态为true
   data.loading = true;
   // 调用listApi，传入关键字参数
-  listApi({
+  seckillListApi({
     keyword: data.keyword,
   })
     .then((res) => {

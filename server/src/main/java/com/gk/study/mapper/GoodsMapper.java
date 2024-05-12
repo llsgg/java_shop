@@ -13,4 +13,6 @@ public interface GoodsMapper extends BaseMapper<Good> {
 //    boolean update(Thing thing);
     List<GoodsVo> getGoodsVo();
     GoodsVo getGoodsVoById(Long id);
+
+    List<GoodsVo> getGoodsVoByKeywordAndC(String keyword, String c);
 }

@@ -34,5 +34,34 @@
         WHERE g.id=sg.goods_id and g.id=#{goodsId}
     </select>
 
+    <!-- 获取商品详情 -->
+<!--    <select id="getGoodsVoByKeywordAndC" resultType="com.gk.study.Vo.GoodsVo">-->
+<!--        SELECT-->
+<!--            g.*,-->
+<!--            sg.seckill_price,-->
+<!--            sg.stock_count,-->
+<!--            sg.start_date,-->
+<!--            sg.end_date-->
+<!--        FROM-->
+<!--            b_goods g, b_seckill_goods sg-->
+<!--        WHERE g.id=sg.goods_id and g.classification_id=#{c} and g.title like concat('%',#{keyword},'%')-->
+<!--    </select>-->
+    <select id="getGoodsVoByKeywordAndC" resultType="com.gk.study.Vo.GoodsVo">
+        SELECT
+            g.*,
+            sg.seckill_price,
+            sg.stock_count,
+            sg.start_date,
+            sg.end_date
+        FROM
+            b_goods g
+        LEFT JOIN b_seckill_goods sg ON g.id = sg.goods_id
+        WHERE
+            1 = 1
+            <if test="c != null and c != -1">AND g.classification_id = #{c} </if>
+            <if test="keyword != null">AND g.title LIKE CONCAT('%', #{keyword}, '%')</if>
+    </select>
+
+
 
 </mapper>

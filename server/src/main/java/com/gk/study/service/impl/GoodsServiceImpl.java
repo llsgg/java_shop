@@ -7,6 +7,7 @@ import com.gk.study.Vo.GoodsVo;
 import com.gk.study.entity.Good;
 import com.gk.study.entity.SeckillGoods;
 import com.gk.study.mapper.GoodsMapper;
+import com.gk.study.mapper.GoodsVoMapper;
 import com.gk.study.mapper.SeckillGoodsMapper;
 import com.gk.study.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Good> implements 
     GoodsMapper goodsMapper;
     @Autowired
     SeckillGoodsMapper seckillGoodsMapper;
+    @Autowired
+    GoodsVoMapper goodsVoMapper;
 
 
     @Override
@@ -29,17 +32,6 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Good> implements 
         // 搜索
         queryWrapper.like(StringUtils.isNotBlank(keyword), "title", keyword);
 
-//        // 排序
-//        if (StringUtils.isNotBlank(sort)) {
-//            if (sort.equals("recent")) {
-//                queryWrapper.orderBy(true, false, "create_time");
-//            } else if (sort.equals("hot") || sort.equals("recommend")) {
-//                queryWrapper.orderBy(true, false, "pv");
-//            }
-//        }else {
-//            queryWrapper.orderBy(true, false, "create_time");
-//        }
-
         // 根据分类筛选
         if (StringUtils.isNotBlank(c) && !c.equals("-1")) {
             queryWrapper.eq(true, "classification_id", c);
@@ -48,6 +40,11 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Good> implements 
         List<Good> things = goodsMapper.selectList(queryWrapper);
 
         return things;
+    }
+
+    @Override
+    public List<GoodsVo> getThingList2(String keyword, String c) {
+        return goodsMapper.getGoodsVoByKeywordAndC(keyword, c);
     }
 
     @Override

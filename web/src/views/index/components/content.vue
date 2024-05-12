@@ -23,8 +23,11 @@
             <div class="info-view">
               <h3 class="thing-name">{{ item.title.substring(0, 12) }}</h3>
               <span>
-                <span class="a-price-symbol">¥</span>
-                <span class="a-price">{{ item.price }}</span>
+
+                <span class="author">价格：</span>
+                <span class="price">{{item.price}}￥</span>
+                <span class="seckillPrice ">{{item.seckillPrice}}￥</span>
+
               </span>
             </div>
           </div>
@@ -42,7 +45,7 @@
 <script setup>
 import {listApi as listClassificationList} from '/@/api/classification'
 import {listApi as listTagList} from '/@/api/tag'
-import {listApi as listThingList} from '/src/api/goods'
+import { listApi as listThingList, seckillListApi } from '/src/api/goods'
 import {BASE_URL} from "/@/store/constants";
 import {useUserStore} from "/@/store";
 
@@ -145,7 +148,7 @@ const changePage = (page) => {
 // 获取商品列表数据
 const getThingList = (data) => {
   contentData.loading = true
-  listThingList(data).then(res => {
+  seckillListApi(data).then(res => {
     contentData.loading = false
     res.data.forEach((item, index) => {
       if (item.cover) {
@@ -536,5 +539,17 @@ li {
   color: #0F1111;
   font-size: 21px;
 }
+.price {
+  text-decoration: line-through;
+}
 
+.seckillPrice {
+  color: #ff7b31;
+  font-size: 20px;
+  line-height: 20px;
+  margin-top: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 </style>

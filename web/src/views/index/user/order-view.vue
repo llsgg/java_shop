@@ -210,6 +210,7 @@ const confirmDelete = (record) => {
   deleteApi({ ids: record.id })
     .then((res) => {
       getDataList();
+      message.success('操作成功');
     })
     .catch((err) => {
       message.error(err.msg || '操作失败');

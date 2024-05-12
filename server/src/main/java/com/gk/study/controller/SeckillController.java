@@ -70,7 +70,7 @@ public class SeckillController implements InitializingBean {
         if (userId == null) return new APIResponse(ResponeCode.FAIL, "用户未登录", "");
         boolean check = orderService.checkCaptcha(userId, goodsId, captcha);
         if (!check){
-            return new APIResponse(ResponeCode.FAIL, "验证码已过期", "");
+            return new APIResponse(ResponeCode.FAIL, "验证码错误或已过期", "");
         }
         String str = orderService.createPath(userId,goodsId);
         return new APIResponse(ResponeCode.SUCCESS, "", str);

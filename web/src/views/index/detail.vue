@@ -40,17 +40,25 @@
           <div class="translators">
             <span class="author">开始时间：</span>
             <span class="name">{{formatDate(new Date(detailData.startDate), "yyyy-MM-dd HH:mm:ss")}}</span>
+          </div>
 
+          <div class="translators">
+            <span class="author">结束时间：</span>
+            <span class="name">{{formatDate(new Date(detailData.endDate), "yyyy-MM-dd HH:mm:ss")}}</span>
+          </div>
+
+          <div class="translators">
+<!--            <span class="author">状态：</span>-->
+            <span class="name">{{seckillTip}}</span>
           </div>
 
           <div class="row">
             <div class="form-inline">
-              <img id="captchaImg" :src="checkImgSrc" width="130" height="32"  @click="refreshCaptcha()"/>
-<!--                <input id="captcha" class="form-control" />-->
-              <a-input class="form-control" v-model:value="value" placeholder="输入验证码" />
-              <div class="buy-btn" @click="getSeckillPath()">
-                <span>立即秒杀</span>
-              </div>
+              <img v-if="display" id="captchaImg" :src="checkImgSrc" width="130" height="32"  @click="refreshCaptcha()"/>
+              <a-input v-if="display"  class="form-control" v-model:value="value" placeholder="输入验证码" />
+              <button :disabled="!display" class="buy-btn" @click="getSeckillPath()">
+                立即秒杀
+              </button>
             </div>
           </div>
 
@@ -125,6 +133,9 @@ let order = ref('recent') // 默认排序最新
 let commentRef = ref()
 
 let cid = ref()
+let remainSeconds = ref()
+let seckillTip = ref("1")
+let display = ref(false)
 
 onMounted(()=>{
   thingId.value = route.query.id.trim()
@@ -146,14 +157,41 @@ const selectTab =(index)=> {
 
 const getThingDetail =()=> {
   detailApi({id: thingId.value}).then(res => {
-    detailData.value = res.data
+    detailData.value = res.data.goodsVo
     detailData.value.cover = BASE_URL + '/api/upload/image/' + detailData.value.cover
+    remainSeconds.value = res.data.remainSeconds
     cid = res.data.classificationId
+
     getRecommendThing()
-    // console.log(cid )
+    countDown()
+    // console.log(remainSeconds )
   }).catch(err => {
     message.error('获取详情失败')
   })
+}
+let timeout
+function countDown() {
+  console.log(remainSeconds);
+  if (remainSeconds.value > 0) {
+    display.value = false;
+    seckillTip.value = "秒杀倒计时： " + remainSeconds.value + "秒"
+    timeout = setTimeout(function () {
+        remainSeconds.value = remainSeconds.value - 1;
+        countDown();
+      }, 1000);
+
+  } else if (remainSeconds.value === 0) {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+    seckillTip.value = "秒杀进行中";
+    display.value = true;
+
+  } else {
+    seckillTip.value = "秒杀已结束";
+    display.value = false;
+    console.log(display.value);
+  }
 }
 
 function refreshCaptcha() {

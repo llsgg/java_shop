@@ -5,22 +5,22 @@
       <div class="list-content">
       <div class="edit-view">
         <div class="item flex-view">
-          <div class="label">头像</div>
-          <div class="right-box avatar-box flex-view">
-            <img v-if="tData.form && tData.form.avatar" :src="tData.form.avatar" class="avatar">
-            <img v-else :src="AvatarIcon" class="avatar">
-            <div class="change-tips flex-view">
-                <a-upload
-                  name="file"
-                  accept="image/*"
-                  :multiple="false"
-                  :before-upload="beforeUpload"
-                >
-                  <label>点击更换头像</label>
-                </a-upload>
-              <p class="tip">图片格式支持 GIF、PNG、JPEG，尺寸不小于 200 PX，小于 4 MB</p>
-            </div>
-          </div>
+<!--          <div class="label">头像</div>-->
+<!--          <div class="right-box avatar-box flex-view">-->
+<!--            <img v-if="tData.form && tData.form.avatar" :src="tData.form.avatar" class="avatar">-->
+<!--            <img v-else :src="AvatarIcon" class="avatar">-->
+<!--            <div class="change-tips flex-view">-->
+<!--                <a-upload-->
+<!--                  name="file"-->
+<!--                  accept="image/*"-->
+<!--                  :multiple="false"-->
+<!--                  :before-upload="beforeUpload"-->
+<!--                >-->
+<!--                  <label>点击更换头像</label>-->
+<!--                </a-upload>-->
+<!--              <p class="tip">图片格式支持 GIF、PNG、JPEG，尺寸不小于 200 PX，小于 4 MB</p>-->
+<!--            </div>-->
+<!--          </div>-->
         </div>
         <div class="item flex-view">
           <div class="label">昵称</div>

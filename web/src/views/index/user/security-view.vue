@@ -4,21 +4,21 @@
     <div class="list-content">
       <div class="safe-view">
         <div class="safe-info-box">
-          <div class="item flex-view">
-            <div class="label">账号安全等级</div>
-            <div class="right-box flex-center flex-view">
-              <div class="safe-text">低风险</div>
-              <progress max="3" class="safe-line" value="2">
-              </progress>
-            </div>
-          </div>
-          <div class="item flex-view">
-            <div class="label">绑定手机</div>
-            <div class="right-box">
-              <input class="input-dom" placeholder="请输入手机号">
-              <a-button type="link" @click="handleBindMobile()">更换</a-button>
-            </div>
-          </div>
+<!--          <div class="item flex-view">-->
+<!--            <div class="label">账号安全等级</div>-->
+<!--            <div class="right-box flex-center flex-view">-->
+<!--              <div class="safe-text">低风险</div>-->
+<!--              <progress max="3" class="safe-line" value="2">-->
+<!--              </progress>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="item flex-view">-->
+<!--            <div class="label">绑定手机</div>-->
+<!--            <div class="right-box">-->
+<!--              <input class="input-dom" placeholder="请输入手机号">-->
+<!--              <a-button type="link" @click="handleBindMobile()">更换</a-button>-->
+<!--            </div>-->
+<!--          </div>-->
         </div>
         <div class="edit-pwd-box" style="display;">
           <div class="pwd-edit">

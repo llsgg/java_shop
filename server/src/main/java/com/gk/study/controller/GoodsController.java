@@ -1,5 +1,6 @@
 package com.gk.study.controller;
 
+import com.gk.study.Vo.DetailVo;
 import com.gk.study.Vo.GoodsVo;
 import com.gk.study.common.APIResponse;
 import com.gk.study.common.ResponeCode;
@@ -20,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,9 +54,33 @@ public class GoodsController {
 
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
     public APIResponse detail(Long id){
-        GoodsVo thing =  service.getGoodsVoById(id);
+        GoodsVo goodsVo =  service.getGoodsVoById(id);
+        
 
-        return new APIResponse(ResponeCode.SUCCESS, "查询成功", thing);
+        Date startDate = goodsVo.getStartDate();
+        Date endDate = goodsVo.getEndDate();
+        Date nowDate = new Date();
+
+        // 秒杀状态
+        int secKillStatus = 0;
+        int remainSecond = 0;
+        // 秒杀倒计时
+        if (nowDate.before(startDate)) {
+            remainSecond = (int)((startDate.getTime() - nowDate.getTime()) / 1000);
+        } else if (nowDate.after(endDate)) {
+            secKillStatus = 2;
+            remainSecond = -1;
+        } else {
+            secKillStatus = 1;
+            remainSecond = 0;
+        }
+        DetailVo detailVo = new DetailVo();
+//        detailVo.setUser(userId);
+        detailVo.setGoodsVo(goodsVo);
+        detailVo.setSecKillStatus(secKillStatus);
+        detailVo.setRemainSeconds(remainSecond);
+
+        return new APIResponse(ResponeCode.SUCCESS, "查询成功", detailVo);
     }
 
 //    @Access(level = AccessLevel.ADMIN)

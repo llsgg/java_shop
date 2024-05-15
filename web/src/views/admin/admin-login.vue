@@ -64,7 +64,7 @@
 
 <script setup lang="ts">
 import {useUserStore} from '/@/store';
-import logoImage from '/@/assets/images/k-logo.png';
+import logoImage from '/src/assets/images/k-logo.png';
 
 const router = useRouter();
 const userStore = useUserStore();

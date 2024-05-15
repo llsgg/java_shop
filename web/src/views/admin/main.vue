@@ -61,7 +61,7 @@
 </template>
 <script setup lang="ts">
 import {useRouter, useRoute} from 'vue-router'
-import logo from '/@/assets/images/k-logo.png'
+import logo from '/src/assets/images/k-logo.png'
 
 import {
   HomeOutlined,

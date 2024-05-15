@@ -174,7 +174,8 @@ const columns = reactive([
   {
     title: '名称',
     dataIndex: 'title',
-    key: 'title'
+    key: 'title',
+    customRender: ({ text, record, index, column }) => text ? text.substring(0, 7) + '...' : '--'
   },
   {
     title: '原价',
@@ -196,11 +197,27 @@ const columns = reactive([
     dataIndex: 'stockCount',
     key: 'stockCount'
   },
+  // {
+  //   title: '简介',
+  //   dataIndex: 'description',
+  //   key: 'description',
+  //   customRender: ({ text, record, index, column }) => text ? text.substring(0, 10) + '...' : '--'
+  // },
   {
-    title: '简介',
-    dataIndex: 'description',
-    key: 'description',
-    customRender: ({ text, record, index, column }) => text ? text.substring(0, 10) + '...' : '--'
+    title: '开始时间',
+    dataIndex: 'startDate',
+    key: 'startDate',
+    align: 'center', // 居中显示
+    // 自定义渲染函数，用于格式化订单时间
+    customRender: ({text}) => format(text)
+  },
+  {
+    title: '结束时间',
+    dataIndex: 'endDate',
+    key: 'endDate',
+    align: 'center', // 居中显示
+    // 自定义渲染函数，用于格式化订单时间
+    customRender: ({text}) => format(text)
   },
   {
     title: '状态',
@@ -268,6 +285,28 @@ const modal = reactive({
 const fileList = ref<any[]>([]);
 const myform = ref<FormInstance>();
 
+function format (date) {
+  if (date == null) return "未设置"
+  return new Date(date).format("yyyy-MM-dd HH:mm:ss")
+}
+//设定时间格式化函数，使用new Date().format("yyyy-MM-dd HH:mm:ss");
+Date.prototype.format = function (format) {
+  var args = {
+    "M+": this.getMonth() + 1,
+    "d+": this.getDate(),
+    "H+": this.getHours(),
+    "m+": this.getMinutes(),
+    "s+": this.getSeconds(),
+  };
+  if (/(y+)/.test(format))
+    format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+  for (var i in args) {
+    var n = args[i];
+    if (new RegExp("(" + i + ")").test(format))
+      format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? n : ("00" + n).substr(("" + n).length));
+  }
+  return format;
+};
 
 onMounted(() => {
   getDataList();

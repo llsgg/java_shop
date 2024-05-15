@@ -56,6 +56,7 @@ const router = useRouter();
 const userStore = useUserStore();
 
 function format (date) {
+  if (date == null) return "未支付"
   return new Date(date).format("yyyy-MM-dd HH:mm:ss")
 }
 //设定时间格式化函数，使用new Date().format("yyyy-MM-dd HH:mm:ss");
@@ -116,7 +117,7 @@ const columns = reactive([
     key: 'payTime',
     align: 'center', // 居中显示
     // 自定义渲染函数，用于格式化订单时间
-    customRender: ({text}) => getFormatTime(text, true)
+    customRender: ({text}) => format(text)
   },
   {
     title: '价格',

@@ -11,9 +11,7 @@
         <div class="mine-item flex-view" @click="clickMenu('goodsView')">
           <span>我的商品</span>
         </div>
-        <div class="mine-item flex-view" @click="clickMenu('collectView')">
-          <span>我的收藏</span>
-        </div>
+
 
       </div>
     </div>
@@ -25,6 +23,9 @@
         </div>
         <div class="mine-item flex-view" @click="clickMenu('securityView')">
           <span>账号安全</span>
+        </div>
+        <div class="mine-item flex-view" @click="clickMenu('collectView')">
+          <span>我的收藏</span>
         </div>
       </div>
     </div>

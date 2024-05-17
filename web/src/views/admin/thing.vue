@@ -100,21 +100,48 @@
                 </a-form-item>
               </a-col>
               <a-col span="12">
-                <a-form-item label="定价" name="price">
+                <a-form-item label="原价" name="price">
                   <a-input-number  placeholder="请输入" :min="0" v-model:value="modal.form.price" style="width: 100%;"></a-input-number>
                 </a-form-item>
               </a-col>
+
+              <a-col span="12">
+                <a-form-item label="秒杀价" name="seckillPrice">
+                  <a-input-number  placeholder="请输入" :min="0" v-model:value="modal.form.seckillPrice" style="width: 100%;"></a-input-number>
+                </a-form-item>
+              </a-col>
+
+              <a-col span="12">
+                <a-form-item label="库存" name="count">
+                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.count" style="width: 100%;"></a-input-number>
+                </a-form-item>
+              </a-col>
+
+              <a-col span="12">
+                <a-form-item label="秒杀库存" name="stockCount">
+                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.stockCount" style="width: 100%;"></a-input-number>
+                </a-form-item>
+              </a-col>
+
+              <a-col span="12">
+                <a-form-item label="秒杀开始时间" name="startDate">
+                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.startDate" style="width: 100%;"></a-input-number>
+                </a-form-item>
+              </a-col>
+
+              <a-col span="12">
+                <a-form-item label="秒杀结束时间" name="endDate" style="font-size: small">
+                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.endDate" style="width: 100%;"></a-input-number>
+                </a-form-item>
+              </a-col>
+
+
               <a-col span="12">
                 <a-form-item label="状态" name="status">
                   <a-select placeholder="请选择" allowClear v-model:value="modal.form.status">
                     <a-select-option key="0" value="0">上架</a-select-option>
                     <a-select-option key="1" value="1">下架</a-select-option>
                   </a-select>
-                </a-form-item>
-              </a-col>
-              <a-col span="12">
-                <a-form-item label="库存" name="repertory">
-                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.repertory" style="width: 100%;"></a-input-number>
                 </a-form-item>
               </a-col>
             </a-row>
@@ -127,7 +154,7 @@
 
 <script setup lang="ts">
 import { FormInstance, message, SelectProps } from 'ant-design-vue';
-import { createApi, listApi, updateApi, deleteApi } from '/src/api/goods';
+import { createApi, listApi, updateApi, deleteApi, seckillListApi } from "/src/api/goods";
 import {listApi as listClassificationApi} from '/@/api/classification'
 import {listApi as listTagApi} from '/@/api/tag'
 import {BASE_URL} from "/@/store/constants";
@@ -144,29 +171,56 @@ const columns = reactive([
   {
     title: '名称',
     dataIndex: 'title',
-    key: 'title'
+    key: 'title',
+    customRender: ({ text, record, index, column }) => text ? text.substring(0, 7) + '...' : '--'
   },
   {
-    title: '价格',
+    title: '原价',
     dataIndex: 'price',
     key: 'price'
+  },
+  {
+    title: '秒杀价',
+    dataIndex: 'seckillPrice',
+    key: 'seckillPrice'
+  },
+  {
+    title: '库存',
+    dataIndex: 'count',
+    key: 'count'
+  },
+  {
+    title: '秒杀库存',
+    dataIndex: 'stockCount',
+    key: 'stockCount'
+  },
+  // {
+  //   title: '简介',
+  //   dataIndex: 'description',
+  //   key: 'description',
+  //   customRender: ({ text, record, index, column }) => text ? text.substring(0, 10) + '...' : '--'
+  // },
+  {
+    title: '开始时间',
+    dataIndex: 'startDate',
+    key: 'startDate',
+    align: 'center', // 居中显示
+    // 自定义渲染函数，用于格式化订单时间
+    customRender: ({text}) => format(text)
+  },
+  {
+    title: '结束时间',
+    dataIndex: 'endDate',
+    key: 'endDate',
+    align: 'center', // 居中显示
+    // 自定义渲染函数，用于格式化订单时间
+    customRender: ({text}) => format(text)
   },
   {
     title: '状态',
     dataIndex: 'status',
     key: 'status',
     customRender: ({ text, record, index, column }) => text === '0' ? '上架' : '下架'
-  },
-  {
-    title: '库存',
-    dataIndex: 'repertory',
-    key: 'repertory'
-  },
-  {
-    title: '简介',
-    dataIndex: 'description',
-    key: 'description',
-    customRender: ({ text, record, index, column }) => text ? text.substring(0, 10) + '...' : '--'
   },
   {
     title: '操作',
@@ -216,23 +270,54 @@ const modal = reactive({
     title: undefined, // 标题，初始为未定义
     classificationId: undefined, // 分类ID，初始为未定义
     tags: [], // 标签列表，初始化为空数组
-    repertory: undefined, // 库存，初始为未定义
+    count: undefined, // 库存，初始为未定义
+    stockCount: undefined, // 库存，初始为未定义
     price: undefined, // 定价，初始为未定义
+    seckillPrice: undefined, // 定价，初始为未定义
     status: undefined, // 状态，初始为未定义
     cover: undefined, // 封面图片地址，初始为未定义
     coverUrl: undefined, // 封面图片的URL，初始为未定义
-    imageFile: undefined // 图片文件对象，初始为未定义
+    imageFile: undefined, // 图片文件对象，初始为未定义
+    startDate: undefined,
+    endDate: undefined
   },
   rules: { // 表单校验规则
     title: [{ required: true, message: '请输入名称', trigger: 'change' }],
     classificationId: [{ required: true, message: '请选择分类', trigger: 'change' }],
-    repertory: [{ required: true, message: '请输入库存', trigger: 'change' }],
-    price: [{ required: true, message: '请输入定价', trigger: 'change' }],
+    count: [{ required: true, message: '请输入库存', trigger: 'change' }],
+    stockCount: [{ required: true, message: '请输入秒杀库存', trigger: 'change' }],
+    price: [{ required: true, message: '请输入原价', trigger: 'change' }],
+    seckillPrice: [{ required: true, message: '请输入秒杀价', trigger: 'change' }],
+    startDate: [{ required: true, message: '请输入秒杀开始时间', trigger: 'change' }],
+    endDate: [{ required: true, message: '请输入秒杀结束时间', trigger: 'change' }],
     status: [{ required: true, message: '请选择状态', trigger: 'change' }]
   },
 });
 
 const myform = ref<FormInstance>();
+
+function format (date) {
+  if (date == null) return "未设置"
+  return new Date(date).format("yyyy-MM-dd HH:mm:ss")
+}
+//设定时间格式化函数，使用new Date().format("yyyy-MM-dd HH:mm:ss");
+Date.prototype.format = function (format) {
+  var args = {
+    "M+": this.getMonth() + 1,
+    "d+": this.getDate(),
+    "H+": this.getHours(),
+    "m+": this.getMinutes(),
+    "s+": this.getSeconds(),
+  };
+  if (/(y+)/.test(format))
+    format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+  for (var i in args) {
+    var n = args[i];
+    if (new RegExp("(" + i + ")").test(format))
+      format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? n : ("00" + n).substr(("" + n).length));
+  }
+  return format;
+};
 
 onMounted(() => {
   getDataList();
@@ -241,7 +326,7 @@ onMounted(() => {
 
 const getDataList = () => {
   data.loading = true;
-  listApi({
+  seckillListApi({
     keyword: data.keyword,
   })
       .then((res) => {

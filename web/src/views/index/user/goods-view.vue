@@ -131,6 +131,18 @@
                 </a-form-item>
               </a-col>
 
+              <a-col span="12">
+                <a-form-item label="秒杀开始时间" name="startDate">
+                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.startDate" style="width: 100%;"></a-input-number>
+                </a-form-item>
+              </a-col>
+
+              <a-col span="12">
+                <a-form-item label="秒杀结束时间" name="endDate">
+                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.endDate" style="width: 100%;"></a-input-number>
+                </a-form-item>
+              </a-col>
+
 
               <a-col span="12">
                 <a-form-item label="状态" name="status">

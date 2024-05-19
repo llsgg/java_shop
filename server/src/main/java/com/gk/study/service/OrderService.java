@@ -4,15 +4,17 @@ package com.gk.study.service;
 import com.gk.study.entity.Good;
 import com.gk.study.entity.Order;
 
+import java.util.Date;
 import java.util.List;
 
 public interface OrderService {
     List<Order> getOrderList();
+    Order getOrderById(Long id);
     void createOrder(Order order);
     void deleteOrder(String id);
 
     void updateOrder(Order order);
-
+    void updateOrderStatus(Long id, int status, Date payTime);
     Order seckill(Long userId, Good good);
 
     boolean checkCaptcha(Long userId, Long goodsId, String captcha);

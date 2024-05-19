@@ -41,6 +41,11 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
+    public Order getOrderById(Long id) {
+        return orderMapper.selectById(id);
+    }
+
+    @Override
     public void createOrder(Order order) {
         long ct = System.currentTimeMillis();
 //        order.setOrderTime(String.valueOf(ct));
@@ -60,6 +65,11 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         orderMapper.updateById(order);
     }
 
+    @Override
+    public void updateOrderStatus(Long id, int status, Date payTime) {
+        orderMapper.updateOrderStatus(id, status, payTime);
+    }
+
     @Transactional
     @Override
     public Order seckill(Long userId, Good good) {
@@ -76,7 +86,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         order.setTitle(good.getTitle());
         order.setCount(1);
         order.setPrice(seckillGoods.getSeckillPrice());
-        order.setStatus(0);
+        order.setStatus(1);
         order.setOrderTime(new Date());
         orderMapper.insert(order);
         //生成秒杀订单

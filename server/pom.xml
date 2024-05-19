@@ -101,6 +101,13 @@
             <version>1.6.2</version>
         </dependency>
 
+<!--        支付宝沙箱支付-->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>4.16.2.ALL</version>
+        </dependency>
+
 
     </dependencies>
 

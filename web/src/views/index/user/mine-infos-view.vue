@@ -8,9 +8,9 @@
         <div class="mine-item flex-view" @click="clickMenu('orderView')">
           <span>我的订单</span>
         </div>
-        <div class="mine-item flex-view" @click="clickMenu('goodsView')">
-          <span>我的商品</span>
-        </div>
+<!--        <div class="mine-item flex-view" @click="clickMenu('goodsView')">-->
+<!--          <span>我的商品</span>-->
+<!--        </div>-->
 
 
       </div>

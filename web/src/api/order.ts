@@ -1,6 +1,7 @@
 import {get, post} from '/@/utils/http/axios';
 
 enum URL {
+    pay = '/api/pay/alipay',
     list = '/api/order/list',
     create = '/api/order/create',
     update = '/api/order/update',
@@ -9,6 +10,9 @@ enum URL {
     cancelUserOrder = '/api/order/cancelUserOrder',
     userOrderList = '/api/order/userOrderList',
 }
+
+const payApi = async (params: any) =>
+  get<any>({url: URL.pay, params: params, data: {}, headers: {}});
 
 const listApi = async (params: any) =>
     get<any>({url: URL.list, params: params, data: {}, headers: {}});
@@ -38,4 +42,4 @@ const cancelApi = async (params: any) =>
 const cancelUserOrderApi = async (params: any) =>
     post<any>({url: URL.cancelUserOrder, params: params, headers: {}});
 
-export {listApi, userOrderListApi, createApi, updateApi, deleteApi, cancelApi, cancelUserOrderApi};
+export {payApi, listApi, userOrderListApi, createApi, updateApi, deleteApi, cancelApi, cancelUserOrderApi};

@@ -1,1 +1,3 @@
-2024-05-17 00:27:10.940 [ AMQP Connection 127.0.0.1:5672 ] - [ WARN  ] [ com.rabbitmq.client.impl.ForgivingExceptionHandler : 115 ] - An unexpected connection driver error occured (Exception message: Connection reset)
+2024-05-19 13:59:14.461 [ AMQP Connection 127.0.0.1:5672 ] - [ WARN  ] [ com.rabbitmq.client.impl.ForgivingExceptionHandler : 115 ] - An unexpected connection driver error occured (Exception message: Connection reset)
+2024-05-19 16:05:56.958 [ AMQP Connection 127.0.0.1:5672 ] - [ WARN  ] [ com.rabbitmq.client.impl.ForgivingExceptionHandler : 115 ] - An unexpected connection driver error occured (Exception message: Connection reset)
+2024-05-19 18:37:33.363 [ AMQP Connection 127.0.0.1:5672 ] - [ WARN  ] [ com.rabbitmq.client.impl.ForgivingExceptionHandler : 115 ] - An unexpected connection driver error occured (Exception message: Connection reset)

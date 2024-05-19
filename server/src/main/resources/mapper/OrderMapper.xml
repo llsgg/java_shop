@@ -2,6 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gk.study.mapper.OrderMapper">
 
+    <update id="updateOrderStatus">
+        update b_order
+        <set>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="payTime != null">
+                pay_time = #{payTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
     <select id="getList" resultType="com.gk.study.entity.Order">
         select A.*, B.username, C.title
         from b_order as A

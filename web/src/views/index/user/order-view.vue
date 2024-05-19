@@ -23,7 +23,7 @@
         <template #bodyCell="{ text, record, index, column }">
           <template v-if="column.key === 'status'">
             <a-tag :color="text === '1'? '#2db7f5':'#87d068'">
-              {{text === '1'? '待支付': text === '2'? '已支付':'已取消'}}
+              {{text == '1'? '待支付': text == '2' ? '已支付':'已取消'}}
             </a-tag>
           </template>
           <template v-if="column.key === 'operation'">
@@ -46,7 +46,7 @@
 <script setup>
 import {message} from "ant-design-vue";
 
-import { userOrderListApi, listApi, updateApi, deleteApi, cancelApi } from '/@/api/order';
+import { userOrderListApi, listApi, updateApi, deleteApi, cancelApi ,payApi} from '/@/api/order';
 import {getFormatTime} from "/@/utils";
 
 import {updateUserPwdApi} from '/@/api/user'
@@ -163,7 +163,7 @@ const getDataList = () => {
   data.loading = true;
   // 调用listApi，传入关键字参数
   userOrderListApi({
-    userId: data.keyword,
+    userId: userStore.user_id,
   })
     .then((res) => {
       // 请求成功后，设置加载状态为false
@@ -197,13 +197,8 @@ const rowSelection = ref({
 
 const pay = (record) => {
   console.log('pay', record);
-  // deleteApi({ ids: record.id })
-  //   .then((res) => {
-  //     getDataList();
-  //   })
-  //   .catch((err) => {
-  //     message.error(err.msg || '操作失败');
-  //   });
+  const payUrl = 'http://localhost:9100/api/pay/alipay?orderId=' + record.id;
+  window.open(payUrl);
 };
 
 const confirmDelete = (record) => {

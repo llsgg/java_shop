@@ -52,6 +52,7 @@ public class SeckillController implements InitializingBean {
     @Autowired
     private UserService userService;
 
+
     /**
      * @description:秒杀
      * Windos优化前QPS：936
@@ -72,37 +73,25 @@ public class SeckillController implements InitializingBean {
         if (user == null) return new APIResponse(ResponeCode.FAIL, "用户未登录", "");
         Long userId = user.getId();
 
-
-        ValueOperations valueOperations = redisTemplate.opsForValue();
+        GoodsVo good = goodsService.getGoodsVoById(goodsId);
+        // 判断库存
+        if (good.getStockCount() < 1) {
+            return new APIResponse(ResponeCode.FAIL, "库存不足", "");
+        }
+        // 判断是否重复抢购
+        SeckillOrder seckillOrder =
+                seckillOrderService.getOne(new QueryWrapper<SeckillOrder>().
+                        eq("user_id", userId).eq("goods_id", goodsId));
 
         // 用redis判断是否重复抢购
-        SeckillOrder seckillOrder = (SeckillOrder) redisTemplate.opsForValue().get("order:" + userId + ":" + goodsId);
+//        SeckillOrder seckillOrder = (SeckillOrder) redisTemplate.opsForValue().get("order:" + userId + ":" + goodsId);
 
         // 重复抢购
         if (seckillOrder != null) {
             return new APIResponse(ResponeCode.FAIL, "重复秒杀", "");
         }
-
-//        // 通过内存标记，减少redis访问
-//        if (EmptyStockMap.get(goodsId)) {
-//            return new APIResponse(ResponeCode.FAIL, "库存不足", "");
-//        }
-
-        // 预减库存，原子类型
-        Long stock = valueOperations.decrement("seckillGoods:" + goodsId);
-//        Long stock = (Long) redisTemplate.execute(script, Collections.singletonList("seckillGoods:" + goodsId), Collections.EMPTY_LIST);
-
-        if (stock < 0) {
-//            EmptyStockMap.put(goodsId, true);
-            valueOperations.increment("seckillGoods:" + goodsId);
-            return new APIResponse(ResponeCode.FAIL, "库存不足", "");
-        }
-        // 下单
-        GoodsVo good = goodsService.getGoodsVoById(goodsId);
         Order order = orderService.seckill(userId, good);
         return new APIResponse(ResponeCode.SUCCESS, "秒杀成功", order);
-
-//        return new APIResponse(ResponeCode.SUCCESS, "0", 0); // 0代表排队中
     }
 
     /**

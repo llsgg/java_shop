@@ -25,7 +25,7 @@ public class MQSender {
      * @return:
      **/
     public void sendSeckillMessage(String message) {
-        log.info("发送秒杀信息" + message);
+//        log.info("发送秒杀信息" + message);
         rabbitTemplate.convertAndSend("seckillExchange", "seckill.message", message);
     }
 

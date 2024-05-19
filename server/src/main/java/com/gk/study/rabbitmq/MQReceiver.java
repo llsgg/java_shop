@@ -40,7 +40,7 @@ public class MQReceiver {
      **/
     @RabbitListener(queues = "seckillQueue")
     public void receive(String message) {
-        log.info("接受的消息:" + message);
+//        log.info("接受的消息:" + message);
         SeckillMessage seckillMessage = JsonUtil.jsonStr2Object(message, SeckillMessage.class);
         Long goodsId = seckillMessage.getGoodsId();
 //        User user = seckillMessage.getUser();

@@ -98,10 +98,11 @@ public class SeckillController implements InitializingBean {
             return new APIResponse(ResponeCode.FAIL, "库存不足", "");
         }
         // 下单
-        SeckillMessage message = new SeckillMessage(userId, goodsId);
-        mqSender.sendSeckillMessage(JsonUtil.object2JsonStr(message));
+        GoodsVo good = goodsService.getGoodsVoById(goodsId);
+        Order order = orderService.seckill(userId, good);
+        return new APIResponse(ResponeCode.SUCCESS, "秒杀成功", order);
 
-        return new APIResponse(ResponeCode.SUCCESS, "0", 0); // 0代表排队中
+//        return new APIResponse(ResponeCode.SUCCESS, "0", 0); // 0代表排队中
     }
 
     /**

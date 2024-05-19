@@ -64,7 +64,7 @@ public class SeckillController implements InitializingBean {
      * @return: [model, user, goodsId]
      **/
     @RequestMapping(value = "/doSeckill", method = RequestMethod.POST)
-    public APIResponse doSeckill(@RequestParam("userId") Long userId, @RequestParam("goodsId") Long goodsId) {
+    public APIResponse doSeckill(Long userId, Long goodsId) {
         // 判断登录
         if (userId == null) return new APIResponse(ResponeCode.FAIL, "用户未登录", "");
         ValueOperations valueOperations = redisTemplate.opsForValue();
@@ -86,11 +86,11 @@ public class SeckillController implements InitializingBean {
 //        Long stock = valueOperations.decrement("seckillGoods:" + goodsId);
         Long stock = (Long) redisTemplate.execute(script, Collections.singletonList("seckillGoods:" + goodsId), Collections.EMPTY_LIST);
 
-        if (stock < 0) {
-            EmptyStockMap.put(goodsId, true);
-            valueOperations.increment("seckillGoods:" + goodsId);
-            return new APIResponse(ResponeCode.FAIL, "库存不足", "");
-        }
+//        if (stock < 0) {
+//            EmptyStockMap.put(goodsId, true);
+//            valueOperations.increment("seckillGoods:" + goodsId);
+//            return new APIResponse(ResponeCode.FAIL, "库存不足", "");
+//        }
         // 下单
         SeckillMessage message = new SeckillMessage(userId, goodsId);
         mqSender.sendSeckillMessage(JsonUtil.object2JsonStr(message));

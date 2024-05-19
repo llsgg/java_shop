@@ -83,17 +83,17 @@ public class SeckillController implements InitializingBean {
             return new APIResponse(ResponeCode.FAIL, "重复秒杀", "");
         }
 
-        // 通过内存标记，减少redis访问
-        if (EmptyStockMap.get(goodsId)) {
-            return new APIResponse(ResponeCode.FAIL, "库存不足", "");
-        }
+//        // 通过内存标记，减少redis访问
+//        if (EmptyStockMap.get(goodsId)) {
+//            return new APIResponse(ResponeCode.FAIL, "库存不足", "");
+//        }
 
         // 预减库存，原子类型
         Long stock = valueOperations.decrement("seckillGoods:" + goodsId);
 //        Long stock = (Long) redisTemplate.execute(script, Collections.singletonList("seckillGoods:" + goodsId), Collections.EMPTY_LIST);
 
         if (stock < 0) {
-            EmptyStockMap.put(goodsId, true);
+//            EmptyStockMap.put(goodsId, true);
             valueOperations.increment("seckillGoods:" + goodsId);
             return new APIResponse(ResponeCode.FAIL, "库存不足", "");
         }

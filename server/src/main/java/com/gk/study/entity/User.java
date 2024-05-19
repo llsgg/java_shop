@@ -20,7 +20,7 @@ public class User implements Serializable {
     public static final int AdminUser = 3;
 
     @TableId(value = "id",type = IdType.AUTO)
-    public String id;
+    public Long id;
     @TableField
     public String username;
     @TableField

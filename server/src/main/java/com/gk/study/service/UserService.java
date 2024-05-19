@@ -6,6 +6,8 @@ import com.gk.study.entity.User;
 import java.util.List;
 
 public interface UserService {
+    User getUserByCookie(String id);
+
     List<User> getUserList(String keyword);
     User getAdminUser(User user);
     User getNormalUser(User user);
@@ -17,5 +19,5 @@ public interface UserService {
     User getUserByToken(String token);
     User getUserByUserName(String username);
 
-    User getUserDetail(String userId);
+    User getUserDetail(Long userId);
 }

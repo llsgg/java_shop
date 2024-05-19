@@ -3,19 +3,26 @@ package com.gk.study.controller;
 import com.gk.study.common.APIResponse;
 import com.gk.study.common.ResponeCode;
 import com.gk.study.entity.User;
-import com.gk.study.permission.Access;
-import com.gk.study.permission.AccessLevel;
+//import com.gk.study.permission.Access;
+//import com.gk.study.permission.AccessLevel;
 import com.gk.study.service.UserService;
+import com.gk.study.utils.CookieUtil;
+import com.gk.study.utils.UUIDUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -26,6 +33,7 @@ import java.util.UUID;
  */
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
     private final static Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -38,6 +46,9 @@ public class UserController {
     @Value("${File.uploadPath}")
     private String uploadPath;
 
+    @Autowired
+    RedisTemplate redisTemplate;
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public APIResponse list(String keyword){
         List<User> list =  userService.getUserList(keyword);
@@ -45,17 +56,28 @@ public class UserController {
     }
 
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
-    public APIResponse detail(String userId){
+    public APIResponse detail(Long userId){
         User user =  userService.getUserDetail(userId);
         return new APIResponse(ResponeCode.SUCCESS, "查询成功", user);
     }
 
     // 后台用户登录
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public APIResponse login(User user){
+    public APIResponse login(User user, HttpServletRequest request, HttpServletResponse response){
+
+
         user.setPassword(DigestUtils.md5DigestAsHex((user.getPassword() + salt).getBytes()));
+
+
+
         User responseUser =  userService.getAdminUser(user);
         if(responseUser != null) {
+            String ticket = UUIDUtil.uuid();
+            Cookie cookie = new Cookie("userTicket", ticket);
+//            request.getSession().setAttribute(ticket, responseUser);
+//            CookieUtil.setCookie(request, response, "userTicket", ticket);
+            response.addCookie(cookie);
+            redisTemplate.opsForValue().set("user:" + ticket, responseUser);
             return new APIResponse(ResponeCode.SUCCESS, "查询成功", responseUser);
         }else {
             return new APIResponse(ResponeCode.FAIL, "用户名或密码错误");
@@ -64,11 +86,47 @@ public class UserController {
 
     // 普通用户登录
     @RequestMapping(value = "/userLogin", method = RequestMethod.POST)
-    public APIResponse userLogin(User user){
+    public APIResponse userLogin(User user, HttpServletRequest request, HttpServletResponse response){
+        log.info(user.getPassword());
         user.setPassword(DigestUtils.md5DigestAsHex((user.getPassword() + salt).getBytes()));
+        log.info(user.getPassword());
         User responseUser =  userService.getNormalUser(user);
         if(responseUser != null) {
-            return new APIResponse(ResponeCode.SUCCESS, "查询成功", responseUser);
+            // 生成cookie
+            String ticket = UUIDUtil.uuid();
+//            request.getSession().setAttribute(ticket, user);
+            Cookie cookie = new Cookie("userTicket", ticket);
+//            request.getSession().setAttribute(ticket, responseUser);
+//            CookieUtil.setCookie(request, response, "userTicket", ticket);
+            cookie.setPath("/");   //
+            cookie.setMaxAge(24*60*60);       //存活一天
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+            response.addCookie(cookie);
+            redisTemplate.opsForValue().set("user:" + ticket, responseUser);
+
+            return new APIResponse(ResponeCode.SUCCESS, "查询成功", ticket);
+        }else {
+            return new APIResponse(ResponeCode.FAIL, "用户名或密码错误");
+        }
+    }
+
+    @RequestMapping( "/test")
+    public APIResponse test(Long userId, String password, HttpServletResponse response){
+        User responseUser = userService.getUserDetail(userId);
+        if(responseUser != null) {
+            // 生成cookie
+            String ticket = UUIDUtil.uuid();
+//            request.getSession().setAttribute(ticket, user);
+            Cookie cookie = new Cookie("userTicket", ticket);
+//            request.getSession().setAttribute(ticket, responseUser);
+//            CookieUtil.setCookie(request, response, "userTicket", ticket);
+            cookie.setPath("/");   //
+            cookie.setMaxAge(24*60*60);       //存活一天
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+            response.addCookie(cookie);
+            redisTemplate.opsForValue().set("user:" + ticket, responseUser);
+
+            return new APIResponse(ResponeCode.SUCCESS, "查询成功", ticket);
         }else {
             return new APIResponse(ResponeCode.FAIL, "用户名或密码错误");
         }
@@ -113,7 +171,7 @@ public class UserController {
         return new APIResponse(ResponeCode.FAIL, "创建失败");
     }
 
-    @Access(level = AccessLevel.ADMIN)
+//    @Access(level = AccessLevel.ADMIN)
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @Transactional
     public APIResponse create(User user) throws IOException {
@@ -140,7 +198,7 @@ public class UserController {
         return new APIResponse(ResponeCode.FAIL, "创建失败");
     }
 
-    @Access(level = AccessLevel.ADMIN)
+//    @Access(level = AccessLevel.ADMIN)
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public APIResponse delete(String ids){
         System.out.println("ids===" + ids);
@@ -152,7 +210,7 @@ public class UserController {
         return new APIResponse(ResponeCode.SUCCESS, "删除成功");
     }
 
-    @Access(level = AccessLevel.ADMIN)
+//    @Access(level = AccessLevel.ADMIN)
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @Transactional
     public APIResponse update(User user) throws IOException {
@@ -168,7 +226,7 @@ public class UserController {
     }
 
 
-    @Access(level = AccessLevel.LOGIN)
+//    @Access(level = AccessLevel.LOGIN)
     @RequestMapping(value = "/updateUserInfo", method = RequestMethod.POST)
     @Transactional
     public APIResponse updateUserInfo(User user) throws IOException {
@@ -189,10 +247,10 @@ public class UserController {
         }
     }
 
-    @Access(level = AccessLevel.LOGIN)
+//    @Access(level = AccessLevel.LOGIN)
     @RequestMapping(value = "/updatePwd", method = RequestMethod.POST)
     @Transactional
-    public APIResponse updatePwd(String userId, String password, String newPassword) throws IOException {
+    public APIResponse updatePwd(Long userId, String password, String newPassword) throws IOException {
         User user =  userService.getUserDetail(userId);
         if(user.getRole().equals(String.valueOf(User.NormalUser))) {
             String md5Pwd = DigestUtils.md5DigestAsHex((password + salt).getBytes());

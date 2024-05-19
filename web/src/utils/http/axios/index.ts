@@ -13,6 +13,7 @@ const service: AxiosInstance = axios.create({
   // 使用环境变量中的BASE_URL或直接使用全局常量
   baseURL: BASE_URL + '',
   timeout: 15000,
+  withCredentials : true
 });
 
 /**

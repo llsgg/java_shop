@@ -3,8 +3,8 @@ package com.gk.study.controller;
 import com.gk.study.common.APIResponse;
 import com.gk.study.common.ResponeCode;
 import com.gk.study.entity.GoodsCollect;
-import com.gk.study.permission.Access;
-import com.gk.study.permission.AccessLevel;
+//import com.gk.study.permission.Access;
+//import com.gk.study.permission.AccessLevel;
 import com.gk.study.service.GoodsCollectService;
 import com.gk.study.service.GoodsService;
 import org.slf4j.Logger;
@@ -31,7 +31,7 @@ public class GoodsCollectController {
     @Autowired
     GoodsService goodsService;
 
-    @Access(level = AccessLevel.LOGIN)
+//    @Access(level = AccessLevel.LOGIN)
     @RequestMapping(value = "/collect", method = RequestMethod.POST)
     @Transactional
     public APIResponse collect(GoodsCollect goodsCollect) throws IOException {
@@ -44,7 +44,7 @@ public class GoodsCollectController {
         return new APIResponse(ResponeCode.SUCCESS, "收藏成功");
     }
 
-    @Access(level = AccessLevel.LOGIN)
+//    @Access(level = AccessLevel.LOGIN)
     @RequestMapping(value = "/unCollect", method = RequestMethod.POST)
     @Transactional
     public APIResponse unCollect(String id) throws IOException {

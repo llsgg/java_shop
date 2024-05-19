@@ -7,8 +7,11 @@ import com.gk.study.service.UserService;
 import com.gk.study.entity.User;
 import com.gk.study.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Service
@@ -16,6 +19,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    RedisTemplate redisTemplate;
+
+    @Override
+    public User getUserByCookie(String userTicket) {
+        if (StringUtils.isEmpty(userTicket)) return null;
+        User user = (User)redisTemplate.opsForValue().get("user:" + userTicket);
+//        System.out.println("user: " + user);
+//        if (user != null) CookieUtil.setCookie(request, response, "userTicket", userTicket);
+        return user;
+    }
 
     @Override
     public List<User> getUserList(String keyword) {
@@ -76,7 +90,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public User getUserDetail(String userId) {
+    public User getUserDetail(Long userId) {
         QueryWrapper<User> queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", userId);
         return userMapper.selectOne(queryWrapper);

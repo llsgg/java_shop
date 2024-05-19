@@ -4,14 +4,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.gk.study.Vo.GoodsVo;
 import com.gk.study.common.APIResponse;
 import com.gk.study.common.ResponeCode;
-import com.gk.study.entity.Good;
-import com.gk.study.entity.Order;
-import com.gk.study.entity.SeckillMessage;
-import com.gk.study.entity.SeckillOrder;
+import com.gk.study.entity.*;
 import com.gk.study.rabbitmq.MQSender;
 import com.gk.study.service.GoodsService;
 import com.gk.study.service.OrderService;
 import com.gk.study.service.ISeckillOrderService;
+import com.gk.study.service.UserService;
 import com.gk.study.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
@@ -51,6 +49,8 @@ public class SeckillController implements InitializingBean {
     @Autowired
     private MQSender mqSender;
     private Map<Long, Boolean> EmptyStockMap = new HashMap<>(); // 做标记，某个商品没有了就放入map
+    @Autowired
+    private UserService userService;
 
     /**
      * @description:秒杀
@@ -64,9 +64,15 @@ public class SeckillController implements InitializingBean {
      * @return: [model, user, goodsId]
      **/
     @RequestMapping(value = "/doSeckill", method = RequestMethod.POST)
-    public APIResponse doSeckill(Long userId, Long goodsId) {
+    public APIResponse doSeckill(Long goodsId, @CookieValue("userTicket") String ticket) {
         // 判断登录
-        if (userId == null) return new APIResponse(ResponeCode.FAIL, "用户未登录", "");
+        if (ticket == null) return new APIResponse(ResponeCode.FAIL, "用户未登录", "");
+//        System.out.println("ticket: " + ticket);
+        User user = (User)redisTemplate.opsForValue().get("user:" + ticket);
+        if (user == null) return new APIResponse(ResponeCode.FAIL, "用户未登录", "");
+        Long userId = user.getId();
+
+
         ValueOperations valueOperations = redisTemplate.opsForValue();
 
         // 用redis判断是否重复抢购
@@ -83,14 +89,14 @@ public class SeckillController implements InitializingBean {
         }
 
         // 预减库存，原子类型
-//        Long stock = valueOperations.decrement("seckillGoods:" + goodsId);
-        Long stock = (Long) redisTemplate.execute(script, Collections.singletonList("seckillGoods:" + goodsId), Collections.EMPTY_LIST);
+        Long stock = valueOperations.decrement("seckillGoods:" + goodsId);
+//        Long stock = (Long) redisTemplate.execute(script, Collections.singletonList("seckillGoods:" + goodsId), Collections.EMPTY_LIST);
 
-//        if (stock < 0) {
-//            EmptyStockMap.put(goodsId, true);
-//            valueOperations.increment("seckillGoods:" + goodsId);
-//            return new APIResponse(ResponeCode.FAIL, "库存不足", "");
-//        }
+        if (stock < 0) {
+            EmptyStockMap.put(goodsId, true);
+            valueOperations.increment("seckillGoods:" + goodsId);
+            return new APIResponse(ResponeCode.FAIL, "库存不足", "");
+        }
         // 下单
         SeckillMessage message = new SeckillMessage(userId, goodsId);
         mqSender.sendSeckillMessage(JsonUtil.object2JsonStr(message));

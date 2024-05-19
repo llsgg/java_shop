@@ -3,8 +3,8 @@ package com.gk.study.controller;
 import com.gk.study.common.APIResponse;
 import com.gk.study.common.ResponeCode;
 import com.gk.study.entity.Order;
-import com.gk.study.permission.Access;
-import com.gk.study.permission.AccessLevel;
+//import com.gk.study.permission.Access;
+//import com.gk.study.permission.AccessLevel;
 import com.gk.study.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +47,7 @@ public class OrderController {
         return new APIResponse(ResponeCode.SUCCESS, "创建成功");
     }
 
-    @Access(level = AccessLevel.ADMIN)
+//    @Access(level = AccessLevel.ADMIN)
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public APIResponse delete(String ids){
         System.out.println("ids===" + ids);
@@ -66,7 +66,7 @@ public class OrderController {
         return new APIResponse(ResponeCode.SUCCESS, "更新成功");
     }
 
-    @Access(level = AccessLevel.ADMIN)
+//    @Access(level = AccessLevel.ADMIN)
     @RequestMapping(value = "/cancelOrder", method = RequestMethod.POST)
     @Transactional
     public APIResponse cancelOrder(Long id) throws IOException {
@@ -77,7 +77,7 @@ public class OrderController {
         return new APIResponse(ResponeCode.SUCCESS, "取消成功");
     }
 
-    @Access(level = AccessLevel.LOGIN)
+//    @Access(level = AccessLevel.LOGIN)
     @RequestMapping(value = "/cancelUserOrder", method = RequestMethod.POST)
     @Transactional
     public APIResponse cancelUserOrder(Long id) throws IOException {

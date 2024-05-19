@@ -101,3 +101,5 @@
 2024-05-20 01:25:51.966 [ main ] - [ INFO  ] [ org.apache.coyote.http11.Http11NioProtocol : 173 ] - Starting ProtocolHandler ["http-nio-9100"]
 2024-05-20 01:25:52.080 [ main ] - [ INFO  ] [ com.gk.study.MySpringApplication : 61 ] - Started MySpringApplication in 5.758 seconds (JVM running for 6.599)
 2024-05-20 01:27:34.762 [ http-nio-9100-exec-66 ] - [ INFO  ] [ o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] : 173 ] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-05-20 01:51:13.731 [ SpringApplicationShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 2063 ] - {dataSource-1} closing ...
+2024-05-20 01:51:13.742 [ SpringApplicationShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 2136 ] - {dataSource-1} closed

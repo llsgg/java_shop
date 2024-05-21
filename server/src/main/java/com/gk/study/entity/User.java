@@ -37,22 +37,15 @@ public class User implements Serializable {
     public String description;
     @TableField
     public String role;
-    @TableField
-    public String status;
-    @TableField
-    public String score;
-    @TableField
-    public String avatar;
+
+
+
     @TableField(exist = false)
     public MultipartFile avatarFile;
     @TableField
     public String token;
     @TableField
     public String createTime;
-    @TableField
-    public String pushEmail;
-    @TableField
-    public String pushSwitch;
 
 
 

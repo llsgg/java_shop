@@ -57,6 +57,12 @@ public class SeckillController implements InitializingBean {
     private MQSender mqSender;
     private Map<Long, Boolean> EmptyStockMap = new HashMap<>(); // 做标记，某个商品没有了就放入map
 
+    @RequestMapping("test")
+    @ResponseBody
+    public String test() {
+        return "test";
+    }
+
     /**
      * @description:获取秒杀地址
      * @author: longlin

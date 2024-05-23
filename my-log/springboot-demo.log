@@ -5,3 +5,61 @@
 2024-05-23 15:25:17.407 [ AMQP Connection 127.0.0.1:5672 ] - [ WARN  ] [ com.rabbitmq.client.impl.ForgivingExceptionHandler : 115 ] - An unexpected connection driver error occured (Exception message: Connection reset)
 2024-05-23 16:10:54.236 [ AMQP Connection 127.0.0.1:5672 ] - [ WARN  ] [ com.rabbitmq.client.impl.ForgivingExceptionHandler : 115 ] - An unexpected connection driver error occured (Exception message: Connection reset)
 2024-05-23 17:29:37.264 [ AMQP Connection 127.0.0.1:5672 ] - [ WARN  ] [ com.rabbitmq.client.impl.ForgivingExceptionHandler : 115 ] - An unexpected connection driver error occured (Exception message: Connection reset)
+2024-05-23 19:53:25.165 [ SpringApplicationShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 2063 ] - {dataSource-1} closing ...
+2024-05-23 19:53:25.177 [ SpringApplicationShutdownHook ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 2136 ] - {dataSource-1} closed
+2024-05-23 19:53:46.063 [ main ] - [ INFO  ] [ com.gk.study.MySpringApplication : 55 ] - Starting MySpringApplication using Java 1.8.0_361 on LAPTOP-E89D4MS2 with PID 29376 (D:\java\code\毕设\java_shop\server\target\classes started by ll in D:\java\code\毕设\java_shop)
+2024-05-23 19:53:46.066 [ main ] - [ INFO  ] [ com.gk.study.MySpringApplication : 659 ] - No active profile set, falling back to default profiles: default
+2024-05-23 19:53:49.381 [ main ] - [ INFO  ] [ org.apache.coyote.http11.Http11NioProtocol : 173 ] - Initializing ProtocolHandler ["http-nio-9100"]
+2024-05-23 19:53:49.382 [ main ] - [ INFO  ] [ org.apache.catalina.core.StandardService : 173 ] - Starting service [Tomcat]
+2024-05-23 19:53:49.382 [ main ] - [ INFO  ] [ org.apache.catalina.core.StandardEngine : 173 ] - Starting Servlet engine: [Apache Tomcat/9.0.53]
+2024-05-23 19:53:49.567 [ main ] - [ INFO  ] [ o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] : 173 ] - Initializing Spring embedded WebApplicationContext
+2024-05-23 19:53:49.833 [ main ] - [ INFO  ] [ c.a.d.s.b.a.DruidDataSourceAutoConfigure : 56 ] - Init DruidDataSource
+2024-05-23 19:53:50.028 [ main ] - [ ERROR ] [ com.alibaba.druid.pool.DruidDataSource : 1178 ] - testWhileIdle is true, validationQuery not set
+2024-05-23 19:53:50.034 [ main ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 975 ] - {dataSource-1} inited
+2024-05-23 19:53:50.476 [ main ] - [ WARN  ] [ c.b.mybatisplus.core.metadata.TableInfoHelper : 342 ] - Can not find table primary key in Class: "java.lang.Object".
+2024-05-23 19:53:50.477 [ main ] - [ WARN  ] [ c.b.mybatisplus.core.injector.DefaultSqlInjector : 56 ] - class java.lang.Object ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2024-05-23 19:53:52.287 [ Druid-ConnectionPool-Create-778484786 ] - [ ERROR ] [ com.alibaba.druid.pool.DruidDataSource : 2858 ] - create connection Error
+java.lang.NoSuchMethodError: org.apache.shardingsphere.infra.util.yaml.constructor.ShardingSphereYamlConstructor$1.setCodePointLimit(I)V
+	at org.apache.shardingsphere.infra.util.yaml.constructor.ShardingSphereYamlConstructor$1.<init>(ShardingSphereYamlConstructor.java:45)
+	at org.apache.shardingsphere.infra.util.yaml.constructor.ShardingSphereYamlConstructor.<init>(ShardingSphereYamlConstructor.java:42)
+	at org.apache.shardingsphere.infra.util.yaml.YamlEngine.unmarshal(YamlEngine.java:70)
+	at org.apache.shardingsphere.driver.api.yaml.YamlShardingSphereDataSourceFactory.createDataSource(YamlShardingSphereDataSourceFactory.java:94)
+	at org.apache.shardingsphere.driver.jdbc.core.driver.DriverDataSourceCache.createDataSource(DriverDataSourceCache.java:51)
+	at java.util.concurrent.ConcurrentHashMap.computeIfAbsent(ConcurrentHashMap.java:1660)
+	at org.apache.shardingsphere.driver.jdbc.core.driver.DriverDataSourceCache.get(DriverDataSourceCache.java:45)
+	at org.apache.shardingsphere.driver.ShardingSphereDriver.connect(ShardingSphereDriver.java:51)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:118)
+	at com.alibaba.druid.filter.stat.StatFilter.connection_connect(StatFilter.java:232)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:112)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1680)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1755)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:2825)
+2024-05-23 19:53:52.288 [ Druid-ConnectionPool-Create-778484786 ] - [ INFO  ] [ com.alibaba.druid.pool.DruidAbstractDataSource : 1846 ] - {dataSource-1} failContinuous is true
+2024-05-23 19:58:09.414 [ main ] - [ INFO  ] [ com.gk.study.MySpringApplication : 55 ] - Starting MySpringApplication using Java 1.8.0_361 on LAPTOP-E89D4MS2 with PID 20352 (D:\java\code\毕设\java_shop\server\target\classes started by ll in D:\java\code\毕设\java_shop)
+2024-05-23 19:58:09.417 [ main ] - [ INFO  ] [ com.gk.study.MySpringApplication : 659 ] - No active profile set, falling back to default profiles: default
+2024-05-23 19:58:11.067 [ main ] - [ INFO  ] [ org.apache.coyote.http11.Http11NioProtocol : 173 ] - Initializing ProtocolHandler ["http-nio-9100"]
+2024-05-23 19:58:11.068 [ main ] - [ INFO  ] [ org.apache.catalina.core.StandardService : 173 ] - Starting service [Tomcat]
+2024-05-23 19:58:11.068 [ main ] - [ INFO  ] [ org.apache.catalina.core.StandardEngine : 173 ] - Starting Servlet engine: [Apache Tomcat/9.0.53]
+2024-05-23 19:58:11.218 [ main ] - [ INFO  ] [ o.a.c.c.ContainerBase.[Tomcat].[localhost].[/api] : 173 ] - Initializing Spring embedded WebApplicationContext
+2024-05-23 19:58:11.367 [ main ] - [ INFO  ] [ c.a.d.s.b.a.DruidDataSourceAutoConfigure : 56 ] - Init DruidDataSource
+2024-05-23 19:58:11.508 [ main ] - [ ERROR ] [ com.alibaba.druid.pool.DruidDataSource : 1178 ] - testWhileIdle is true, validationQuery not set
+2024-05-23 19:58:11.511 [ main ] - [ INFO  ] [ com.alibaba.druid.pool.DruidDataSource : 975 ] - {dataSource-1} inited
+2024-05-23 19:58:11.847 [ main ] - [ WARN  ] [ c.b.mybatisplus.core.metadata.TableInfoHelper : 342 ] - Can not find table primary key in Class: "java.lang.Object".
+2024-05-23 19:58:11.847 [ main ] - [ WARN  ] [ c.b.mybatisplus.core.injector.DefaultSqlInjector : 56 ] - class java.lang.Object ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2024-05-23 19:58:13.087 [ Druid-ConnectionPool-Create-778484786 ] - [ ERROR ] [ com.alibaba.druid.pool.DruidDataSource : 2858 ] - create connection Error
+java.lang.NoSuchMethodError: org.apache.shardingsphere.infra.util.yaml.constructor.ShardingSphereYamlConstructor$1.setCodePointLimit(I)V
+	at org.apache.shardingsphere.infra.util.yaml.constructor.ShardingSphereYamlConstructor$1.<init>(ShardingSphereYamlConstructor.java:45)
+	at org.apache.shardingsphere.infra.util.yaml.constructor.ShardingSphereYamlConstructor.<init>(ShardingSphereYamlConstructor.java:42)
+	at org.apache.shardingsphere.infra.util.yaml.YamlEngine.unmarshal(YamlEngine.java:70)
+	at org.apache.shardingsphere.driver.api.yaml.YamlShardingSphereDataSourceFactory.createDataSource(YamlShardingSphereDataSourceFactory.java:94)
+	at org.apache.shardingsphere.driver.jdbc.core.driver.DriverDataSourceCache.createDataSource(DriverDataSourceCache.java:51)
+	at java.util.concurrent.ConcurrentHashMap.computeIfAbsent(ConcurrentHashMap.java:1660)
+	at org.apache.shardingsphere.driver.jdbc.core.driver.DriverDataSourceCache.get(DriverDataSourceCache.java:45)
+	at org.apache.shardingsphere.driver.ShardingSphereDriver.connect(ShardingSphereDriver.java:51)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:118)
+	at com.alibaba.druid.filter.stat.StatFilter.connection_connect(StatFilter.java:232)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_connect(FilterChainImpl.java:112)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1680)
+	at com.alibaba.druid.pool.DruidAbstractDataSource.createPhysicalConnection(DruidAbstractDataSource.java:1755)
+	at com.alibaba.druid.pool.DruidDataSource$CreateConnectionThread.run(DruidDataSource.java:2825)
+2024-05-23 19:58:13.088 [ Druid-ConnectionPool-Create-778484786 ] - [ INFO  ] [ com.alibaba.druid.pool.DruidAbstractDataSource : 1846 ] - {dataSource-1} failContinuous is true

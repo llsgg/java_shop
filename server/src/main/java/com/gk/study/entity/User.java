@@ -37,16 +37,13 @@ public class User implements Serializable {
     public String description;
     @TableField
     public String role;
-
-
-
+    @TableField
+    public String status;
     @TableField(exist = false)
     public MultipartFile avatarFile;
     @TableField
     public String token;
     @TableField
     public String createTime;
-
-
 
 }

@@ -28,7 +28,11 @@
           </template>
           <template v-if="column.key === 'operation'">
             <span>
-               <a @click="pay(record)">支付</a>
+              <a @click="pay(record)">支付</a>
+              <a-divider type="vertical" />
+               <a-popconfirm title="确定取消?" ok-text="是" cancel-text="否" @confirm="confirmDelete(record)">
+                <a>取消</a>
+              </a-popconfirm>
               <a-divider type="vertical" />
               <a-popconfirm title="确定删除?" ok-text="是" cancel-text="否" @confirm="confirmDelete(record)">
                 <a>删除</a>
@@ -133,7 +137,7 @@ const columns = reactive([
     key: 'operation',
     align: 'center', // 居中显示
     fixed: 'right', // 固定在表格的右端
-    width: 120, // 操作列宽度设置为120px
+    width: 200, // 操作列宽度设置为120px
   },
 ]);
 

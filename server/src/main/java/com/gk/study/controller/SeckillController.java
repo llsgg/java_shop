@@ -123,7 +123,6 @@ public class SeckillController implements InitializingBean {
 
         if (stock < 0) {
             EmptyStockMap.put(goodsId, true);
-            valueOperations.increment("seckillGoods:" + goodsId);
             return new APIResponse(ResponeCode.FAIL, "库存不足", "");
         }
         String orderNumber = UUID.randomUUID().toString();

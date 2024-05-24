@@ -75,9 +75,19 @@
         <h3 class="main-tab">相似推荐</h3>
         <ul class="recommend-list">
           <li v-for="(item, index) in recommendData.values()" :key="index">
-            <img :src="item.cover">
-            <div>{{ item.title }}</div>
-            <div>{{ item.price }}￥</div>
+            <a >
+              <img :src="item.cover" @click=toDetail(item.id)>
+            </a>
+
+            <div>
+              <span class="author">{{item.title}}</span>
+            </div>
+            <div>
+              <span class="author">价格：</span>
+              <span class="price">{{item.price}}￥</span>
+              <span class="seckillPrice ">{{item.seckillPrice}}￥</span>
+            </div>
+
           </li>
         </ul>
 
@@ -149,6 +159,13 @@ interface DataItem {
   price: string;
 }
 let data: DataItem[] = new Array(7).fill({ title: '', cover: '', price: '' });
+
+const toDetail=(goodsId)=> {
+  router.push({name: 'detail', query: {id: goodsId}})
+  thingId.value = goodsId
+  getThingDetail()
+  refreshCaptcha()
+}
 
 const selectTab =(index)=> {
   selectTabIndex.value = index
@@ -656,6 +673,8 @@ const sortCommentList =(sortType)=> {
     padding-left: 12px;
     margin: 15px 0;
     white-space: pre-wrap;
+    width: 100%;
+    height: 500px;
   }
 }
 

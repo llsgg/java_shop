@@ -47,8 +47,9 @@ public class GoodsCollectController {
     @Access(level = AccessLevel.LOGIN)
     @RequestMapping(value = "/unCollect", method = RequestMethod.POST)
     @Transactional
-    public APIResponse unCollect(String id) throws IOException {
-        goodsCollectService.deleteThingCollect(id);
+    public APIResponse unCollect(String goodId, String collectId) throws IOException {
+        goodsCollectService.deleteThingCollect(collectId);
+        goodsService.subCollectCount(goodId);
         return new APIResponse(ResponeCode.SUCCESS, "取消收藏成功");
     }
 

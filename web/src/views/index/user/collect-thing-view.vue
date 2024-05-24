@@ -8,7 +8,7 @@
         <div class="thing-list flex-view">
           <div class="thing-item item-column-3" v-for="(item,index) in pageData.collectData" :key="index">
             <div class="remove" @click="handleRemove(item)">移出</div>
-            <div class="img-view" @click="handleClickItem(item)">
+            <div class="img-view" @click="handleClickItem(item.good_id)">
               <img :src="item.cover">
             </div>
             <div class="info-view">
@@ -41,12 +41,15 @@ onMounted(()=>{
 })
 
 const handleClickItem =(record) =>{
-  let text = router.resolve({name: 'detail', query: {id: record.id}})
-  window.open(text.href, '_blank')
+  // let text = router.resolve({name: 'detail', query: {id: record}})
+  // window.open(text.href, '_blank')
+  // console.log(record);
+  router.push({name: 'detail', query: {id: record}})
 }
 const handleRemove =(record)=> {
   let username = userStore.user_name
-  unCollectApi({id: record.id}).then(res => {
+  console.log(record.id);
+  unCollectApi({goodId: record.good_id, collectId: record.id}).then(res => {
     message.success('移除成功')
     getCollectThingList()
   }).catch(err => {

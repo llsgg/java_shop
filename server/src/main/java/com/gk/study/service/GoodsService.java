@@ -19,4 +19,5 @@ public interface GoodsService {
     GoodsVo getGoodsVoById(Long id);
 
     void addCollectCount(String thingId);
+    public void subCollectCount(String goodId);
 }

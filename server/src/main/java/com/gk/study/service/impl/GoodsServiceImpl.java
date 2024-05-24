@@ -5,10 +5,13 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gk.study.Vo.GoodsVo;
 import com.gk.study.entity.Good;
+import com.gk.study.entity.GoodsCollect;
 import com.gk.study.entity.SeckillGoods;
+import com.gk.study.mapper.GoodsCollectMapper;
 import com.gk.study.mapper.GoodsMapper;
 import com.gk.study.mapper.GoodsVoMapper;
 import com.gk.study.mapper.SeckillGoodsMapper;
+import com.gk.study.service.GoodsCollectService;
 import com.gk.study.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,8 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Good> implements 
     SeckillGoodsMapper seckillGoodsMapper;
     @Autowired
     GoodsVoMapper goodsVoMapper;
+    @Autowired
+    GoodsCollectMapper goodsCollectMapper;
 
 
     @Override
@@ -90,6 +95,10 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Good> implements 
         goodsMapper.updateById(thing);
     }
 
-
+    public void subCollectCount(String goodId) {
+        Good thing = goodsMapper.selectById(goodId);
+        thing.setCollectCount(String.valueOf(Integer.parseInt(thing.getCollectCount()) - 1));
+        goodsMapper.updateById(thing);
+    }
 
 }

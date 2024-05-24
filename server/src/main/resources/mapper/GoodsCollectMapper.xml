@@ -9,4 +9,8 @@
         where A.user_id=#{userId}
     </select>
 
+    <select id="getCollectById" resultType="com.gk.study.entity.GoodsCollect">
+        select * from b_goods_collect where id=#{id}
+    </select>
+
 </mapper>

@@ -11,4 +11,5 @@ import java.util.Map;
 public interface GoodsCollectMapper extends BaseMapper<GoodsCollect> {
 
     List<Map> getThingCollectList(String userId);
+    GoodsCollect getCollectById(String id);
 }

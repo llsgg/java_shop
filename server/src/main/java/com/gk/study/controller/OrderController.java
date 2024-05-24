@@ -5,6 +5,7 @@ import com.gk.study.common.ResponeCode;
 import com.gk.study.entity.Order;
 import com.gk.study.permission.Access;
 import com.gk.study.permission.AccessLevel;
+import com.gk.study.service.ISeckillOrderService;
 import com.gk.study.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,9 @@ public class OrderController {
 
     @Autowired
     OrderService service;
+
+    @Autowired
+    ISeckillOrderService seckillOrderService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public APIResponse list(){
@@ -55,6 +59,7 @@ public class OrderController {
         String[] arr = ids.split(",");
         for (String id : arr) {
             service.deleteOrder(id);
+            seckillOrderService.deleteOrder(id);
         }
         return new APIResponse(ResponeCode.SUCCESS, "删除成功");
     }
@@ -69,12 +74,8 @@ public class OrderController {
 //    @Access(level = AccessLevel.ADMIN)
     @RequestMapping(value = "/cancelOrder", method = RequestMethod.POST)
     @Transactional
-    public APIResponse cancelOrder(Long id) throws IOException {
-        Order order = new Order();
-        order.setId(id);
-        order.setStatus(7); // 7=取消
-        service.updateOrder(order);
-        return new APIResponse(ResponeCode.SUCCESS, "取消成功");
+    public APIResponse cancelOrder(Long ids) throws IOException {
+        return service.cancelOrder(ids);
     }
 
     @Access(level = AccessLevel.LOGIN)

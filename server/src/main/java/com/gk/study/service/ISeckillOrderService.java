@@ -22,4 +22,5 @@ public interface ISeckillOrderService extends IService<SeckillOrder> {
      * @return: [user, goodsId] orderId:成功、-1：失败、0：派对中
      **/
     Long getResult(Long userId, Long goodsId);
+    void deleteOrder(String orderId);
 }

@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SeckillMessage {
+    private String orderNumber;
     private Long userId;
     private Long goodsId;
 }

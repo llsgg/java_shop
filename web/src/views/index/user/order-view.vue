@@ -30,7 +30,7 @@
             <span>
               <a @click="pay(record)">支付</a>
               <a-divider type="vertical" />
-               <a-popconfirm title="确定取消?" ok-text="是" cancel-text="否" @confirm="confirmDelete(record)">
+               <a-popconfirm title="确定取消?" ok-text="是" cancel-text="否" @confirm="confirmCancel(record)">
                 <a>取消</a>
               </a-popconfirm>
               <a-divider type="vertical" />
@@ -203,6 +203,19 @@ const pay = (record) => {
   console.log('pay', record);
   const payUrl = 'http://localhost:9100/api/pay/alipay?orderId=' + record.id;
   window.open(payUrl);
+};
+
+const confirmCancel = (record) => {
+  console.log('cancel', record);
+  cancelApi({ ids: record.id })
+    .then((res) => {
+      getDataList();
+      message.success('操作成功');
+    })
+    .catch((err) => {
+      message.error(err.msg || '操作失败');
+    });
+  getDataList();
 };
 
 const confirmDelete = (record) => {

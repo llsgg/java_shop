@@ -46,4 +46,10 @@ public class SeckillOrderServiceImpl extends ServiceImpl<SeckillOrderMapper, Sec
         }
     }
 
+
+    @Override
+    public void deleteOrder(String orderId) {
+        seckillOrderMapper.delete(new QueryWrapper<SeckillOrder>().eq("order_id", orderId));
+    }
+
 }

@@ -4,10 +4,14 @@ import com.alibaba.druid.util.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.gk.study.common.APIResponse;
+import com.gk.study.common.ResponeCode;
 import com.gk.study.entity.Good;
 import com.gk.study.entity.Order;
 import com.gk.study.entity.SeckillGoods;
 import com.gk.study.entity.SeckillOrder;
+import com.gk.study.mapper.SeckillGoodsMapper;
+import com.gk.study.mapper.SeckillOrderMapper;
 import com.gk.study.service.ISeckillGoodsService;
 import com.gk.study.service.ISeckillOrderService;
 import com.gk.study.service.OrderService;
@@ -27,6 +31,8 @@ import java.util.concurrent.TimeUnit;
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
     @Autowired
     OrderMapper orderMapper;
+    @Autowired
+    SeckillOrderMapper seckillOrderMapper;
 
     @Autowired
     ISeckillGoodsService seckillGoodsService;
@@ -63,6 +69,19 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public void updateOrder(Order order) {
         orderMapper.updateById(order);
+    }
+
+    @Override
+    public APIResponse cancelOrder(Long id) {
+        Order order = orderMapper.selectById(id);
+        if (order.status == 0) return new APIResponse(ResponeCode.FAIL, "不可重复取消");
+        else if (order.status == 2) return new APIResponse(ResponeCode.FAIL, "订单已支付");
+        updateOrderStatus(id, 0, null);
+        seckillGoodsService.update(new UpdateWrapper<SeckillGoods>().setSql("stock_count = stock_count + 1").eq("goods_id", order.getGoodId()));
+        seckillOrderMapper.delete(new QueryWrapper<SeckillOrder>().eq("order_id", id));
+        redisTemplate.opsForValue().increment("seckillGoods:" + order.getGoodId(), 1);
+        redisTemplate.delete("order:" + order.getUserId() + ":" + order.getGoodId());
+        return new APIResponse(ResponeCode.SUCCESS, "订单已取消");
     }
 
     @Override

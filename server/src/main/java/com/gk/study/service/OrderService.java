@@ -1,6 +1,7 @@
 package com.gk.study.service;
 
 
+import com.gk.study.common.APIResponse;
 import com.gk.study.entity.Good;
 import com.gk.study.entity.Order;
 
@@ -14,6 +15,7 @@ public interface OrderService {
     void deleteOrder(String id);
 
     void updateOrder(Order order);
+    APIResponse cancelOrder(Long id);
     void updateOrderStatus(Long id, int status, Date payTime);
     Order seckill(Long userId, Good good);
 

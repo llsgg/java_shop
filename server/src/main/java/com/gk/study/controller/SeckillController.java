@@ -26,10 +26,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -129,8 +126,9 @@ public class SeckillController implements InitializingBean {
             valueOperations.increment("seckillGoods:" + goodsId);
             return new APIResponse(ResponeCode.FAIL, "库存不足", "");
         }
+        String orderNumber = UUID.randomUUID().toString();
         // 下单
-        SeckillMessage message = new SeckillMessage(userId, goodsId);
+        SeckillMessage message = new SeckillMessage(orderNumber, userId, goodsId);
         mqSender.sendSeckillMessage(JsonUtil.object2JsonStr(message));
 
         return new APIResponse(ResponeCode.SUCCESS, "0", 0); // 0代表排队中

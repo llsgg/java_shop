@@ -1,5 +1,6 @@
 package com.gk.study.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.gk.study.Vo.DetailVo;
 import com.gk.study.Vo.GoodsVo;
 import com.gk.study.common.APIResponse;
@@ -126,6 +127,7 @@ public class GoodsController {
         String[] arr = ids.split(",");
         for (String id : arr) {
             service.deleteThing(id);
+            seckillGoodsService.remove(new QueryWrapper<SeckillGoods>().eq("goods_id", id));
         }
         return new APIResponse(ResponeCode.SUCCESS, "删除成功");
     }
@@ -133,14 +135,31 @@ public class GoodsController {
 //    @Access(level = AccessLevel.ADMIN)
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @Transactional
-    public APIResponse update(Good thing) throws IOException {
-        System.out.println(thing);
-        String url = saveThing(thing);
-        if(!StringUtils.isEmpty(url)) {
-            thing.cover = url;
-        }
+    public APIResponse update(GoodsVo goodsVo) throws IOException {
 
-        service.updateThing(thing);
+        Good good = new Good();
+        good.setId(goodsVo.getId());
+        good.setTitle(goodsVo.getTitle());
+        good.setPrice(goodsVo.getPrice());
+        good.setCount(goodsVo.getCount());
+        good.setDescription(goodsVo.getDescription());
+        good.setStatus(goodsVo.getStatus());
+        good.setCreateTime(new Date().toString());
+        good.setClassificationId(goodsVo.getClassificationId());
+        String url = saveThing(good); // 存图片
+        if(!StringUtils.isEmpty(url)) {
+            good.cover = url;
+        }
+        service.updateThing(good);
+
+        SeckillGoods seckillGoods = new SeckillGoods();
+        seckillGoods.setGoodsId(goodsVo.getId());
+        seckillGoods.setSeckillPrice(goodsVo.getSeckillPrice());
+        seckillGoods.setStockCount(goodsVo.getStockCount());
+        seckillGoods.setStartDate(goodsVo.getStartDate());
+        seckillGoods.setEndDate(goodsVo.getEndDate());
+        seckillGoodsService.update(seckillGoods, new QueryWrapper<SeckillGoods>().eq("goods_id", goodsVo.getId()));
+
         return new APIResponse(ResponeCode.SUCCESS, "更新成功");
     }
 

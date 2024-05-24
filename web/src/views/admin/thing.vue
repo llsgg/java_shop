@@ -7,6 +7,7 @@
           <a-button type="primary" @click="handleAdd">新增</a-button>
           <a-button @click="handleBatchDelete">批量删除</a-button>
         </a-space>
+
       </div>
       <a-table
           size="middle"
@@ -38,6 +39,7 @@
         </template>
       </a-table>
     </div>
+
 
     <!--弹窗区域-->
     <div>
@@ -127,14 +129,31 @@
                 <a-form-item label="秒杀开始时间" name="startDate">
 <!--                  <a-date-time-picker placeholder="请输入" :min="0" v-model:value="modal.form.startDate" ></a-date-time-picker>-->
 <!--                  <a-date-time-picker v-model="modal.form.startDate" :format='YYYY-MM-DD HH:mm:ss' style="width: 100%;" />-->
-                  <a-date-picker show-time placeholder="请输入" v-model:value="modal.form.startDate" style="width: 100%;"/>
+<!--                  <a-date-picker show-time placeholder="请输入" v-model="startTime" style="width: 100%;"/>-->
+
+                  <el-date-picker
+                    v-model="modal.form.startDate"
+                    type="datetime"
+                    placeholder="Select date and time"
+                    style="width: 100%;"
+                  />
+
+
                 </a-form-item>
               </a-col>
 
               <a-col span="12">
                 <a-form-item label="秒杀结束时间" name="endDate" style="font-size: small">
+<!--                  <a-date-picker  v-decorator="['birth', {rules: [{required: true, message: '请选择出生日期'}]}]"  />-->
 <!--                  <a-date-picker placeholder="请输入" :min="0" v-model:value="modal.form.endDate" style="width: 100%;"></a-date-picker>-->
-                  <a-date-picker show-time placeholder="请输入" v-model:value="modal.form.endDate" style="width: 100%;"/>
+<!--                  <a-date-picker show-time placeholder="请输入" v-model:value="modal.form.endDate" style="width: 100%;"/>-->
+
+                  <el-date-picker
+                    v-model="modal.form.endDate"
+                    type="datetime"
+                    placeholder="Select date and time"
+                    style="width: 100%;"
+                  />
                 </a-form-item>
               </a-col>
 
@@ -162,6 +181,11 @@ import {listApi as listClassificationApi} from '/@/api/classification'
 import {listApi as listTagApi} from '/@/api/tag'
 import {BASE_URL} from "/@/store/constants";
 import { FileImageOutlined } from '@ant-design/icons-vue';
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
+// import moment from 'moment'
+
+import locale from 'ant-design-vue/es/date-picker/locale/zh_CN';
 
 const columns = reactive([
 
@@ -282,7 +306,11 @@ const modal = reactive({
     coverUrl: undefined, // 封面图片的URL，初始为未定义
     imageFile: undefined, // 图片文件对象，初始为未定义
     startDate: undefined,
-    endDate: undefined
+    endDate: undefined,
+    description: undefined,
+    createTime: undefined, // 创建时间，初始为未定义
+    collectCount: undefined,
+    index: undefined
   },
   rules: { // 表单校验规则
     title: [{ required: true, message: '请输入名称', trigger: 'change' }],
@@ -296,6 +324,8 @@ const modal = reactive({
     status: [{ required: true, message: '请选择状态', trigger: 'change' }]
   },
 });
+
+let startTime = ref();
 
 const myform = ref<FormInstance>();
 
@@ -380,7 +410,7 @@ const handleEdit = (record: any) => {
     modal.form[key] = undefined;
   }
   for (const key in record) {
-    if(record[key]) {
+    if(record[key] && key!='startDate' && key!='endDate') {
       modal.form[key] = record[key];
     }
   }
@@ -388,6 +418,11 @@ const handleEdit = (record: any) => {
     modal.form.coverUrl = BASE_URL + '/api/upload/image/' + modal.form.cover
     modal.form.cover = undefined
   }
+  modal.form.endDate = ref(new Date(record.endDate));
+  modal.form.startDate = ref(new Date(record.startDate));
+
+  // console.log(record);
+  startTime = ref(new Date(record.startDate));
 };
 
 const confirmDelete = (record: any) => {
@@ -529,4 +564,30 @@ const hideModal = () => {
 .table-operations > button {
   margin-right: 8px;
 }
+
+
+
+
+.demo-datetime-picker {
+  display: flex;
+  width: 100%;
+  padding: 0;
+  flex-wrap: wrap;
+}
+.demo-datetime-picker .block {
+  padding: 30px 0;
+  text-align: center;
+  border-right: solid 1px var(--el-border-color);
+  flex: 1;
+}
+.demo-datetime-picker .block:last-child {
+  border-right: none;
+}
+.demo-datetime-picker .demonstration {
+  display: block;
+  color: var(--el-text-color-secondary);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
 </style>

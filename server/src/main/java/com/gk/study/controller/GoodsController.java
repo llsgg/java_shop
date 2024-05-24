@@ -5,9 +5,11 @@ import com.gk.study.Vo.GoodsVo;
 import com.gk.study.common.APIResponse;
 import com.gk.study.common.ResponeCode;
 import com.gk.study.entity.Good;
+import com.gk.study.entity.SeckillGoods;
 import com.gk.study.permission.Access;
 import com.gk.study.permission.AccessLevel;
 import com.gk.study.service.GoodsService;
+import com.gk.study.service.ISeckillGoodsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,9 @@ public class GoodsController {
 
     @Autowired
     GoodsService service;
+
+    @Autowired
+    ISeckillGoodsService seckillGoodsService;
 
     @Value("${File.uploadPath}")
     private String uploadPath;
@@ -86,15 +91,32 @@ public class GoodsController {
 //    @Access(level = AccessLevel.ADMIN)
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @Transactional
-    public APIResponse create(Good thing) throws IOException {
-        String url = saveThing(thing);
+    public APIResponse create(GoodsVo goodsVo) throws IOException {
+        Good good = new Good();
+        good.setTitle(goodsVo.getTitle());
+        good.setPrice(goodsVo.getPrice());
+        good.setCount(goodsVo.getCount());
+        good.setDescription(goodsVo.getDescription());
+        good.setStatus(goodsVo.getStatus());
+        good.setCreateTime(new Date().toString());
+        good.setClassificationId(goodsVo.getClassificationId());
+        String url = saveThing(good); // 存图片
         if(!StringUtils.isEmpty(url)) {
-            thing.cover = url;
+            good.cover = url;
         }
+        service.createThing(good);
 
-        service.createThing(thing);
+        SeckillGoods seckillGoods = new SeckillGoods();
+        seckillGoods.setGoodsId(good.getId());
+        seckillGoods.setSeckillPrice(goodsVo.getSeckillPrice());
+        seckillGoods.setStockCount(goodsVo.getStockCount());
+        seckillGoods.setStartDate(goodsVo.getStartDate());
+        seckillGoods.setEndDate(goodsVo.getEndDate());
+        seckillGoodsService.save(seckillGoods);
+
         return new APIResponse(ResponeCode.SUCCESS, "创建成功");
     }
+
 
 //    @Access(level = AccessLevel.ADMIN)
     @RequestMapping(value = "/delete", method = RequestMethod.POST)

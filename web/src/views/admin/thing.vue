@@ -52,7 +52,7 @@
           @ok="handleOk"
       >
         <div>
-          <a-form ref="myform" :label-col="{ style: { width: '80px' } }" :model="modal.form" :rules="modal.rules">
+          <a-form ref="myform" :label-col="{ style: { width: '100px' } }" :model="modal.form" :rules="modal.rules">
             <a-row :gutter="24">
               <a-col span="24">
                 <a-form-item label="商品名称" name="title">
@@ -125,13 +125,16 @@
 
               <a-col span="12">
                 <a-form-item label="秒杀开始时间" name="startDate">
-                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.startDate" style="width: 100%;"></a-input-number>
+<!--                  <a-date-time-picker placeholder="请输入" :min="0" v-model:value="modal.form.startDate" ></a-date-time-picker>-->
+<!--                  <a-date-time-picker v-model="modal.form.startDate" :format='YYYY-MM-DD HH:mm:ss' style="width: 100%;" />-->
+                  <a-date-picker show-time placeholder="请输入" v-model:value="modal.form.startDate" style="width: 100%;"/>
                 </a-form-item>
               </a-col>
 
               <a-col span="12">
                 <a-form-item label="秒杀结束时间" name="endDate" style="font-size: small">
-                  <a-input-number placeholder="请输入" :min="0" v-model:value="modal.form.endDate" style="width: 100%;"></a-input-number>
+<!--                  <a-date-picker placeholder="请输入" :min="0" v-model:value="modal.form.endDate" style="width: 100%;"></a-date-picker>-->
+                  <a-date-picker show-time placeholder="请输入" v-model:value="modal.form.endDate" style="width: 100%;"/>
                 </a-form-item>
               </a-col>
 
@@ -154,7 +157,7 @@
 
 <script setup lang="ts">
 import { FormInstance, message, SelectProps } from 'ant-design-vue';
-import { createApi, listApi, updateApi, deleteApi, seckillListApi } from "/src/api/goods";
+import { createApi, listApi, updateApi, deleteApi, seckillListApi, createSeckillApi } from "/src/api/goods";
 import {listApi as listClassificationApi} from '/@/api/classification'
 import {listApi as listTagApi} from '/@/api/tag'
 import {BASE_URL} from "/@/store/constants";
@@ -421,6 +424,8 @@ const handleOk = () => {
       ?.validate()
       .then(() => {
         const formData = new FormData();
+
+        // 普通商品表单
         if(modal.editFlag) {
           formData.append('id', modal.form.id)
         }
@@ -439,6 +444,7 @@ const handleOk = () => {
           formData.append('imageFile', modal.form.imageFile)
         }
         formData.append('description', modal.form.description || '')
+        formData.append('count', modal.form.count || '')
         formData.append('price', modal.form.price || '')
         if (modal.form.repertory >= 0) {
           formData.append('repertory', modal.form.repertory)
@@ -446,6 +452,23 @@ const handleOk = () => {
         if (modal.form.status) {
           formData.append('status', modal.form.status)
         }
+
+
+        // 秒杀商品表单
+        formData.append('goodsId', modal.form.id)
+        if (modal.form.seckillPrice > 0) {
+          formData.append('seckillPrice', modal.form.seckillPrice)
+        }
+        if (modal.form.stockCount >= 0) {
+          formData.append('stockCount', modal.form.stockCount)
+        }
+        if (modal.form.startDate) {
+          formData.append('startDate', modal.form.startDate);
+        }
+        if (modal.form.endDate) {
+          formData.append('endDate', modal.form.endDate);
+        }
+
         if (modal.editFlag) {
           updateApi(formData)
               .then((res) => {
